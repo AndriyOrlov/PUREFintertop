@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "coordinate_system": "y_down_row_vector_local",
+  "items": [
+    {"id": "reference", "kind": "image", "path": "assets/reference.png", "name": "Lighting reference", "x": 100, "y": 100},
+    {"id": "note", "kind": "note", "text": "Check indirect lighting", "name": "Lighting note", "x": 300, "y": 80}
+  ]
+}

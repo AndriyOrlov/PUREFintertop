@@ -1,0 +1,125 @@
+{
+  "environment": "Linux Ubuntu 24.04, virtual X display",
+  "records": [
+    {
+      "case": "edited_legacy_native_render",
+      "evidence": "api-legacy-check-1.10.4.png",
+      "sha256": "8ad797c1049218ccb1d99a317349ef97f16c9de2f88644b3d94b6148e127eadc",
+      "pixel_size": [
+        1000,
+        800
+      ]
+    },
+    {
+      "case": "edited_legacy_native_render",
+      "evidence": "api-legacy-check-1.11.1.png",
+      "sha256": "8ad797c1049218ccb1d99a317349ef97f16c9de2f88644b3d94b6148e127eadc",
+      "pixel_size": [
+        1000,
+        800
+      ]
+    },
+    {
+      "case": "edited_legacy_native_render",
+      "evidence": "api-legacy-check-2.0.3.png",
+      "sha256": "2e7e462c70ade58242cc1cd78dec7f55984fa30540ddf7e3d619431d4f17f38e",
+      "pixel_size": [
+        324,
+        266
+      ]
+    },
+    {
+      "case": "edited_legacy_native_render",
+      "evidence": "api-legacy-check-2.1.3.png",
+      "sha256": "f9bd4ea4a212ff3dbd488b956d2b7214b3428dbee3fbefbf3ca2982af7b9eec2",
+      "pixel_size": [
+        1000,
+        800
+      ]
+    },
+    {
+      "case": "simplified_legacy_native_render",
+      "evidence": "compatible-1.10.4.png",
+      "sha256": "4832fd755c211fd519cf53b811f4255ddae753393b36cdf2169fe34582de15c4",
+      "pixel_size": [
+        579,
+        223
+      ]
+    },
+    {
+      "case": "simplified_legacy_native_render",
+      "evidence": "compatible-1.11.1.png",
+      "sha256": "4832fd755c211fd519cf53b811f4255ddae753393b36cdf2169fe34582de15c4",
+      "pixel_size": [
+        579,
+        223
+      ]
+    },
+    {
+      "case": "simplified_legacy_native_render",
+      "evidence": "compatible-2.0.3.png",
+      "sha256": "ab064d698572e60f79adf2e56e0ca8f3f64ecf40f631ecaaf79239a9bac57d3f",
+      "pixel_size": [
+        10290,
+        10113
+      ]
+    },
+    {
+      "case": "simplified_legacy_native_render",
+      "evidence": "compatible-2.1.3.png",
+      "sha256": "0f38118effa93a158849490632802ce2fafdabc65b0edacee021356818b1c41b",
+      "pixel_size": [
+        10289,
+        10113
+      ]
+    },
+    {
+      "case": "created_modern_native_render",
+      "evidence": "api-modern-2.0.3.png",
+      "sha256": "c6e3d9186956d7eb5686fefdbf5a168ac413f8242e17c1c42c2a6f0765b992ca",
+      "pixel_size": [
+        331,
+        239
+      ]
+    },
+    {
+      "case": "created_modern_native_render",
+      "evidence": "api-modern-2.1.3.png",
+      "sha256": "ba094457211af72388edcee1cfb9497d1ebb9a75aedda621a2c033cdfd0086fb",
+      "pixel_size": [
+        1000,
+        800
+      ]
+    },
+    {
+      "case": "edited_modern_native_render",
+      "evidence": "api-modern-edited-2.0.3.png",
+      "sha256": "badeb5d2aa50fee3b70b21831f609d1b8fdc21fc2f597a00ecac953a90d1bf90",
+      "pixel_size": [
+        349,
+        131
+      ]
+    },
+    {
+      "case": "edited_modern_native_render",
+      "evidence": "api-modern-edited-2.1.3.png",
+      "sha256": "c471550f74a5da10c10b3a1bb418d52198f36ad9adaacf04af1cb694ee826ae2",
+      "pixel_size": [
+        1000,
+        800
+      ]
+    },
+    {
+      "case": "native_modern_resave",
+      "evidence": "precreated-resave-2.0.3.pur",
+      "sha256": "d31e87d83c05e6aeca19e5e9062a66bc4fa549a8ac5d35044f100c0a12399232",
+      "bytes": 45324
+    },
+    {
+      "case": "native_modern_resave",
+      "evidence": "precreated-resave-2.1.3.pur",
+      "sha256": "0fb6efd768c41d100f16a3418decc196097b9b833cc51e4420a80d43103004f5",
+      "bytes": 45443
+    }
+  ]
+}
