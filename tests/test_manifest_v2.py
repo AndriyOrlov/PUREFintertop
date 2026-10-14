@@ -96,9 +96,9 @@ class ManifestVersion2(unittest.TestCase):
         self.assertEqual(list(self.folder.iterdir()), [])
 
     def test_frameref_media_is_mapped_and_reported(self):
-        poster = self.picture("poster.png")
-        page_one = self.picture("p1.png", (100, 140))
-        page_two = self.picture("p2.png", (100, 140), (0, 0, 200))
+        self.picture("poster.png")
+        self.picture("p1.png", (100, 140))
+        self.picture("p2.png", (100, 140), (0, 0, 200))
         manifest = {
             "schema_version": 2,
             "items": [

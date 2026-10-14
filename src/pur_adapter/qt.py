@@ -10,7 +10,7 @@ no Qt installation is needed.
 """
 
 import struct
-from .core import affine, multiply, inverse  # re-exported for older imports
+from .core import affine, multiply, inverse  # noqa: F401  (used as qt.affine etc.)
 
 # QVariant type ids used by PureRef.
 QT_RECT_F = 20  # QRectF: x, y, width, height as doubles

@@ -3,12 +3,11 @@
 import hashlib
 import io
 from pathlib import Path
-from .board import Board
 from .container import UnsupportedFormat
 from .drawings import rasterize_drawing
 from . import qt
 from .images import open_as_displayed
-from .text import is_rich_text, plain_text  # noqa: F401  (old import path)
+from .text import plain_text  # noqa: F401  (old import path)
 from .scene import drawing_order, world_properties  # world_properties: old import path
 
 

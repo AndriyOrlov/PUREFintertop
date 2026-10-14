@@ -22,7 +22,7 @@ This module does not read FrameRef's private save format.
 
 import json
 from pathlib import Path
-from .board import Board, asset_suffix, atomic_write, finite
+from .board import Board, atomic_write, finite
 from .container import UnsupportedFormat
 from .drawings import ARROW, DASHED, SOLID, Stroke, render_strokes
 from .scene import drawing_order, world_properties

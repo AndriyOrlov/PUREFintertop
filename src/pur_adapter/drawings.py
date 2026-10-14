@@ -1,7 +1,10 @@
-"""Decode native pen strokes and replace them with positioned PNG assets.
+"""Native pen drawings: read, write and turn them into positioned PNG images.
 
-The renderer supports measured solid, dashed and arrow paths. Unknown encodings
-raise UnsupportedFormat, so compatibility export cannot silently erase them.
+`items_drawings.strokes` holds a QVariant of `QList<GraphicsDrawItem::Stroke>`.
+Each stroke is: a version marker (100), a QColor, the pen width, a
+QPainterPath (typed points, current-subpath index, fill rule), one extra point
+and a pen style. The renderer supports the measured solid, dashed and arrow
+styles; unknown encodings raise UnsupportedFormat so nothing is silently lost.
 """
 
 from dataclasses import dataclass
@@ -19,6 +22,22 @@ from .core import finite
 # Pen styles measured in PureRef 2.1.3. Rectangles and ellipses drawn with the
 # shape tools are stored as ordinary paths in one of these styles.
 SOLID, DASHED, ARROW = 0, 1, 2
+PEN_STYLES = (SOLID, DASHED, ARROW)
+
+# QPainterPath element kinds. A cubic curve is CURVE_TO followed by two
+# CURVE_DATA points (second control point, end point).
+MOVE_TO, LINE_TO, CURVE_TO, CURVE_DATA = 0, 1, 2, 3
+PATH_ELEMENT_KINDS = (MOVE_TO, LINE_TO, CURVE_TO, CURVE_DATA)
+
+STROKE_LIST_TYPE = b"QList<GraphicsDrawItem::Stroke>\0"
+STROKE_VERSION = 100  # written before each stroke by PureRef 2.x
+MAX_STROKES = 10_000
+MAX_PATH_ELEMENTS = 100_000
+
+# QColor specifications (first byte of a serialised QColor).
+QCOLOR_RGB, QCOLOR_HSV, QCOLOR_CMYK, QCOLOR_HSL = 1, 2, 3, 4
+CHANNEL_MAX = 65535  # QColor stores 16-bit channels
+HUE_SCALE = 36000  # hue in hundredths of a degree
 
 
 @dataclass(frozen=True)
@@ -50,11 +69,12 @@ class Reader:
 def encode_strokes(strokes):
     """Encode the measured version-100 RGB pen subset, validating before mutation."""
     strokes = list(strokes)
-    if not 1 <= len(strokes) <= 10000:
+    if not 1 <= len(strokes) <= MAX_STROKES:
         raise ValueError("Provide between 1 and 10000 strokes")
-    name = b"QList<GraphicsDrawItem::Stroke>\0"
     raw = bytearray(
-        struct.pack(">IBI", 1024, 0, len(name)) + name + struct.pack(">I", len(strokes))
+        struct.pack(">IBI", qt.QT_USER_TYPE, 0, len(STROKE_LIST_TYPE))
+        + STROKE_LIST_TYPE
+        + struct.pack(">I", len(strokes))
     )
     for stroke in strokes:
         if len(stroke.color) != 4 or any(
@@ -65,95 +85,99 @@ def encode_strokes(strokes):
         finite(width=stroke.width)
         if (
             not 0 < stroke.width <= 10000
-            or stroke.style not in (0, 1, 2)
+            or stroke.style not in PEN_STYLES
             or stroke.fill_rule not in (0, 1)
         ):
             raise ValueError("Unsupported stroke width, style or fill rule")
-        if not 1 <= len(stroke.elements) <= 100000 or len(stroke.extra_point) != 2:
+        if not 1 <= len(stroke.elements) <= MAX_PATH_ELEMENTS or len(stroke.extra_point) != 2:
             raise ValueError("Invalid stroke geometry")
         for kind, x, y in stroke.elements:
-            if kind not in (0, 1, 2, 3):
+            if kind not in PATH_ELEMENT_KINDS:
                 raise ValueError("Invalid painter path kind")
             finite(x=x, y=y)
         finite(x=stroke.extra_point[0], y=stroke.extra_point[1])
-        flatten_path(stroke.elements, 1)
+        flatten_path(stroke.elements, 1)  # rejects malformed curves early
         red, green, blue, alpha = stroke.color
+        to_16_bit = 257  # 255 * 257 == 65535
+        unused_channel = 0
         raw.extend(
             struct.pack(
                 ">BB5HdI",
-                100,
-                1,
-                alpha * 257,
-                red * 257,
-                green * 257,
-                blue * 257,
-                0,
+                STROKE_VERSION,
+                QCOLOR_RGB,
+                alpha * to_16_bit,
+                red * to_16_bit,
+                green * to_16_bit,
+                blue * to_16_bit,
+                unused_channel,
                 stroke.width,
                 len(stroke.elements),
             )
         )
         for element in stroke.elements:
             raw.extend(struct.pack(">Idd", *element))
+        current_subpath_start = 0
         raw.extend(
-            struct.pack(
-                ">II2di", 0, stroke.fill_rule, *stroke.extra_point, stroke.style
-            )
+            struct.pack(">II2di", current_subpath_start, stroke.fill_rule,
+                        *stroke.extra_point, stroke.style)
         )
     return bytes(raw)
 
 
 def read_color(reader):
+    """Read a QColor and return (red, green, blue, alpha) in 0..255."""
     spec = reader.unpack("B")[0]
     alpha, c1, c2, c3, c4 = reader.unpack("5H")
-    if spec == 1:
-        channels = (c1 / 65535, c2 / 65535, c3 / 65535)
-    elif spec == 2:
-        channels = colorsys.hsv_to_rgb((c1 % 36000) / 36000, c2 / 65535, c3 / 65535)
-    elif spec == 4:
-        channels = colorsys.hls_to_rgb((c1 % 36000) / 36000, c3 / 65535, c2 / 65535)
-    elif spec == 3:
-        channels = tuple(
-            (1 - value / 65535) * (1 - c4 / 65535) for value in (c1, c2, c3)
-        )
+    if spec == QCOLOR_RGB:
+        channels = (c1 / CHANNEL_MAX, c2 / CHANNEL_MAX, c3 / CHANNEL_MAX)
+    elif spec == QCOLOR_HSV:
+        hue = (c1 % HUE_SCALE) / HUE_SCALE
+        channels = colorsys.hsv_to_rgb(hue, c2 / CHANNEL_MAX, c3 / CHANNEL_MAX)
+    elif spec == QCOLOR_HSL:
+        hue = (c1 % HUE_SCALE) / HUE_SCALE
+        channels = colorsys.hls_to_rgb(hue, c3 / CHANNEL_MAX, c2 / CHANNEL_MAX)
+    elif spec == QCOLOR_CMYK:
+        black = c4 / CHANNEL_MAX
+        channels = tuple((1 - value / CHANNEL_MAX) * (1 - black) for value in (c1, c2, c3))
     else:
         raise UnsupportedFormat(f"Unsupported QColor specification: {spec}")
     return tuple(round(channel * 255) for channel in channels) + (round(alpha / 257),)
 
 
 def parse_strokes(payload):
+    """Decode `items_drawings.strokes` into a list of Stroke."""
     reader = Reader(payload)
-    kind, null, name_size = reader.unpack("IBI")
-    if kind != 1024 or null or name_size > 200:
+    type_id, is_null, name_size = reader.unpack("IBI")
+    if type_id != qt.QT_USER_TYPE or is_null or name_size > 200:
         raise UnsupportedFormat("Unsupported stroke QVariant")
-    name = reader.take(name_size)
-    if name != b"QList<GraphicsDrawItem::Stroke>\0":
+    if reader.take(name_size) != STROKE_LIST_TYPE:
         raise UnsupportedFormat("Unknown drawing payload type")
     count = reader.unpack("I")[0]
-    if count > 10000:
+    if count > MAX_STROKES:
         raise InvalidPurFile("Too many pen strokes")
     strokes = []
     for _ in range(count):
         version = reader.unpack("B")[0]
-        if version < 100:
-            reader.position -= 1
-        elif version != 100:
+        if version < STROKE_VERSION:
+            reader.position -= 1  # older strokes start directly with the colour
+        elif version != STROKE_VERSION:
             raise UnsupportedFormat(f"Unsupported stroke version: {version}")
         color = read_color(reader)
         width = reader.unpack("d")[0]
         if not math.isfinite(width) or not 0 < width <= 10000:
             raise InvalidPurFile("Invalid pen width")
         point_count = reader.unpack("I")[0]
-        if point_count > 100000:
+        if point_count > MAX_PATH_ELEMENTS:
             raise InvalidPurFile("Too many drawing elements")
         elements = tuple(reader.unpack("Idd") for _ in range(point_count))
         for kind, x, y in elements:
-            if kind not in (0, 1, 2, 3) or not math.isfinite(x) or not math.isfinite(y):
+            if kind not in PATH_ELEMENT_KINDS or not math.isfinite(x) or not math.isfinite(y):
                 raise InvalidPurFile("Invalid painter path element")
         current_start, fill_rule = reader.unpack("II")
         if fill_rule not in (0, 1) or current_start > point_count:
             raise InvalidPurFile("Invalid painter path metadata")
         extra = reader.unpack("dd")
-        style = reader.unpack("i")[0] if version >= 100 else 0
+        style = reader.unpack("i")[0] if version >= STROKE_VERSION else SOLID
         strokes.append(Stroke(color, width, elements, fill_rule, extra, style))
     if reader.position != len(reader.data):
         raise UnsupportedFormat("Unrecognized drawing trailing data")
@@ -167,35 +191,33 @@ def flatten_path(elements, scale):
     index = 0
     while index < len(elements):
         kind, x, y = elements[index]
-        if kind == 0:
+        if kind == MOVE_TO:
             if points:
                 paths.append(points)
             points = [(x, y)]
-        elif kind == 1:
+        elif kind == LINE_TO:
             if not points:
                 raise InvalidPurFile("Line without an initial move")
             points.append((x, y))
-        elif kind == 2:
+        elif kind == CURVE_TO:
             if not points or index + 2 >= len(elements):
                 raise InvalidPurFile("Incomplete cubic curve")
             second, end = elements[index + 1 : index + 3]
-            if second[0] != 3 or end[0] != 3:
+            if second[0] != CURVE_DATA or end[0] != CURVE_DATA:
                 raise InvalidPurFile("Invalid cubic control points")
-            p0 = points[-1]
-            p1 = (x, y)
-            p2 = second[1:]
-            p3 = end[1:]
-            length = sum(math.dist(a, b) for a, b in zip((p0, p1, p2), (p1, p2, p3)))
-            steps = max(4, min(4096, math.ceil(length * scale / 2)))
+            start, control_1, control_2, finish = points[-1], (x, y), second[1:], end[1:]
+            hull = (start, control_1, control_2, finish)
+            length = sum(math.dist(a, b) for a, b in zip(hull, hull[1:]))
+            steps = max(4, min(4096, math.ceil(length * scale / 2)))  # ~2 px per step
             for step in range(1, steps + 1):
                 t = step / steps
                 u = 1 - t
                 points.append(
                     tuple(
-                        u**3 * p0[axis]
-                        + 3 * u * u * t * p1[axis]
-                        + 3 * u * t * t * p2[axis]
-                        + t**3 * p3[axis]
+                        u**3 * start[axis]
+                        + 3 * u * u * t * control_1[axis]
+                        + 3 * u * t * t * control_2[axis]
+                        + t**3 * finish[axis]
                         for axis in (0, 1)
                     )
                 )
@@ -241,7 +263,7 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         raise ValueError("scale must be finite, greater than 0 and at most 16")
     if not strokes or not any(s.elements for s in strokes):
         raise ValueError("Drawing has no visible strokes")
-    if any(s.style not in (0, 1, 2) for s in strokes):
+    if any(s.style not in PEN_STYLES for s in strokes):
         raise UnsupportedFormat("Unrecognized pen style")
     min_x, min_y, max_x, max_y = stroke_bounds(strokes)
     left = math.floor(min_x)

@@ -9,10 +9,8 @@ opens and resaves each board; the resaved file is kept as
 """
 
 import argparse
-import io
 import json
 import shutil
-import struct
 import sys
 import tempfile
 from pathlib import Path
