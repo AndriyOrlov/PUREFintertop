@@ -95,6 +95,21 @@ supported pen drawings are converted first. The conversion report records these
 changes. Crops, unknown flags, shape styles, perspective and linked resources
 require a deliberate host mapping or pre-rendered preview.
 
+## Behaviour measured with native PureRef 2.1.3 on Windows
+
+- The header thumbnail and `metadata.thumbnail` hold the same 256×256 JPEG.
+- `metadata.scene_rect` is a QRectF (type 20) of the union of item bounds;
+  group frames reach 10 units past their children.
+- `items.sort_order` holds a BigRational stored as eight uint32 words,
+  `[1, 0, numerator, denominator, 1, 0, 1, 1]`. PureRef rewrites these as
+  1/1, 1/2, 1/3 … when it saves.
+- `z` orders siblings only and is renumbered on save (drawing order kept).
+- Unknown tables and columns are deleted on save; item IDs are kept.
+- `images.format` is spelled like the file extension when it matches the
+  content; EXIF-rotated JPEGs store their displayed width and height.
+
+Details and the experiments: [NATIVE_WINDOWS.md](NATIVE_WINDOWS.md).
+
 ## Reference sources
 
 - https://www.pureref.com/handbook/automation/

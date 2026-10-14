@@ -1,0 +1,61 @@
+name: Release executable
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install pyinstaller sv-ttk
+          python -m pip install --no-deps .
+      - name: Test
+        run: python -m unittest discover -s tests
+      - name: Build pur-adapter.exe
+        run: python -m PyInstaller --noconfirm --onefile --name pur-adapter --collect-data pur_adapter packaging/pur_adapter_entry.py
+      - name: Build PureRef-FrameRef-Converter.exe
+        run: python -m PyInstaller --noconfirm PureRef-FrameRef-Converter.spec
+      - name: Package converter instructions
+        run: |
+          Copy-Item packaging/CONVERTER.txt dist/
+          Copy-Item LICENSE dist/
+          Copy-Item NOTICE dist/
+      - name: Smoke test
+        run: |
+          dist\pur-adapter.exe --version
+          dist\pur-adapter.exe inspect fixtures\native-2.1.3.pur
+          # The converter is a window application: wait for it and check its exit code.
+          foreach ($arguments in @("fixtures\api-modern.pur validation\release-FrameRef",
+                                   "validation\release-FrameRef\main.frameref validation\release-roundtrip.pur")) {
+            $run = Start-Process dist\PureRef-FrameRef-Converter.exe -ArgumentList $arguments -Wait -PassThru -NoNewWindow
+            if ($run.ExitCode -ne 0) { throw "Converter failed: $arguments" }
+          }
+          if (-not (Test-Path validation\release-roundtrip.pur)) { throw "No round-trip board" }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pur-adapter-windows
+          path: |
+            dist/pur-adapter.exe
+            dist/PureRef-FrameRef-Converter.exe
+            dist/CONVERTER.txt
+            dist/LICENSE
+            dist/NOTICE
+      - name: Attach to the GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" dist/pur-adapter.exe dist/PureRef-FrameRef-Converter.exe dist/CONVERTER.txt dist/LICENSE dist/NOTICE --repo "${{ github.repository }}" --title "${{ github.ref_name }}" --generate-notes

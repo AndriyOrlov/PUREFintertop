@@ -1,34 +1,43 @@
-# Перевірка на реальних дошках
+# Testing with real boards
 
-Перевіряємо копії. Зараз нативні тести пройдено на Linux; перевірка твого Windows
-і реальних портфоліо-дошок — наступний етап.
+Always test **copies**. Native tests have passed on Linux (1.10.4–2.1.3) and on
+Windows with PureRef 2.1.3 (see `NATIVE_WINDOWS.md`). Real boards come next.
 
-1. Вибери 3–5 дошок: просту; велику; з групами; з нотатками й олівцем;
-   окремо з GIF, обрізаними або прив'язаними зображеннями.
-2. Збережи вихідні копії та скрін кожної дошки в PureRef.
-3. Встанови пакет за README. Запускай команди з каталогу проєкту через Python
-   свого `.venv`; активувати середовище необов'язково.
+1. Pick 3–5 boards: a simple one; a large one; one with groups; one with notes
+   and pen drawings; and separately boards with GIFs, cropped, mirrored or
+   linked (not embedded) images, and phone photos.
+2. Keep the original copies and a screenshot of each board in PureRef.
+3. Install the package as described in the README (or use `pur-adapter.exe`).
+   The commands below use Python from `.venv`; with the `.exe`, replace the
+   start of each line with `pur-adapter.exe`.
 
 ```powershell
-.\.venv\Scripts\python.exe -X utf8 -m pur_adapter inspect "C:\Refs\copy.pur"
-.\.venv\Scripts\python.exe -X utf8 -m pur_adapter export-package "C:\Refs\copy.pur" "C:\Refs\package-test"
-.\.venv\Scripts\python.exe -X utf8 -m pur_adapter rasterize "C:\Refs\copy.pur" "C:\Refs\rasterized.pur" --all
-.\.venv\Scripts\python.exe -X utf8 -m pur_adapter export-legacy "C:\Refs\copy.pur" "C:\Refs\simplified.pur"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter inspect "C:\Refs\copy.pur"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter render "C:\Refs\copy.pur" "C:\Refs\preview.png"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter export-package "C:\Refs\copy.pur" "C:\Refs\package-test"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter create "C:\Refs\package-test\board.json" "C:\Refs\roundtrip.pur"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter export-legacy "C:\Refs\copy.pur" "C:\Refs\simplified.pur"
+& .\.venv\Scripts\python.exe -X utf8 -m pur_adapter linked "C:\Refs\copy.pur"
 ```
 
-4. Відкрий `rasterized.pur` та `simplified.pur` в PureRef. Порівняй положення,
-   поворот, масштаб, порядок шарів, нотатки, прозорість і краї PNG олівця.
-5. Для груп перевір дочірні елементи після повороту/масштабу групи. Для GIF —
-   обраний кадр. Для cropped/linked файлів очікується чітка зупинка експорту,
-   якщо потрібна можливість ще не підтримана.
-6. Збережи дошку повторно самим PureRef та знову прочитай її адаптером.
-7. Запиши версію PureRef, розмір файлу, кількість елементів, час, пам'ять і
-   результат у `real-board-results.csv`. Додай скріни відмінностей.
+4. Open `roundtrip.pur` in PureRef and compare it with the original: position,
+   rotation, scale, crop, mirroring, layer order, notes (text and colour),
+   groups (colour), comments, opacity. There should be no differences at all.
+5. Open `simplified.pur` (the 1.x simplification): groups are flattened, pen
+   drawings became images, the layer order is unchanged. Check the changes
+   against the `.report.json` report.
+6. Look at `preview.png`. It is an approximate render (fonts differ), but every
+   item should be in its place.
+7. Save the board again in PureRef itself and read it with the adapter
+   (`inspect`). Boards carrying FrameRef data have a `*.pur.host.json` next to them.
+8. For a damaged file (if you have one): `repair broken.pur recovered-folder`.
+9. Record the PureRef version, file size, item count, time, memory and result
+   in `examples/real-board-results.csv`. Add screenshots of any differences.
 
-Критерії: джерело не змінене; вихід відкривається; всі елементи враховані;
-позиції/трансформації збігаються; жодної тихої втрати; звіт відповідає змінам.
-Піксельні відмінності згладжування олівця допустимі лише якщо вони видимі й
-погоджені. Для точного вигляду потрібен рендерер Qt або рендерер самого хоста.
+Criteria: the source is unchanged; the output opens; every item is accounted
+for; positions and transforms match; nothing is lost silently; the report
+matches the changes. Pen antialiasing differences are acceptable only if they
+are visible and agreed.
 
-Після твоєї перевірки — рев'ю Клодом, виправлення, повторення відповідних тестів.
-Лише потім готуємо пропозицію Polygonflow. Лист не надсилаємо на цьому етапі.
+After your check: fix what was found and repeat the tests. Only then prepare
+the proposal to Polygonflow. No email is sent at this stage.

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AndriyOrlov/PUREFintertop/docs/manifest.schema.json",
+  "title": "PureRef interop manifest, schema version 2",
+  "description": "board.json written by export_manifest and read by import_manifest. Coordinates are item-local, y points down, matrices are Qt row-vector order [m11, m12, m13, m21, m22, m23, m31, m32, m33]. Paths are relative to the folder of board.json.",
+  "type": "object",
+  "required": ["schema_version", "items"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "coordinate_system": {"const": "y_down_row_vector_local"},
+    "board": {
+      "type": "object",
+      "properties": {
+        "format": {"enum": ["modern", "legacy"]},
+        "application_version": {"type": ["string", "null"]}
+      }
+    },
+    "preview_path": {"type": "string", "description": "Approximate render of the whole board."},
+    "items": {"type": "array", "maxItems": 100000, "items": {"$ref": "#/$defs/item"}}
+  },
+  "$defs": {
+    "id": {"type": ["string", "integer"]},
+    "matrix": {"type": "array", "items": {"type": "number"}, "minItems": 9, "maxItems": 9},
+    "color": {
+      "description": "#AARRGGBB, or an empty string for the PureRef default.",
+      "type": "string",
+      "pattern": "^(#[0-9a-fA-F]{8})?$"
+    },
+    "item": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "kind": {"enum": ["image", "note", "group", "drawing", "video", "pdf", "link", "svg", "audio", "arrow", "line"]},
+        "name": {"type": ["string", "null"]},
+        "parent_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "matrix": {"$ref": "#/$defs/matrix", "description": "Full local transform. Wins over x/y when present."},
+        "opacity": {"type": "number", "minimum": 0, "maximum": 1},
+        "locked": {"type": "boolean"},
+        "z": {"type": "number", "description": "Orders an item among its siblings only."},
+        "comment": {"type": ["string", "null"]},
+        "order_index": {"type": ["integer", "null"], "description": "Position among siblings (PureRef sort order)."},
+        "stacking_index": {"type": "integer", "description": "Export only: global drawing order, 0 = bottom."},
+        "world_matrix": {"$ref": "#/$defs/matrix", "description": "Export only: transform including all parents."},
+        "extensions": {"type": "object", "description": "Host data kept outside the .pur (see sidecar)."},
+
+        "path": {"type": ["string", "null"], "description": "image: embedded asset, null when only linked."},
+        "image": {
+          "type": "object",
+          "properties": {
+            "pixel_size": {"type": ["array", "null"], "items": {"type": "integer"}},
+            "format": {"type": ["string", "null"]},
+            "source": {"type": ["string", "null"]},
+            "embedded": {"type": "boolean"},
+            "crop": {"type": ["array", "null"], "items": {"type": "number"}, "minItems": 4, "maxItems": 4,
+                     "description": "x, y, width, height in original bitmap pixels."},
+            "flip_horizontal": {"type": "boolean"},
+            "flip_vertical": {"type": "boolean"},
+            "grayscale": {"type": "boolean"},
+            "bilinear": {"type": "boolean"},
+            "frame": {"type": "integer", "minimum": 0},
+            "speed": {"type": "number", "exclusiveMinimum": 0},
+            "playing": {"type": "boolean"},
+            "native": {
+              "type": "object",
+              "description": "Exact stored values. Applied verbatim on import; drop it when editing the plain fields.",
+              "required": ["image_bounds", "image_transform", "flags"],
+              "properties": {
+                "image_bounds": {"type": "string", "description": "Hex of the QPainterPath bytes."},
+                "image_transform": {"$ref": "#/$defs/matrix"},
+                "flags": {"type": "integer"}
+              }
+            }
+          }
+        },
+
+        "text": {"type": "string", "description": "note: stored text, normally Qt HTML."},
+        "text_format": {"enum": ["html", "plain"], "description": "plain text with line breaks is converted to HTML on import."},
+        "plain_text": {"type": "string", "description": "Export only: visible text."},
+        "style": {
+          "type": "object",
+          "description": "note: colours and fixed size (-1 = automatic). group: background and selection lock.",
+          "properties": {
+            "background_color": {"$ref": "#/$defs/color"},
+            "text_color": {"oneOf": [{"$ref": "#/$defs/color"}, {"type": "null"}]},
+            "width": {"type": "number"},
+            "height": {"type": "number"},
+            "style": {"type": "integer"},
+            "locked_mode": {"type": "boolean"}
+          }
+        },
+
+        "strokes": {
+          "type": "array",
+          "description": "drawing: native pen strokes.",
+          "items": {
+            "type": "object",
+            "required": ["color", "width", "path"],
+            "properties": {
+              "color": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 255}, "minItems": 4, "maxItems": 4},
+              "width": {"type": "number", "exclusiveMinimum": 0},
+              "style": {"enum": ["solid", "dashed", "arrow"]},
+              "fill_rule": {"enum": [0, 1]},
+              "path": {"type": "array", "items": {"type": "array", "prefixItems": [{"enum": ["move", "line", "curve", "curve_data"]}, {"type": "number"}, {"type": "number"}]}},
+              "extra_point": {"type": "array", "items": {"type": "number"}}
+            }
+          }
+        },
+        "local_bounds": {"type": "array", "items": {"type": "number"}},
+        "preview_path": {"type": "string", "description": "Raster stand-in for media PureRef cannot show."},
+
+        "url": {"type": "string"},
+        "title": {"type": "string"},
+        "pages": {
+          "type": "array",
+          "description": "pdf: page images, laid out left to right inside a group.",
+          "items": {"oneOf": [{"type": "string"}, {"type": "object", "required": ["path"], "properties": {"path": {"type": "string"}, "page": {"type": "integer"}}}]}
+        },
+        "points": {"type": "array", "items": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}, "minItems": 2},
+        "color": {"oneOf": [{"$ref": "#/$defs/color"}, {"type": "array", "items": {"type": "integer"}, "minItems": 4, "maxItems": 4}]},
+        "width": {"type": "number"},
+        "dashed": {"type": "boolean"}
+      }
+    }
+  }
+}

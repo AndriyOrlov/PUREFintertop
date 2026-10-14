@@ -25,3 +25,10 @@ antialiasing, modern thumbnail regeneration and host comment/style mapping are
 known pending work, not capabilities to infer from the project name.
 
 Do not send any proposal email or publish the repository publicly.
+
+## Review status (0.3.0)
+
+The 2026-10-14 review and its follow-up work are recorded in
+[ROADMAP.md](ROADMAP.md): every Required finding is fixed with a regression
+test, and behaviour was checked against PureRef 2.1.3 on Windows
+([NATIVE_WINDOWS.md](NATIVE_WINDOWS.md)). Real-board testing is still open.

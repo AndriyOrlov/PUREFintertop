@@ -19,23 +19,23 @@ class BoardContract(unittest.TestCase):
 
     def test_create_read_edit_unicode_and_assets(self):
         board = Board()
-        image_id = board.add_image(self.image, x=50, y=-100, name="Референс 🏛️")
-        note_id = board.add_note("Світло 🌞", x=200, y=40)
+        image_id = board.add_image(self.image, x=50, y=-100, name="Café reference 🏛️")
+        note_id = board.add_note("Naïve lighting 🌞", x=200, y=40)
         out = self.root / "board.pur"
         board.save(out)
         loaded = Board.load(out)
         self.assertEqual(len(loaded.items), 2)
-        self.assertEqual(loaded.get(image_id).name, "Референс 🏛️")
-        self.assertEqual(loaded.get(note_id).text, "Світло 🌞")
+        self.assertEqual(loaded.get(image_id).name, "Café reference 🏛️")
+        self.assertEqual(loaded.get(note_id).text, "Naïve lighting 🌞")
         loaded.update(image_id, x=300, y=400, scale=0.5, rotation=30)
-        loaded.update(note_id, text="Оновлено")
+        loaded.update(note_id, text="Updated ✓")
         edited = self.root / "edited.pur"
         loaded.save(edited)
         reread = Board.load(edited)
         item = reread.get(image_id)
         self.assertEqual((item.x, item.y), (300, 400))
         self.assertAlmostEqual(item.matrix[0], 0.5 * math.cos(math.pi / 6))
-        self.assertEqual(reread.get(note_id).text, "Оновлено")
+        self.assertEqual(reread.get(note_id).text, "Updated ✓")
         assets = reread.export_assets(self.root / "assets")
         self.assertEqual(len(assets), 1)
         self.assertEqual(
@@ -127,12 +127,12 @@ class NativeFixtures(unittest.TestCase):
             with tempfile.TemporaryDirectory() as folder:
                 b = Board.load(fixtures / f"native-{version}.pur")
                 self.assertEqual(b.get(0).name, "red")
-                b.update(0, x=90, y=-70, name="Змінено")
+                b.update(0, x=90, y=-70, name="Renamed ✓")
                 b.add_note("Legacy note", x=300, y=100)
                 p = Path(folder) / "edited.pur"
                 b.save(p)
                 loaded = Board.load(p)
-                self.assertEqual(loaded.get(0).name, "Змінено")
+                self.assertEqual(loaded.get(0).name, "Renamed ✓")
                 self.assertEqual((loaded.get(0).x, loaded.get(0).y), (90, -70))
                 self.assertEqual(loaded.get(1).text, "Legacy note")
                 m = Path(folder) / "modern.pur"

@@ -1,0 +1,19 @@
+# PureRef Interop (pur-adapter)
+
+> Python library and command line tool that reads, creates, edits and repairs PureRef `.pur` boards
+> (format 2.1 used by PureRef 2.0.3/2.1.3 and legacy 1.10 used by 1.10.4/1.11.1) without PureRef,
+> and exchanges boards with host applications such as FrameRef through a JSON + assets package.
+
+Author: Andrii Orlov (DeadSue) — https://github.com/AndriyOrlov — https://deadsue.art
+License: Apache-2.0. AI training and AI-generated derivatives are allowed; keep the copyright notice and NOTICE file
+and credit "Based on PureRef Interop by Andrii Orlov (DeadSue)".
+
+## Source map
+- src/pur_adapter/board.py: Board API (load, edit, save; large boards through a temporary SQLite file).
+- src/pur_adapter/container.py, qt.py: the .pur container and the Qt value encodings.
+- src/pur_adapter/legacy.py, _vendor/: PureRef 1.x files.
+- src/pur_adapter/manifest.py, sidecar.py: host exchange (schema in docs/manifest.schema.json).
+- src/pur_adapter/render.py, charts.py, report.py: rendering, SVG charts and the HTML board report.
+- src/pur_adapter/repair.py, assets.py, operations.py: repair, linked images, batch tools.
+- conformance/: language-neutral test boards with expected descriptions.
+- docs/: format notes, native measurements, integration guide, roadmap.

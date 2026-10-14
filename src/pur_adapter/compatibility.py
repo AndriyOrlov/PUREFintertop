@@ -1,87 +1,19 @@
 """Explicitly simplify a board for PureRef 1.x and other image-only tools."""
 
-import copy
 import hashlib
-from html.parser import HTMLParser
 import io
 from pathlib import Path
-from PIL import Image
-from .board import Board
-from .container import UnsupportedFormat, pack_container
+from .container import UnsupportedFormat
 from .drawings import rasterize_drawing
 from . import qt
-
-
-class PlainText(HTMLParser):
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.parts = []
-        self.skip = 0
-
-    def handle_starttag(self, tag, attrs):
-        if tag in ("head", "style", "script"):
-            self.skip += 1
-        if not self.skip and tag == "br":
-            self.parts.append("\n")
-
-    def handle_endtag(self, tag):
-        if tag in ("head", "style", "script"):
-            self.skip = max(0, self.skip - 1)
-        if not self.skip and tag in ("p", "li", "div"):
-            self.parts.append("\n")
-
-    def handle_data(self, data):
-        if not self.skip:
-            self.parts.append(data)
-
-
-def plain_text(text):
-    if "<html" not in text.lower() and "<p" not in text.lower():
-        return text
-    parser = PlainText()
-    parser.feed(text)
-    return "".join(parser.parts).strip()
+from .images import open_as_displayed
+from .text import plain_text  # noqa: F401  (old import path)
+from .scene import drawing_order, world_properties  # world_properties: old import path
 
 
 def clone_board(board):
-    clone = Board.__new__(Board)
-    clone._init(
-        pack_container(board._conn, board.application_version, board._thumbnail)
-    )
-    clone.format = board.format
-    clone._legacy = copy.deepcopy(board._legacy)
-    clone._raw = None
-    return clone
-
-
-def world_properties(board):
-    cache = {}
-    visiting = set()
-
-    def resolve(item_id):
-        if item_id in cache:
-            return cache[item_id]
-        if item_id in visiting or len(visiting) > 256:
-            raise ValueError("Invalid or excessive parent hierarchy")
-        visiting.add(item_id)
-        item = board.get(item_id)
-        matrix = qt.read_transform(
-            board._conn.execute(
-                "SELECT transform FROM items WHERE id=?", (item_id,)
-            ).fetchone()[0]
-        )
-        opacity = item.opacity
-        if item.parent_id is not None:
-            parent_matrix, parent_opacity = resolve(item.parent_id)
-            matrix = qt.multiply(matrix, parent_matrix)
-            opacity *= parent_opacity
-        visiting.remove(item_id)
-        cache[item_id] = (matrix, opacity)
-        return cache[item_id]
-
-    for item in board.items:
-        resolve(item.id)
-    return cache
+    """Kept for older imports; use `board.copy()`."""
+    return board.copy()
 
 
 def bake_image(board, item, opacity, changes):
@@ -108,7 +40,7 @@ def bake_image(board, item, opacity, changes):
                 f'Item {item.id}: unsupported image flags {native["flags"]}'
             )
     blob = bytes(asset["data"])
-    with Image.open(io.BytesIO(blob)) as image:
+    with open_as_displayed(blob) as image:
         frames = getattr(image, "n_frames", 1)
         frame = min(max(0, native["playback_frame"] or 0), frames - 1)
         if frames > 1:
@@ -191,13 +123,17 @@ def simplify_board(board, *, drawing_scale=4):
             elif item.kind == "unknown":
                 raise UnsupportedFormat(f"Unsupported item {item.id}")
         world = world_properties(simple)
+        # z only orders siblings, so a flat board needs one global order.
+        # Number the items in the order PureRef draws them.
+        flat_z = {
+            item_id: float(position + 1)
+            for position, item_id in enumerate(drawing_order(simple))
+        }
+        renumbered_children = 0
         with simple._conn:
             for item in simple.items:
                 matrix, opacity = world[item.id]
-                if (
-                    any(abs(matrix[index]) > 1e-12 for index in (2, 5))
-                    or abs(matrix[8] - 1) > 1e-12
-                ):
+                if qt.has_perspective(matrix):
                     raise UnsupportedFormat(
                         f"Item {item.id}: perspective requires rasterization before legacy export"
                     )
@@ -228,10 +164,17 @@ def simplify_board(board, *, drawing_scale=4):
                     )
                 if item.locked:
                     changes.append({"item_id": item.id, "code": "item_lock_discarded"})
+                if item.parent_id is not None and flat_z[item.id] != item.z:
+                    renumbered_children += 1
                 simple._conn.execute(
-                    "UPDATE items SET transform=?,parent=-1,opacity=?,locked=0 WHERE id=?",
-                    (qt.transform(matrix), opacity, item.id),
+                    "UPDATE items SET transform=?,parent=-1,opacity=?,locked=0,z=? "
+                    "WHERE id=?",
+                    (qt.transform(matrix), opacity, flat_z[item.id], item.id),
                 )
+        if renumbered_children:
+            changes.append(
+                {"code": "stacking_flattened", "renumbered_children": renumbered_children}
+            )
         simple._dirty = True
         return simple, {
             "schema_version": 1,

@@ -1,0 +1,8 @@
+{
+  "truncated.pur": "InvalidPurFile",
+  "bad-checksum.pur": "InvalidPurFile",
+  "future-format.pur": "UnsupportedFormat",
+  "not-a-board.pur": "UnsupportedFormat",
+  "sqlite-trigger.pur": "UnsupportedFormat",
+  "legacy-bad-checksum.pur": "InvalidPurFile"
+}

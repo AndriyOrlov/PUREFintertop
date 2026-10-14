@@ -1,0 +1,196 @@
+{
+  "description_version": 1,
+  "format": "modern",
+  "items": [
+    {
+      "id": 0,
+      "kind": "drawing",
+      "name": "Pens",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 1.0,
+      "comment": null,
+      "order_index": 0,
+      "strokes": [
+        {
+          "color": [
+            240,
+            80,
+            80,
+            255
+          ],
+          "width": 3.0,
+          "style": "solid",
+          "fill_rule": 0,
+          "path": [
+            [
+              "move",
+              0.0,
+              0.0
+            ],
+            [
+              "line",
+              120.0,
+              0.0
+            ]
+          ],
+          "extra_point": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "color": [
+            80,
+            200,
+            120,
+            200
+          ],
+          "width": 2.0,
+          "style": "dashed",
+          "fill_rule": 0,
+          "path": [
+            [
+              "move",
+              0.0,
+              30.0
+            ],
+            [
+              "line",
+              120.0,
+              30.0
+            ]
+          ],
+          "extra_point": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "color": [
+            80,
+            140,
+            240,
+            255
+          ],
+          "width": 4.0,
+          "style": "arrow",
+          "fill_rule": 0,
+          "path": [
+            [
+              "move",
+              0.0,
+              60.0
+            ],
+            [
+              "line",
+              120.0,
+              90.0
+            ]
+          ],
+          "extra_point": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "color": [
+            250,
+            220,
+            60,
+            255
+          ],
+          "width": 2.0,
+          "style": "solid",
+          "fill_rule": 0,
+          "path": [
+            [
+              "move",
+              30.0,
+              0.0
+            ],
+            [
+              "curve",
+              30.0,
+              16.568542494
+            ],
+            [
+              "curve_data",
+              16.568542494,
+              30.0
+            ],
+            [
+              "curve_data",
+              0.0,
+              30.0
+            ],
+            [
+              "curve",
+              -16.568542494,
+              30.0
+            ],
+            [
+              "curve_data",
+              -30.0,
+              16.568542494
+            ],
+            [
+              "curve_data",
+              -30.0,
+              0.0
+            ],
+            [
+              "curve",
+              -30.0,
+              -16.568542494
+            ],
+            [
+              "curve_data",
+              -16.568542494,
+              -30.0
+            ],
+            [
+              "curve_data",
+              0.0,
+              -30.0
+            ],
+            [
+              "curve",
+              16.568542494,
+              -30.0
+            ],
+            [
+              "curve_data",
+              30.0,
+              -16.568542494
+            ],
+            [
+              "curve_data",
+              30.0,
+              0.0
+            ]
+          ],
+          "extra_point": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "drawing_order": [
+    0
+  ]
+}

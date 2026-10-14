@@ -1,5 +1,58 @@
 # Changelog
 
+## Unreleased — 2026-10-14
+
+- Add a single Windows EXE with a file picker for PureRef ↔ native FrameRef
+  file_version 2 conversion, separate outputs and conversion reports.
+- Correct top-left/centred origins and preserve affine world placement, image
+  payloads, grayscale, opacity and stacking. Document all simplifications.
+- Fix conversion of native PureRef notes whose text colour is NULL: use white
+  as the default, matching the preview renderer.
+- Verify the EXE with a real FrameRef board (30 items) and its PureRef version
+  (32 items), and convert all nine repository fixtures.
+- Build and attach the converter alongside the existing command-line EXE in
+  the release workflow.
+- Converter window redone in the dark Windows 11 (Fluent) style of the
+  calibration apps, in English: suggested non-clashing output names, a board
+  dropped on the icon opens directly, progress bar, green / yellow / red results
+  with grouped simplifications, plain explanations of known errors, "Show
+  result" and "Open report", sharp text on scaled screens, dark title bar, its
+  own icon and no console window (command-line use still prints its report).
+- Fix: notes converted to FrameRef lost their font size because the whole
+  HTML document was wrapped in a <div>; the text colour now goes into <body>.
+- Unnamed FrameRef items stay unnamed instead of being named after their type.
+- converter.py and frameref.py rewritten for readability; the converter's
+  output is identical on all 19 repository boards.
+- Native PureRef 2.1.3 opened, rendered and resaved boards converted
+  PureRef → FrameRef → PureRef (up to 2040 items) without warnings.
+- English instructions (CONVERTER.txt) replace CONVERTER-UA.txt.
+- 112 automated tests.
+
+## 0.3.0 — 2026-10-14
+
+- Fix the review findings: dashed-pen hang, legacy crop inherited through
+  reused IDs, perspective dropped by legacy save, stacking changed by group
+  flattening, comments lost by manifest import, NULL-blocked image clean-up,
+  false rich-text detection, crop/flip order dependence.
+- Match native PureRef 2.1.3 (Windows) for image format names, EXIF photo
+  sizes, stacking rules, group margins, note sizes and sort keys.
+- Readability: named constants, smaller functions, documented encodings.
+- Large boards through a temporary SQLite file (1.41 GiB with a 37 MB peak).
+- Rendering, thumbnails and scene rectangle on save.
+- Manifest schema 2 (lossless) with JSON Schema, FrameRef media mapping and a
+  sidecar file for host-only data.
+- Repair of damaged boards; linked-image relink/embed; lossless PNG shrinking;
+  merge, split, de-duplicate, arrange, search; new CLI commands.
+- Language-neutral conformance suite with PureRef resaves.
+- Standalone Windows executable built by the release workflow.
+- Charts and an HTML board report in the style of HDRDisplayCalibrate; a
+  benchmark with time and memory charts. The report's round-trip check found
+  that unstyled notes gained default colours on import; fixed.
+- Boards above 32 MB (was 128 MB) open through a temporary file: in memory
+  costs about five times the file size.
+- License changed from MIT to Apache-2.0 with a NOTICE file.
+- 99 automated tests.
+
 ## 0.2.0 — 2026-10-14
 
 - Separate version-independent scene model and geometry from storage codecs.
