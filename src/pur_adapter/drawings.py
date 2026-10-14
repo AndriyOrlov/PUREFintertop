@@ -1,6 +1,6 @@
 """Decode native pen strokes and replace them with positioned PNG assets.
 
-The renderer currently supports freehand strokes. Shapes and unknown encodings
+The renderer supports measured solid, dashed and arrow paths. Unknown encodings
 raise UnsupportedFormat, so compatibility export cannot silently erase them.
 """
 
@@ -13,6 +13,7 @@ import struct
 from PIL import Image, ImageDraw
 from .container import InvalidPurFile, UnsupportedFormat
 from . import qt
+from .core import finite
 
 
 @dataclass(frozen=True)
@@ -39,6 +40,36 @@ class Reader:
 
     def unpack(self, format):
         return struct.unpack(">" + format, self.take(struct.calcsize(">" + format)))
+
+
+def encode_strokes(strokes):
+    """Encode the measured version-100 RGB pen subset, validating before mutation."""
+    strokes = list(strokes)
+    if not 1 <= len(strokes) <= 10000:
+        raise ValueError("Provide between 1 and 10000 strokes")
+    name = b"QList<GraphicsDrawItem::Stroke>\0"
+    raw = bytearray(struct.pack(">IBI", 1024, 0, len(name)) + name + struct.pack(">I", len(strokes)))
+    for stroke in strokes:
+        if len(stroke.color) != 4 or any(not isinstance(c, int) or isinstance(c, bool) or not 0 <= c <= 255 for c in stroke.color):
+            raise ValueError("Stroke color must contain four 8-bit RGBA channels")
+        finite(width=stroke.width)
+        if not 0 < stroke.width <= 10000 or stroke.style not in (0, 1, 2) or stroke.fill_rule not in (0, 1):
+            raise ValueError("Unsupported stroke width, style or fill rule")
+        if not 1 <= len(stroke.elements) <= 100000 or len(stroke.extra_point) != 2:
+            raise ValueError("Invalid stroke geometry")
+        for kind, x, y in stroke.elements:
+            if kind not in (0, 1, 2, 3):
+                raise ValueError("Invalid painter path kind")
+            finite(x=x, y=y)
+        finite(x=stroke.extra_point[0], y=stroke.extra_point[1])
+        flatten_path(stroke.elements, 1)
+        red, green, blue, alpha = stroke.color
+        raw.extend(struct.pack(">BB5HdI", 100, 1, alpha * 257, red * 257, green * 257, blue * 257, 0,
+                               stroke.width, len(stroke.elements)))
+        for element in stroke.elements:
+            raw.extend(struct.pack(">Idd", *element))
+        raw.extend(struct.pack(">II2di", 0, stroke.fill_rule, *stroke.extra_point, stroke.style))
+    return bytes(raw)
 
 
 def read_color(reader):
@@ -157,11 +188,11 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         raise ValueError("scale must be finite, greater than 0 and at most 16")
     if not strokes or not any(s.elements for s in strokes):
         raise ValueError("Drawing has no visible strokes")
-    if any(s.style != 0 for s in strokes):
-        raise UnsupportedFormat("Shape rasterization is not implemented; freehand only")
+    if any(s.style not in (0, 1, 2) for s in strokes):
+        raise UnsupportedFormat("Unrecognized pen style")
     bounds = []
     for stroke in strokes:
-        radius = stroke.width / 2 + 1
+        radius = stroke.width * 4 + 1 if stroke.style == 2 else stroke.width / 2 + 1
         bounds.extend(
             (x - radius, y - radius, x + radius, y + radius)
             for _, x, y in stroke.elements
@@ -181,7 +212,12 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         for path in flatten_path(stroke.elements, scale):
             points = [((x - left) * scale, (y - top) * scale) for x, y in path]
             if len(points) > 1:
-                draw.line(points, fill=stroke.color, width=pen_width, joint="curve")
+                if stroke.style == 1:
+                    draw_dashes(draw, points, stroke.color, pen_width)
+                else:
+                    draw.line(points, fill=stroke.color, width=pen_width, joint="curve")
+                if stroke.style == 2:
+                    draw_arrow(draw, points, stroke.color, pen_width)
             for x, y in (points[0], points[-1]):
                 draw.ellipse(
                     (x - radius, y - radius, x + radius, y + radius), fill=stroke.color
@@ -194,6 +230,41 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         (left, top, left + width / scale, top + height / scale),
         (width, height),
     )
+
+
+def draw_dashes(draw, points, color, width):
+    on, period, phase = 3 * width, 5 * width, 0.0
+    for start, end in zip(points, points[1:]):
+        length = math.dist(start, end)
+        if length == 0:
+            continue
+        offset = 0.0
+        while offset < length:
+            position = phase % period
+            visible = position < on
+            remaining = (on if visible else period) - position
+            step = min(remaining, length - offset)
+            if step < 1e-9:
+                phase += 1e-8
+                continue
+            if visible:
+                segment = [tuple(a + (b - a) * t / length for a, b in zip(start, end))
+                           for t in (offset, offset + step)]
+                draw.line(segment, fill=color, width=width)
+            offset += step
+            phase += step
+
+
+def draw_arrow(draw, points, color, width):
+    tip = points[-1]
+    previous = next((point for point in reversed(points[:-1]) if point != tip), None)
+    if previous is None:
+        return
+    length = math.dist(previous, tip)
+    dx, dy = ((tip[i] - previous[i]) / length for i in (0, 1))
+    back = (tip[0] - 4 * width * dx, tip[1] - 4 * width * dy)
+    draw.polygon([tip, (back[0] - 2 * width * dy, back[1] + 2 * width * dx),
+                  (back[0] + 2 * width * dy, back[1] - 2 * width * dx)], fill=color)
 
 
 def rasterize_drawing(board, item_id, *, scale=4):
@@ -256,7 +327,7 @@ def rasterize_drawing(board, item_id, *, scale=4):
         "image_id": image_id,
         "local_bounds": bounds,
         "pixel_size": size,
-        "renderer": "Pillow freehand",
+        "renderer": "Pillow measured pen paths",
         "scale": scale,
         "approximate_antialiasing": True,
     }

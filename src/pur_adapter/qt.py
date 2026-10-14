@@ -20,12 +20,13 @@ def read_transform(value):
 
 
 def image_bounds(width, height):
+    return path_rect(-width / 2, -height / 2, width, height)
+
+
+def path_rect(x, y, width, height):
     points = [
-        (-width / 2, -height / 2),
-        (width / 2, -height / 2),
-        (width / 2, height / 2),
-        (-width / 2, height / 2),
-        (-width / 2, -height / 2),
+        (x, y), (x + width, y), (x + width, y + height),
+        (x, y + height), (x, y),
     ]
     raw = struct.pack(">IBI", 1024, 0, 13) + b"QPainterPath\0" + struct.pack(">I", 5)
     for i, (x, y) in enumerate(points):
@@ -38,6 +39,16 @@ def sort_order(index):
     raw = struct.pack(">IBI", 1024, 0, 12) + b"BigRational\0"
     raw += struct.pack(">7I", 1, 0, index + 1, 1, 1, 0, 1) + struct.pack(">I", 1)
     return raw.decode("latin1")
+
+
+def integer_order(value):
+    """Read only the measured positive-integer form, preserving other forms."""
+    raw = binary(value)
+    if len(raw) == 53:
+        rank = struct.unpack(">I", raw[-24:-20])[0]
+        if rank > 0 and raw == binary(sort_order(rank - 1)):
+            return rank
+    raise ValueError("Ordering needs an unsupported BigRational encoding")
 
 
 def rect(x, y, width, height):

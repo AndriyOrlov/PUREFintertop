@@ -153,7 +153,7 @@ def bake_image(board, item, opacity, changes):
         ),
     )
     board._conn.execute(
-        "UPDATE items_images SET image=? WHERE id=?", (new_image_id, item.id)
+        "UPDATE items_images SET image=?,playback_frame=0,playback_state=0,playback_speed=1 WHERE id=?", (new_image_id, item.id)
     )
     if frames == 1 and asset["format"].upper() != "PNG":
         changes.append(
@@ -170,6 +170,11 @@ def simplify_board(board, *, drawing_scale=4):
     simple = clone_board(board)
     changes = []
     try:
+        for item in simple.items:
+            if item.comment:
+                simple.add_note(item.comment, x=0, y=120, name="Comment: " + item.name, parent_id=item.id)
+                simple.update(item.id, comment=None)
+                changes.append({"item_id": item.id, "code": "comment_to_note"})
         for item in simple.items:
             if item.kind == "drawing":
                 details = rasterize_drawing(simple, item.id, scale=drawing_scale)

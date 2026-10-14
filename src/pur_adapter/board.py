@@ -6,6 +6,7 @@ import hashlib
 import io
 import math
 import os
+import re
 import sqlite3
 import struct
 import tempfile
@@ -379,6 +380,157 @@ class Board:
                 )
         self._dirty = True
         return self.get(item_id)
+
+    @staticmethod
+    def _color(value):
+        if not isinstance(value, str) or not re.fullmatch(r"#[0-9a-fA-F]{8}", value):
+            raise ValueError("color must be #AARRGGBB")
+        return value.lower()
+
+    def add_group(self, name="Group", *, x=0, y=0, parent_id=None,
+                  color="#ff202020", locked_mode=True):
+        color = self._color(color)
+        if not isinstance(locked_mode, bool):
+            raise ValueError("locked_mode must be boolean")
+        with self._conn:
+            item_id = self._add_item(name, x, y, parent_id)
+            self._conn.execute(
+                "INSERT INTO items_groups (id,lock_mode,background_color) VALUES (?,?,?)",
+                (item_id, locked_mode, color),
+            )
+        return item_id
+
+    def add_drawing(self, strokes, *, x=0, y=0, name="Drawing", parent_id=None):
+        from .drawings import encode_strokes
+        payload = encode_strokes(strokes)
+        with self._conn:
+            item_id = self._add_item(name, x, y, parent_id)
+            self._conn.execute(
+                "INSERT INTO items_drawings (id,strokes) VALUES (?,?)",
+                (item_id, payload.decode("latin1")),
+            )
+        return item_id
+
+    def drawing_strokes(self, item_id):
+        from .drawings import parse_strokes
+        if self.get(item_id).kind != "drawing":
+            raise ValueError("Expected a drawing item")
+        row = self._conn.execute("SELECT strokes FROM items_drawings WHERE id=?", (item_id,)).fetchone()
+        return parse_strokes(row[0])
+
+    def style_note(self, item_id, *, background_color="#ff202020",
+                   text_color="#ffffffff", width=-1, height=-1):
+        if self.get(item_id).kind != "note":
+            raise ValueError("Expected a note item")
+        background_color = self._color(background_color)
+        text_color = self._color(text_color)
+        finite(width=width, height=height)
+        if any(value != -1 and value <= 0 for value in (width, height)):
+            raise ValueError("Note dimensions must be positive or -1 for automatic")
+        fixed = struct.pack(">IB2d", 22, 0, width, height).decode("latin1")
+        with self._conn:
+            self._conn.execute(
+                "UPDATE items_notes SET fixed_size=?,background_color=?,text_color=? WHERE id=?",
+                (fixed, background_color, text_color, item_id),
+            )
+        self._dirty = True
+
+    def note_style(self, item_id):
+        if self.get(item_id).kind != "note":
+            raise ValueError("Expected a note item")
+        row = self._conn.execute("SELECT * FROM items_notes WHERE id=?", (item_id,)).fetchone()
+        raw = qt.binary(row["fixed_size"])
+        if len(raw) != 21 or raw[:5] != struct.pack(">IB", 22, 0):
+            raise UnsupportedFormat("Unrecognized note size encoding")
+        width, height = struct.unpack(">2d", raw[5:])
+        return dict(width=width, height=height, background_color=row["background_color"],
+                    text_color=row["text_color"], style=row["style"])
+
+    def ordered_children(self, parent_id=None):
+        rows = self._conn.execute("SELECT id,sort_order FROM items WHERE parent=?",
+                                  (-1 if parent_id is None else parent_id,)).fetchall()
+        return [row["id"] for row in sorted(rows, key=lambda row: qt.integer_order(row["sort_order"]))]
+
+    def reorder(self, item_ids):
+        ids = list(item_ids)
+        if not ids or len(ids) != len(set(ids)):
+            raise ValueError("Provide each sibling exactly once")
+        parent = self.get(ids[0]).parent_id
+        if any(self.get(item_id).parent_id != parent for item_id in ids):
+            raise ValueError("Ordering cannot mix parents")
+        siblings = {row[0] for row in self._conn.execute("SELECT id FROM items WHERE parent=?",
+                                                        (-1 if parent is None else parent,))}
+        if set(ids) != siblings:
+            raise ValueError("Provide each sibling exactly once")
+        with self._conn:
+            self._conn.executemany("UPDATE items SET sort_order=? WHERE id=?",
+                                   [(qt.sort_order(index), item_id) for index, item_id in enumerate(ids)])
+        self._dirty = True
+
+    def image_options(self, item_id):
+        if self.get(item_id).kind != "image":
+            raise ValueError("Expected an image item")
+        row = dict(self._conn.execute("SELECT * FROM items_images WHERE id=?", (item_id,)).fetchone())
+        row["image_transform"] = qt.read_transform(row["image_transform"])
+        row["image_bounds"] = qt.binary(row["image_bounds"]).hex()
+        return row
+
+    def configure_image(self, item_id, *, crop=None, flip_horizontal=None,
+                        flip_vertical=None, grayscale=None, bilinear=None,
+                        frame=None, speed=None):
+        item = self.get(item_id)
+        if item.kind != "image":
+            raise ValueError("Expected an image item")
+        asset = self._conn.execute("SELECT * FROM images WHERE id=?", (item.image_id,)).fetchone()
+        row = self._conn.execute("SELECT * FROM items_images WHERE id=?", (item_id,)).fetchone()
+        updates = {}
+        if crop is not None:
+            if not isinstance(crop, (tuple, list)) or len(crop) != 4:
+                raise ValueError("crop must contain x, y, width, height")
+            x, y, width, height = crop
+            finite(x=x, y=y, width=width, height=height)
+            if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > asset["width"] or y + height > asset["height"]:
+                raise ValueError("Crop must fit inside the bitmap")
+            updates["image_bounds"] = qt.path_rect(x - asset["width"] / 2, y - asset["height"] / 2, width, height)
+        matrix = qt.read_transform(row["image_transform"])
+        if flip_horizontal is not None or flip_vertical is not None:
+            if any(abs(matrix[i]) > 1e-12 for i in (1, 2, 3, 5)) or matrix[8] != 1 or matrix[0] == 0 or matrix[4] == 0:
+                raise UnsupportedFormat("Flip requires an axis-aligned image transform")
+            for value, axis, indices in ((flip_horizontal, 0, (0, 3, 6)), (flip_vertical, 4, (1, 4, 7))):
+                if value is not None:
+                    if not isinstance(value, bool):
+                        raise ValueError("flip must be boolean")
+                    if (matrix[axis] < 0) != value:
+                        for index in indices:
+                            matrix[index] *= -1
+            updates["image_transform"] = qt.transform(matrix)
+        flags = row["flags"]
+        for value, bit in ((grayscale, 2), (bilinear, 1)):
+            if value is not None:
+                if not isinstance(value, bool):
+                    raise ValueError("image flags must be boolean")
+                flags = flags | bit if value else flags & ~bit
+        if grayscale is not None or bilinear is not None:
+            updates["flags"] = flags
+        if frame is not None:
+            if not isinstance(frame, int) or isinstance(frame, bool) or frame < 0:
+                raise ValueError("frame must be a nonnegative integer")
+            if asset["data"] is None:
+                raise UnsupportedFormat("Frame selection requires an embedded image")
+            with Image.open(io.BytesIO(asset["data"])) as image:
+                if frame >= getattr(image, "n_frames", 1):
+                    raise ValueError("frame is outside the animation")
+            updates["playback_frame"] = frame
+        if speed is not None:
+            finite(speed=speed)
+            if speed <= 0:
+                raise ValueError("speed must be positive")
+            updates["playback_speed"] = speed
+        if updates:
+            columns = ",".join(f"{key}=?" for key in updates)
+            with self._conn:
+                self._conn.execute(f"UPDATE items_images SET {columns} WHERE id=?", (*updates.values(), item_id))
+            self._dirty = True
 
     def duplicate(self, item_id, **properties):
         self.get(item_id)
