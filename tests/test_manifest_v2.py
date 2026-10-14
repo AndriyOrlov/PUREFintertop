@@ -166,6 +166,16 @@ class ManifestVersion2(unittest.TestCase):
             self.assertEqual(list(data), [video])
             self.assertEqual(report["stale"][0]["item_id"], note)
 
+    def test_note_without_style_stays_without_style(self):
+        # Found by the board report: empty colours must not become explicit ones.
+        with Board() as board:
+            note = board.add_note("plain")
+            before = board.note_style(note)
+            export_manifest(board, self.folder / "package", scene_preview=False)
+        restored, _ = import_manifest(self.folder / "package/board.json")
+        with restored:
+            self.assertEqual(restored.note_style(note), before)
+
     def test_version_one_documents_still_import(self):
         self.picture("old.png")
         manifest = {"schema_version": 1, "items": [

@@ -28,7 +28,7 @@ first, then `load` and `save` that path.
 | `z` on resave | Renumbered, drawing order unchanged | Conformance ignores `z` after a native resave |
 | `sort_order` on resave | Rewritten as fractions 1/1, 1/2, 1/3 … stored as `[1, 0, numerator, denominator, 1, 0, 1, 1]`; the new order does not simply follow the old one | Keys are read as fractions; what PureRef uses them for is not established |
 | Feature boards of the conformance suite | Every case opens and resaves without warnings and with the same scene | `conformance/native-resave-results.json` |
-| Large boards | A 1.41 GiB board opens, edits and saves through the adapter with a 37 MB peak working set | Boards above 128 MiB use a temporary SQLite file |
+| Large boards | A 1.49 GB board opens, edits and saves through the adapter with a 34 MB peak working set; in memory would cost about five times the file size (`docs/benchmarks.json`) | Boards above 32 MiB use a temporary SQLite file |
 
 The checks use `pur_adapter.pureref_app` (a thin wrapper around PureRef's
 command line) and `tools/build_conformance.py --native`.

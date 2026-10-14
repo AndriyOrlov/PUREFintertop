@@ -5,7 +5,7 @@
 | Operation | Result |
 |---|---|
 | `Board(use_temp_file=False)` | Empty modern board; `use_temp_file=True` keeps the database on disk |
-| `Board.load(path, max_bytes=16 GiB, in_memory_limit=128 MiB)` | Modern or legacy board; larger files use a temporary SQLite file |
+| `Board.load(path, max_bytes=16 GiB, in_memory_limit=32 MiB)` | Modern or legacy board; larger files use a temporary SQLite file |
 | `board.items` | Immutable snapshots in ID order |
 | `board.get(item_id)` | One snapshot; a missing ID raises KeyError |
 | `board.transform_matrix(item_id)` | All nine local matrix numbers, including perspective |
@@ -83,6 +83,8 @@ ID, parent, opacity, lock, z and the world positions of its children.
 
 | Module | Functions |
 |---|---|
+| `report` | `board_report(board)`, `write_board_report(board, path)`: HTML report with charts |
+| `charts` | `line_chart`, `bar_chart`, `share_bar`: SVG charts in the HDRDisplayCalibrate style |
 | `render` | `render_scene(board, width, height)`, `render_thumbnail(board)`, `scene_rect(board)`, `item_world_bounds(board)` |
 | `scene` | `drawing_order(board)`, `world_properties(board)` |
 | `manifest` | `export_manifest(board, folder, extensions=None)`, `import_manifest(path_or_dict, strict=False)` |

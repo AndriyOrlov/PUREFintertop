@@ -27,7 +27,7 @@ Status of the work proposed after the 2026-10-14 review, as of version 0.3.0.
 | 3 | FrameRef media mapping (video, PDF, arrows, links, audio) | Done in the manifest importer, with a report |
 | 4 | Keep FrameRef-only data | Done: sidecar file. Native PureRef deletes unknown tables, so the data cannot live inside the `.pur` |
 | 5 | Thumbnail and view state | Thumbnail and `scene_rect` done. Scroll/zoom (`view_transform`) are left as stored; PureRef sets them per window |
-| 6 | Large boards | Done: temporary-file database above 128 MiB, streamed checksum and writing |
+| 6 | Large boards | Done: temporary-file database above 32 MiB, streamed checksum and writing; benchmark charts in the README |
 | 7 | Language-neutral conformance suite | Done: `conformance/` with native resaves |
 | 8 | Standalone executable | Done: PyInstaller build in the release workflow |
 | 9 | Repair damaged boards | Done: checksum repair, row salvage, picture carving |

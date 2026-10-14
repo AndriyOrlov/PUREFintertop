@@ -365,13 +365,7 @@ class _Importer:
                 self.changes.append({"item_id": item["id"], "code": "plain_text_to_html"})
             new_id = self.board.add_note(text, name=name or "Note", **position)
             if item.get("style"):
-                style = item["style"]
-                options = {key: style[key] for key in ("width", "height") if key in style}
-                for key in ("background_color", "text_color"):
-                    if style.get(key):
-                        options[key] = style[key]
-                if options:
-                    self.board.style_note(new_id, **options)
+                self.apply_note_style(item["style"], new_id)
             return new_id
         if kind == "group":
             style = item.get("style") or {}
@@ -492,6 +486,30 @@ class _Importer:
             self.board._conn.execute(
                 "UPDATE items_images SET image_bounds=?, image_transform=?, flags=? WHERE id=?",
                 (bounds, transform, flags, new_id),
+            )
+
+    def apply_note_style(self, style, new_id):
+        """Store the style exactly: empty colours mean "PureRef default" and
+        must not be replaced by explicit colours."""
+        width, height = style.get("width", -1), style.get("height", -1)
+        finite(width=width, height=height)
+        if any(value != -1 and value <= 0 for value in (width, height)):
+            raise ValueError("Note dimensions must be positive or -1 for automatic")
+        colors = {}
+        for key in ("background_color", "text_color"):
+            value = style.get(key)
+            colors[key] = self.board._color(value) if value else value
+        if colors["background_color"] is None:
+            colors["background_color"] = ""  # what PureRef stores for "default"
+        note_style = style.get("style", 0)
+        if not isinstance(note_style, int) or isinstance(note_style, bool):
+            raise ValueError("Note style must be an integer")
+        with self.board._conn:
+            self.board._conn.execute(
+                "UPDATE items_notes SET fixed_size=?, background_color=?, text_color=?,"
+                " style=? WHERE id=?",
+                (qt.size(width, height), colors["background_color"], colors["text_color"],
+                 note_style, new_id),
             )
 
     def apply_common(self, item, new_id):

@@ -90,6 +90,13 @@ def parser():
     arrange.add_argument("--gap", type=float, default=10)
     arrange.add_argument("--sort", choices=("name", "height", "none"), default="name")
 
+    report = commands.add_parser("report", help="Write an HTML report with charts")
+    report.add_argument("input")
+    report.add_argument("output")
+    report.add_argument("--no-round-trip", action="store_true",
+                        help="skip the host round-trip check (faster on huge boards)")
+    report.add_argument("--overwrite", action="store_true")
+
     search = commands.add_parser("search", help="Find items by name, comment or text")
     search.add_argument("input")
     search.add_argument("query")
@@ -219,6 +226,12 @@ def run(args):
             image_format = "JPEG" if output.suffix.lower() in (".jpg", ".jpeg") else "PNG"
             picture.convert("RGB").save(output, format=image_format)
             return {"output": str(output), "size": list(picture.size)}
+        if args.command == "report":
+            from .report import write_board_report
+
+            path = write_board_report(board, args.output, overwrite=args.overwrite,
+                                      check_round_trip=not args.no_round_trip)
+            return {"output": str(path)}
         if args.command == "split":
             from .operations import split_by_group
 

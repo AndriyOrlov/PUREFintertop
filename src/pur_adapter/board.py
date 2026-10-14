@@ -30,7 +30,7 @@ from .core import Item, finite
 from .images import describe_image_file
 
 DEFAULT_MAX_BYTES = 16 * 1024**3  # refuse files above 16 GiB unless asked
-IN_MEMORY_LIMIT = 128 * 1024**2  # larger boards are unpacked to a temp file
+IN_MEMORY_LIMIT = 32 * 1024**2  # larger boards use a temp file (in memory costs ~5x the size)
 
 LEGACY_MAGIC = b"\0\0\0\x08"  # QString length of "1.10" in UTF-16
 MODERN_MAGIC = b"\0\0\0\x06"  # QString length of "2.1"
