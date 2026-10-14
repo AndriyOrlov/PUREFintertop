@@ -258,28 +258,42 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
 
 
 def draw_dashes(draw, points, color, width):
-    on, period, phase = 3 * width, 5 * width, 0.0
+    """Draw a dashed polyline: a dash of 3 pen widths, then a gap of 2.
+
+    The dash pattern continues across corners, like Qt's DashLine.
+    """
+    dash_length = 3 * width
+    cycle_length = 5 * width  # one dash plus one gap
+    position_in_cycle = 0.0
+    tiny = 1e-9
+
+    def point_along(start, end, segment_length, distance):
+        fraction = distance / segment_length
+        return tuple(a + (b - a) * fraction for a, b in zip(start, end))
+
     for start, end in zip(points, points[1:]):
-        length = math.dist(start, end)
-        if length == 0:
-            continue
-        offset = 0.0
-        while offset < length:
-            position = phase % period
-            visible = position < on
-            remaining = (on if visible else period) - position
-            step = min(remaining, length - offset)
-            if step < 1e-9:
-                phase += 1e-8
-                continue
-            if visible:
-                segment = [
-                    tuple(a + (b - a) * t / length for a, b in zip(start, end))
-                    for t in (offset, offset + step)
-                ]
-                draw.line(segment, fill=color, width=width)
-            offset += step
-            phase += step
+        segment_length = math.dist(start, end)
+        travelled = 0.0
+        while segment_length - travelled > tiny:
+            in_dash = position_in_cycle < dash_length
+            phase_end = dash_length if in_dash else cycle_length
+            step = min(phase_end - position_in_cycle, segment_length - travelled)
+            if in_dash:
+                draw.line(
+                    [
+                        point_along(start, end, segment_length, travelled),
+                        point_along(start, end, segment_length, travelled + step),
+                    ],
+                    fill=color,
+                    width=width,
+                )
+            travelled += step
+            if step >= phase_end - position_in_cycle:
+                # Snap exactly onto the next dash/gap boundary. Accumulating
+                # floating-point steps instead could stall just short of it.
+                position_in_cycle = 0.0 if phase_end == cycle_length else dash_length
+            else:
+                position_in_cycle += step
 
 
 def draw_arrow(draw, points, color, width):

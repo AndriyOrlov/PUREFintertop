@@ -120,7 +120,9 @@ def import_manifest(manifest, *, base_dir=None):
                 board._conn.commit()
             id_map[item["id"]] = new_id
             updates = {
-                key: item[key] for key in ("opacity", "locked", "z") if key in item
+                key: item[key]
+                for key in ("opacity", "locked", "z", "comment")
+                if key in item
             }
             if updates:
                 board.update(new_id, **updates)

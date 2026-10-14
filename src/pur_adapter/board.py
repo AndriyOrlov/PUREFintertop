@@ -2,6 +2,7 @@
 
 from importlib.resources import files
 from pathlib import Path
+import copy
 import hashlib
 import io
 import math
@@ -19,6 +20,7 @@ from .container import (
 )
 from . import qt
 from .core import Item, finite
+from .images import describe_image_file
 
 
 def atomic_write(path, data, overwrite=False):
@@ -70,6 +72,7 @@ class Board:
             "metadata",
         }
         if not required <= names:
+            self._conn.close()
             raise UnsupportedFormat("Missing native scene tables")
         expected_columns = {
             "items": {
@@ -204,6 +207,18 @@ class Board:
             row["comment"],
         )
 
+    def transform_matrix(self, item_id):
+        """All nine local transform numbers, including perspective terms.
+
+        `Item.matrix` only shows the 2x2 part; use this for lossless reads.
+        """
+        row = self._conn.execute(
+            "SELECT transform FROM items WHERE id=?", (item_id,)
+        ).fetchone()
+        if row is None:
+            raise KeyError(item_id)
+        return qt.read_transform(row[0])
+
     def _next_id(self, table="items"):
         return self._conn.execute(
             f"SELECT COALESCE(MAX(id),-1)+1 FROM {table}"
@@ -233,9 +248,8 @@ class Board:
     def add_image(self, path, *, x=0, y=0, name=None, parent_id=None):
         path = Path(path)
         data = path.read_bytes()
-        with Image.open(io.BytesIO(data)) as image:
-            width, height = image.size
-            fmt = image.format
+        # Displayed size and format spelling match what PureRef itself stores.
+        width, height, fmt = describe_image_file(data, path.suffix)
         checksum = hashlib.md5(data).hexdigest()
         row = self._conn.execute(
             "SELECT id FROM images WHERE checksum=? AND data=?", (checksum, data)
@@ -557,11 +571,12 @@ class Board:
                 or y + height > asset["height"]
             ):
                 raise ValueError("Crop must fit inside the bitmap")
-            updates["image_bounds"] = qt.path_rect(
-                x - asset["width"] / 2, y - asset["height"] / 2, width, height
-            )
         matrix = qt.read_transform(row["image_transform"])
-        if flip_horizontal is not None or flip_vertical is not None:
+        # PureRef stores the crop in item space, after the flip. Keep the crop
+        # attached to the same bitmap pixels, whatever order options are set in.
+        crop_before_flip = self._crop_in_bitmap_pixels(row["image_bounds"], matrix)
+        flipping = flip_horizontal is not None or flip_vertical is not None
+        if flipping:
             if (
                 any(abs(matrix[i]) > 1e-12 for i in (1, 2, 3, 5))
                 or matrix[8] != 1
@@ -580,6 +595,11 @@ class Board:
                         for index in indices:
                             matrix[index] *= -1
             updates["image_transform"] = qt.transform(matrix)
+        if crop is None and flipping:
+            crop = crop_before_flip  # same bitmap pixels, now seen mirrored
+        if crop is not None:
+            bitmap_to_item = matrix
+            updates["image_bounds"] = qt.path_rect(*self._map_rect(crop, bitmap_to_item))
         flags = row["flags"]
         for value, bit in ((grayscale, 2), (bilinear, 1)):
             if value is not None:
@@ -611,6 +631,30 @@ class Board:
                 )
             self._dirty = True
 
+    @staticmethod
+    def _map_rect(rect, matrix):
+        """Map an (x, y, width, height) rectangle through an axis-aligned matrix."""
+        if matrix[1] or matrix[3] or matrix[2] or matrix[5]:
+            raise UnsupportedFormat("Crop requires an axis-aligned image transform")
+        x, y, width, height = rect
+        corners = [
+            qt.map_point(matrix, corner_x, corner_y)
+            for corner_x, corner_y in ((x, y), (x + width, y + height))
+        ]
+        left, right = sorted(point[0] for point in corners)
+        top, bottom = sorted(point[1] for point in corners)
+        return left, top, right - left, bottom - top
+
+    def _crop_in_bitmap_pixels(self, image_bounds, image_matrix):
+        """Return the visible part of the bitmap as (x, y, width, height).
+
+        Returns None when the stored bounds are not a simple rectangle.
+        """
+        bounds = qt.read_path_rect(image_bounds)
+        if bounds is None:
+            return None
+        return self._map_rect(bounds, qt.inverse(image_matrix))
+
     def duplicate(self, item_id, **properties):
         self.get(item_id)
         new_id = self._next_id()
@@ -640,6 +684,9 @@ class Board:
                 )
             if properties:
                 self.update(new_id, **properties)
+        if self._legacy and item_id in self._legacy["items"]:
+            # Keep legacy-only details such as the crop on the copy as well.
+            self._legacy["items"][new_id] = copy.deepcopy(self._legacy["items"][item_id])
         self._dirty = True
         return new_id
 
@@ -662,9 +709,16 @@ class Board:
                     "items",
                 ):
                     self._conn.execute(f"DELETE FROM {table} WHERE id=?", (key,))
+            # NOT EXISTS (unlike NOT IN) still works when some image reference is NULL.
             self._conn.execute(
-                "DELETE FROM images WHERE id NOT IN (SELECT image FROM items_images)"
+                "DELETE FROM images WHERE NOT EXISTS "
+                "(SELECT 1 FROM items_images WHERE items_images.image = images.id)"
             )
+        if self._legacy:
+            # IDs are reused by later additions; a new item must not inherit an
+            # old legacy record (and with it the old image's crop).
+            for removed_id in ids:
+                self._legacy["items"].pop(removed_id, None)
         self._dirty = True
 
     def save(self, path, *, overwrite=False, format=None):

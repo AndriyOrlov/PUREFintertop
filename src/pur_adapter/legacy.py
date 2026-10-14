@@ -12,6 +12,7 @@ from ._vendor.purformat.purformat import PurFile
 from ._vendor.purformat.items import PurImage, PurGraphicsImageItem, PurGraphicsTextItem
 from .container import InvalidPurFile, UnsupportedFormat
 from . import qt
+from .images import open_as_displayed
 
 
 def load_legacy(path, data):
@@ -114,6 +115,11 @@ def dump_legacy(board):
     for item in items:
         if item.comment:
             raise UnsupportedFormat("Comments need explicit compatibility export")
+        if qt.has_perspective(board.transform_matrix(item.id)):
+            # Legacy records only hold a 2x2 matrix and a position.
+            raise UnsupportedFormat(
+                f"Item {item.id}: legacy output cannot keep a perspective transform"
+            )
         if board.format == "modern" and item.kind == "image":
             row = board._conn.execute(
                 "SELECT * FROM items_images WHERE id=?", (item.id,)
@@ -158,20 +164,18 @@ def dump_legacy(board):
             ).fetchone()
             if row["data"] is None:
                 raise UnsupportedFormat("Editing legacy linked images is not supported")
-            node = (
-                copy.deepcopy(old)
-                if isinstance(old, PurGraphicsImageItem)
-                else PurGraphicsImageItem()
-            )
+            if isinstance(old, PurGraphicsImageItem):
+                node = copy.deepcopy(old)  # keeps the legacy crop of this item
+            else:
+                node = PurGraphicsImageItem()
+                node.reset_crop(row["width"], row["height"])
             node.source = row["source"] or "Embedded"
             node.name = item.name
-            if old is None:
-                node.reset_crop(row["width"], row["height"])
             if item.image_id not in assets:
                 asset = PurImage()
                 blob = bytes(row["data"])
                 if not blob.startswith(b"\x89PNG\r\n\x1a\n"):
-                    with Image.open(io.BytesIO(blob)) as image:
+                    with open_as_displayed(blob) as image:
                         target = io.BytesIO()
                         image.convert("RGBA").save(target, format="PNG")
                         blob = target.getvalue()
