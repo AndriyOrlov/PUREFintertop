@@ -43,4 +43,4 @@ Status of the work proposed after the 2026-10-14 review, as of version 0.3.0.
 - The meaning of PureRef's rewritten sort keys.
 - A Qt-accurate renderer, if a host needs pixel-exact previews; FrameRef can
   use its own renderer with the exported data instead.
-- Agreement with Polygonflow on the host API.
+- Verify generated boards by opening them in the installed FrameRef and PureRef.

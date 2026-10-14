@@ -76,5 +76,4 @@ Pillow approximates native Qt pen antialiasing and dashed/arrow rendering.
 This case exercises the implemented persistent scene features. It does not
 certify every PureRef GUI command, every legacy record, linked-resource recovery,
 all metadata/view state or future versions. Crop/flip/grayscale/filter/frame APIs
-have separate tests. Real user boards and Claude review remain required before
-the Polygonflow proposal; no proposal has been sent.
+have separate tests. Testing on real user boards is the next step.

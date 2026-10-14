@@ -1,206 +1,184 @@
-# PureRef Interop
-
-A local document API and compatibility bridge by **Andrii Orlov / Dead_Sue**.
-It reads, creates, edits and repairs `.pur` boards without launching PureRef.
-Covered releases: **1.10.4, 1.11.1, 2.0.3 and 2.1.3** (Linux research builds,
-plus the Windows 2.1.3 build for the 0.3 checks).
-
-This is a prototype for real-board testing and a future integration proposal to
-Polygonflow. It is not an installed FrameRef plugin. The original manifest bridge
-uses neutral JSON plus assets; the standalone converter additionally reads and
-writes native FrameRef JSON boards (file_version 2). A language-neutral
-[conformance suite](conformance/README.md) lets a host check its PureRef reader.
-
-## Validation and research
-
-- **1000-image acceptance board**: numbered images with captions in ten groups,
-  all 1000 shuffled and restored exactly; PureRef 2.0.3 and 2.1.3 render the
-  original and the restored board pixel for pixel the same.
-- **Native checks on Windows 2.1.3**: thumbnails, scene rectangle, image format
-  names, EXIF photos, stacking rules, crops with flips, note sizes, what PureRef
-  changes when it resaves a board ([results](docs/NATIVE_WINDOWS.md)).
-- **Conformance suite**: ten boards with expected descriptions, seven damaged
-  files with expected errors, and PureRef resaves showing the scene survives.
-- **Large boards**: a 1.49 GB board opens, is edited and saved with a 34 MB
-  peak memory use (see the charts below).
-- The automated suite passes **112 tests**.
-
-More: [1000-image boards](docs/THOUSAND_BOARD.md),
-[common scene core](docs/CORE.md),
-[format evolution](docs/research/VERSION_RESEARCH.md),
-[roadmap status](docs/ROADMAP.md).
-
-![1000-image board in native PureRef](docs/screenshots/thousand-ordered-ui-2.1.3.png)
-
-## Charts and reports
-
-`pur-adapter report board.pur report.html` writes a self-contained page in the
-style of the HDRDisplayCalibrate verification report: graded summary tiles
-(green / yellow / red), image sizes as bars tinted with each image's average
-colour, pixel dimensions against Full HD and 4K, data by format, group sizes,
-a preview and a table. The **host round trip** tile exports the board to the
-FrameRef JSON and back and lists anything that did not survive.
-
 <p align="center">
-  <img src="docs/screenshots/board-report.png" width="90%" alt="Board report">
+  <img src="docs/banner.png" alt="PureRef Interop: open, edit, convert and repair .pur boards without PureRef">
 </p>
 
-Open and save time, and peak memory, against board size
-(`python tools/benchmark.py`, Windows 11, Python 3.12). Above 32 MB boards are
-opened through a temporary file, so memory stays flat:
+<h3 align="center">Open, edit, convert and repair PureRef boards without PureRef</h3>
+
+<p align="center">
+A Python library, a command-line tool and a one-click Windows converter for PureRef <code>.pur</code> files:
+read and write boards, move them to and from <b>FrameRef</b>, recover damaged files and see what is inside
+a board at a glance.
+</p>
+
+<p align="center">
+  <a href="https://github.com/AndriyOrlov/PUREFintertop/releases/tag/converter-2026-10-14"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-Windows%2010%20%7C%2011-0078D4?style=for-the-badge&logo=windows11&logoColor=white"></a>
+  <a href="https://send.monobank.ua/jar/7AVDtzYypi"><img alt="Support the project" src="https://img.shields.io/badge/Support-%E2%9D%A4%20Monobank-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white"></a>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
+  <img alt="Python 3.11+" src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white">
+  <img alt="PureRef 1.10 to 2.1.3" src="https://img.shields.io/badge/PureRef-1.10%20%E2%80%93%202.1.3-ffc83d">
+  <img alt="FrameRef file version 2" src="https://img.shields.io/badge/FrameRef-file__version%202-60cdff">
+  <img alt="112 tests" src="https://img.shields.io/badge/tests-112%20passing-6ccb5f">
+</p>
+
+<h4 align="center">
+  <a href="#-features">Features</a> ·
+  <a href="#-screenshots">Screenshots</a> ·
+  <a href="#-install">Install</a> ·
+  <a href="#-converter">Converter</a> ·
+  <a href="#-python-and-command-line">Python and CLI</a> ·
+  <a href="#-tested-against-pureref">Tested</a> ·
+  <a href="#%EF%B8%8F-support">Support</a>
+</h4>
+
+> [!NOTE]
+> **Preview.** Every feature is covered by automated tests and checked against the real PureRef 2.1.3
+> (and the Linux builds of 1.10.4, 1.11.1 and 2.0.3). Testing on large real-world boards is in progress:
+> work on copies and keep the originals.
+
+## ✨ Features
+
+| | |
+|---|---|
+| 🔁 **PureRef ⇄ FrameRef** | One-click Windows converter in both directions for native FrameRef boards (file_version 2). Positions, rotation, mirroring, opacity, layer order, locks, grayscale and notes carry over; anything simplified is listed in a report. |
+| 📂 **Read and write `.pur`** | PureRef 2.x (format 2.1) and 1.x (format 1.10): images, rich-text notes, groups, pen drawings, comments, crops, flips, filters, GIF frames. An unedited board is saved byte for byte, and data a newer PureRef adds is kept. |
+| 📊 **Board report** | One HTML page per board: graded summary tiles, image sizes tinted with each image's colour, pixel sizes against Full HD and 4K, formats, groups, a preview and a lossless round-trip check. |
+| 🩹 **Repair** | A broken checksum is fixed outright, a damaged database is salvaged row by row, and as a last resort pictures are cut straight out of the file. |
+| 🔗 **Linked images** | Find images that are only file paths, relink moved files (checksum-verified) and embed them so a board works on any PC. |
+| 🧰 **Board tools** | Merge, split by group, remove duplicate images, arrange in a grid, search names, comments and note text, shrink PNGs without quality loss. |
+| 🖼️ **Render and thumbnails** | Draws whole boards to PNG; an edited board gets a fresh 256×256 thumbnail, the way PureRef writes it. |
+| 🐘 **Huge boards** | Boards over 32 MB are worked through a temporary file: a 1.49 GB board opens, edits and saves with a 34 MB memory peak. |
+| 🔄 **Exchange format** | A documented JSON + assets package with a JSON Schema for any app that wants to read or write PureRef boards, plus a language-neutral test suite for its own reader. |
+| 🛡️ **Safe by design** | Originals are never changed, outputs are never overwritten, and unknown or suspicious files are refused instead of guessed. |
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/converter.png" width="49%" alt="PureRef to FrameRef converter after converting a 1000-image board">
+  <img src="docs/screenshots/board-report.png" width="49%" alt="Board report with graded tiles and charts">
+</p>
 
 <p align="center">
   <img src="docs/charts/speed.svg" width="49%" alt="Open and save time against board size">
-  <img src="docs/charts/memory.svg" width="49%" alt="Peak memory against board size">
+  <img src="docs/charts/memory.svg" width="49%" alt="Peak memory against board size: flat with a temporary file">
 </p>
+<p align="center"><sub>Open/save time and peak memory against board size (<code>tools/benchmark.py</code>, Windows 11).</sub></p>
 
-## Windows converter
+## 📦 Install
 
-[PureRef ⇄ FrameRef converter](docs/CONVERTER.md): one EXE that converts
-boards both ways between PureRef and native FrameRef (file_version 2). Choose a
-board (or drop it on the program icon), check the suggested output and click
-**Convert**; the result lists every simplification, grouped. FrameRef output is
-a folder with `main.frameref` and `content/`; move that folder together.
+**Converter, no Python needed:** download `PureRef-FrameRef-Converter.exe` from
+[Releases](https://github.com/AndriyOrlov/PUREFintertop/releases/tag/converter-2026-10-14) and run it. `pur-adapter.exe` is the full command-line tool in one file.
 
-<p align="center">
-  <img src="docs/screenshots/converter.png" width="60%" alt="PureRef ⇄ FrameRef converter">
-</p>
-
-## Install
-
-**Without Python:** download `pur-adapter.exe` from a GitHub release (built by
-`.github/workflows/release.yml`) and use the commands below.
-
-**With Python** 3.11 or newer (3.12 is tested). The only external runtime
-package is Pillow; SQLite is part of Python.
+**Python library** (3.11 or newer; the only dependency is Pillow):
 
 ```powershell
 py -3.12 -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 .venv\Scripts\python -m pip install --no-deps .
-.venv\Scripts\python -m unittest discover -s tests -v
 ```
 
-On Linux/macOS use `python3` and `.venv/bin/python`. See
-[dependencies](docs/DEPENDENCIES.md) for runtime versus research tools.
+On Linux and macOS use `python3` and `.venv/bin/python`.
 
-## Python API
+## 🔁 Converter
+
+1. Run `PureRef-FrameRef-Converter.exe`, or drop a `.pur` / `main.frameref` onto its icon.
+2. **Choose file…** picks the board; the direction and a new output name are chosen for you.
+3. **Convert.** Green means nothing was simplified, yellow lists the simplifications, red explains why a
+   board could not be converted. The original is never touched.
+
+A FrameRef board is a folder (`main.frameref` + `content/`): move it as a whole. Details, limits and the
+command-line form are in [docs/CONVERTER.md](docs/CONVERTER.md).
+
+## 🐍 Python and command line
 
 ```python
 from pur_adapter import Board
 
-with Board() as board:
+with Board.load("board.pur") as board:
     image_id = board.add_image("reference.png", x=100, y=200)
-    board.add_note("Check the indirect lighting", x=450, y=100)
-    board.save("created.pur")
-
-with Board.load("created.pur") as board:
-    board.update(image_id, x=180, rotation=15, scale=0.8, comment="hero shot")
+    board.update(image_id, rotation=15, scale=0.8, comment="hero shot")
     board.configure_image(image_id, crop=(0, 0, 200, 120), flip_horizontal=True)
-    print(board.image_settings(image_id))
     board.save("edited.pur")
 ```
 
-`x` and `y` are item-local coordinates, relative to the parent when present.
-Images are centred on the item origin. Positive y points down. `get(id)` returns
-an immutable snapshot; use `update()` for changes. Saving an edited board also
-refreshes its 256×256 thumbnail, as PureRef does.
-
-Exchange with a host such as FrameRef:
-
-```python
-from pur_adapter.manifest import export_manifest, import_manifest
-from pur_adapter.sidecar import read_sidecar, write_sidecar
-
-with Board.load("existing.pur") as board:          # PureRef -> host
-    extensions, _ = read_sidecar(board, "existing.pur")
-    export_manifest(board, "package", extensions=extensions)
-
-board, report = import_manifest("package/board.json")  # host -> PureRef
-with board:
-    board.save("from-host.pur")
-    write_sidecar(board, "from-host.pur", report["extensions"], host="FrameRef")
-```
-
-See the [integration contract](docs/INTEGRATION.md) and the
-[API reference](docs/API.md).
-
-## Command line
-
 ```powershell
-pur-adapter inspect board.pur
-pur-adapter render board.pur preview.png --width 2048
-pur-adapter report board.pur report.html                    # charts, tiles, round-trip check
-pur-adapter create package/board.json created.pur          # host JSON -> .pur
-pur-adapter export-package board.pur package                # .pur -> host JSON
-pur-adapter patch board.pur edited.pur --item 0 --set '{"x":200,"rotation":15}'
-pur-adapter export-legacy board.pur for-pureref-1.pur       # flattened, with a report
+pur-adapter report board.pur report.html        # tiles, charts, round-trip check
+pur-adapter render board.pur preview.png
 pur-adapter repair broken.pur recovered-folder
 pur-adapter merge a.pur b.pur --output both.pur
-pur-adapter split board.pur one-board-per-group
-pur-adapter arrange board.pur tidy.pur --sort name
-pur-adapter search board.pur "lighting"
-pur-adapter linked board.pur
 pur-adapter relink board.pur fixed.pur --search D:\References
-pur-adapter embed board.pur self-contained.pur
-pur-adapter shrink board.pur smaller.pur
-pur-adapter dedupe board.pur deduped.pur
-pur-adapter rasterize drawing.pur rasterized.pur --all --scale 4
-pur-adapter extract-assets board.pur original-files
+pur-adapter export-package board.pur package    # JSON + assets for another app
+pur-adapter create package/board.json new.pur   # and back
 ```
 
-Commands print JSON. Errors go to stderr with exit code 1. Existing outputs are
-never overwritten unless the command receives `--overwrite`.
+Every command prints JSON and never overwrites without `--overwrite`. All commands and functions:
+[API reference](docs/API.md) · [exchange format](docs/INTEGRATION.md) ·
+[JSON Schema](docs/manifest.schema.json).
 
-## What is supported
+## ✅ Tested against PureRef
 
-- Modern format `2.1` (PureRef 2.0.3 and 2.1.3) and legacy `1.10` (1.10.4, 1.11.1).
-- Images: embedding (format names and EXIF-rotated sizes as PureRef stores
-  them), crop, flips, grayscale, smoothing, animation frame and speed, opacity.
-- Notes with HTML text and style, nested groups with colour and lock mode,
-  comments, locks, z order, sibling order, native pen drawings (solid, dashed,
-  arrow, curves; rectangles and ellipses are stored as paths).
-- Unknown native columns and tables survive ordinary edits; an unedited board
-  is saved byte for byte.
-- Lossless JSON exchange (schema 2) with FrameRef media mapping and a sidecar
-  file for host-only data, which PureRef itself would delete.
-- Rendering, thumbnails, repair of damaged files, linked-image relinking and
-  embedding, lossless PNG shrinking, merge, split, de-duplicate, arrange, search.
-- Explicit compatibility export to 1.x with a report of every simplification.
+* **112 automated tests**, including damaged files, Unicode, huge boards and both converter directions.
+* **The real PureRef 2.1.3** opened, rendered and resaved boards written by this project without warnings;
+  measured behaviour (thumbnails, image formats, EXIF photos, stacking, note sizes) is in
+  [docs/NATIVE_WINDOWS.md](docs/NATIVE_WINDOWS.md).
+* **1000-image board:** shuffled and restored exactly; PureRef draws the original and the restored board
+  pixel for pixel the same ([details](docs/THOUSAND_BOARD.md)).
+* **[Conformance suite](conformance/README.md):** ten boards with the expected result for each and seven
+  damaged files, so any other `.pur` reader can check itself.
 
-## Current limits
+Format notes: [docs/FORMAT.md](docs/FORMAT.md) · [research](docs/research/README.md) ·
+[roadmap](docs/ROADMAP.md) · [real-board test plan](docs/REAL_BOARD_TEST_PLAN.md).
 
-- Rendering approximates PureRef: text layout and antialiasing differ and
-  perspective is drawn as affine. It is meant for thumbnails and checks.
-- PureRef rewrites sibling sort keys when it saves; their purpose is not
-  established. Drawing order comes from `z` and is preserved.
-- Compatibility (1.x) export stops on crops, nondefault image flags, perspective
-  and linked images, which need pre-rendered previews.
-- Repair finds large modern images only while the database is readable; cutting
-  pictures from raw bytes works best for small and legacy images.
-- Native verification covered Linux (all four releases) and Windows (2.1.3).
-  macOS has not been checked.
+**Current limits:** previews approximate PureRef's text layout; perspective transforms and linked images
+cannot go to PureRef 1.x or FrameRef; FrameRef video, PDF and portals are not converted yet; macOS has not
+been checked.
 
-[Native evidence](docs/VALIDATION.md),
-[Windows checks](docs/NATIVE_WINDOWS.md),
-[format notes](docs/FORMAT.md),
-[binary research](docs/research/README.md),
-[real-board test plan](docs/REAL_BOARD_TEST_PLAN.md),
-[Claude review brief](docs/CLAUDE_REVIEW.md).
+## 🛠 Build
 
-## License
+```powershell
+.venv\Scripts\python -m unittest discover -s tests
+.venv\Scripts\python -m pip install pyinstaller sv-ttk
+.venv\Scripts\python -m PyInstaller --noconfirm PureRef-FrameRef-Converter.spec
+```
 
-Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026
-Andrii Orlov (DeadSue). Forks, derivative works and AI-generated code based on
-this project must keep the NOTICE file and credit "Based on PureRef Interop by
-Andrii Orlov (DeadSue)". The bundled legacy codec by Fyor keeps its MIT license
-([third_party](third_party/NOTICE.md)).
+`tools/make_banner.py` and `tools/make_converter_icon.py` redraw the banner and the icon. Pushing a
+`v*` tag builds both EXEs and attaches them to a release.
 
-## Next steps
+## 🔗 Related
 
-1. Andrii tests copies of real boards and records differences.
-2. Agree with Polygonflow on the host API and feature mapping, using the
-   conformance suite as the shared reference.
-3. Prepare the proposal letter. Send only after Andrii's final check.
+* [HDRDisplayCalibrate](https://github.com/AndriyOrlov/HDRDisplayCalibrate): SDR and HDR display
+  calibration for Windows with an ordinary colorimeter.
+* [AmbientLightCalibrate](https://github.com/AndriyOrlov/AmbientLightCalibrate): monitor brightness
+  matched to room light.
 
-No proposal email has been sent.
+## 🤖 Use by AI and LLMs
+
+[llms.txt](llms.txt) gives a short map of the code. AI training and AI-generated code are welcome as long
+as the NOTICE is kept and the project is credited (see License).
+
+## ❤️ Support
+
+If PureRef Interop is useful to you, you can support its development:
+
+<table>
+  <tr>
+    <td><a href="https://send.monobank.ua/jar/7AVDtzYypi"><img src="docs/donate-qr.svg" width="160" alt="QR code: Monobank jar"></a></td>
+    <td>
+      <b>Monobank jar:</b> <a href="https://send.monobank.ua/jar/7AVDtzYypi">send.monobank.ua/jar/7AVDtzYypi</a><br>
+      <b>Jar card number:</b> <code>4874 1000 3425 0244</code><br><br>
+      A ⭐ on GitHub and a mention in your videos or posts help just as much. Thank you!
+    </td>
+  </tr>
+</table>
+
+## 📄 License and credit
+
+Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). You may use, change and redistribute it,
+including commercially and in AI training or AI-generated code, as long as you keep the NOTICE and credit
+**"Based on PureRef Interop by Andrii Orlov (DeadSue)"**.
+
+The bundled PureRef 1.x codec by Fyor keeps its MIT license ([third_party](third_party/NOTICE.md)).
+PureRef and FrameRef belong to their respective developers; this project is independent of both and does
+not include their software.

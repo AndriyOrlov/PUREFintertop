@@ -39,5 +39,4 @@ for; positions and transforms match; nothing is lost silently; the report
 matches the changes. Pen antialiasing differences are acceptable only if they
 are visible and agreed.
 
-After your check: fix what was found and repeat the tests. Only then prepare
-the proposal to Polygonflow. No email is sent at this stage.
+After your check: fix what was found and repeat the tests.

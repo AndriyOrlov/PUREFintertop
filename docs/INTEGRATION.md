@@ -86,9 +86,9 @@ selects GIF frames, bakes opacity, converts rich text to plain text and writes
 a report of every change. Crops, image flags, perspective and linked images
 stop the export; supply pre-rendered images for them.
 
-## Suggested Polygonflow implementation
+## Suggested host implementation
 
-1. Start with `pur-adapter.exe` for `Import PureRef` / `Export PureRef`.
+1. Start with `pur-adapter.exe` (or the converter) for `Import PureRef` / `Export PureRef`.
 2. Map JSON items to FrameRef objects (tables above); show `report.changes`
    and `report.unresolved` to the user.
 3. If a native codec is preferred later, port the documented formats and
