@@ -10,10 +10,23 @@
   as the default, matching the preview renderer.
 - Verify the EXE with a real FrameRef board (30 items) and its PureRef version
   (32 items), and convert all nine repository fixtures.
-- 105 automated tests, including six converter tests. Opening the generated
-  boards in the native applications remains unverified.
 - Build and attach the converter alongside the existing command-line EXE in
   the release workflow.
+- Converter window redone in the dark Windows 11 (Fluent) style of the
+  calibration apps, in English: suggested non-clashing output names, a board
+  dropped on the icon opens directly, progress bar, green / yellow / red results
+  with grouped simplifications, plain explanations of known errors, "Show
+  result" and "Open report", sharp text on scaled screens, dark title bar, its
+  own icon and no console window (command-line use still prints its report).
+- Fix: notes converted to FrameRef lost their font size because the whole
+  HTML document was wrapped in a <div>; the text colour now goes into <body>.
+- Unnamed FrameRef items stay unnamed instead of being named after their type.
+- converter.py and frameref.py rewritten for readability; the converter's
+  output is identical on all 19 repository boards.
+- Native PureRef 2.1.3 opened, rendered and resaved boards converted
+  PureRef → FrameRef → PureRef (up to 2040 items) without warnings.
+- English instructions (CONVERTER.txt) replace CONVERTER-UA.txt.
+- 112 automated tests.
 
 ## 0.3.0 — 2026-10-14
 

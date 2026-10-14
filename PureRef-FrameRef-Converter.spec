@@ -1,16 +1,22 @@
 # -*- mode: python ; coding: utf-8 -*-
+# Build: python -m PyInstaller --noconfirm PureRef-FrameRef-Converter.spec
 from PyInstaller.utils.hooks import collect_data_files
 
-datas = [('NOTICE', '.'), ('LICENSE', '.')]
-datas += collect_data_files('pur_adapter')
-
+datas = [
+    ("NOTICE", "."),
+    ("LICENSE", "."),
+    ("packaging/converter.ico", "."),
+    ("packaging/converter.png", "."),
+]
+datas += collect_data_files("pur_adapter")
+datas += collect_data_files("sv_ttk")  # Windows 11 style theme for the window
 
 a = Analysis(
-    ['packaging/converter_entry.py'],
+    ["packaging/converter_entry.py"],
     pathex=[],
     binaries=[],
     datas=datas,
-    hiddenimports=[],
+    hiddenimports=["sv_ttk"],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -26,14 +32,17 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='PureRef-FrameRef-Converter',
+    name="PureRef-FrameRef-Converter",
+    icon="packaging/converter.ico",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    # A window application: no black console flashes up. Command-line use
+    # still prints by attaching to the console it was started from.
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,

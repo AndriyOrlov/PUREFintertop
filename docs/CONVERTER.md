@@ -1,66 +1,80 @@
-# PureRef ↔ FrameRef converter
+# PureRef ⇄ FrameRef converter
 
-Run `dist/PureRef-FrameRef-Converter.exe`, choose a `.pur` or `main.frameref`,
-then click **Конвертувати**. No Python installation is needed.
+One Windows program, `PureRef-FrameRef-Converter.exe`, converts boards in both
+directions between PureRef (`.pur`) and native FrameRef boards
+(`main.frameref`, file_version 2). No Python installation is needed.
 
-PureRef input produces a new `<name>-FrameRef` folder containing `main.frameref`,
-`content/` and `conversion.json`. Open `main.frameref` in FrameRef; keep the folder
-together when moving it. FrameRef input produces a new `.pur` and an adjacent
-`.pur.conversion.json` report. Existing outputs are refused.
+<p align="center">
+  <img src="screenshots/converter.png" width="70%" alt="Converter window after converting a 1000-image board">
+</p>
 
-Command-line usage with the same executable:
+## Using it
+
+1. Run the program, or drop a `.pur` / `main.frameref` onto its icon.
+2. **Choose file…** picks a board. The direction is chosen automatically and a
+   new output name is suggested next to the board; **Change…** picks another place.
+3. **Convert**. The result is green when nothing was simplified and yellow with a
+   grouped list of simplifications otherwise; **Show result** opens it in
+   Explorer and **Open report** shows `conversion.json`. If the board cannot be
+   converted, the reason is shown in red and the original stays untouched.
+
+PureRef input produces a new `<name>-FrameRef` folder with `main.frameref`,
+`content/` and `conversion.json`; keep the folder together. FrameRef input
+produces a new `<name>-PureRef.pur` with `<name>-PureRef.pur.conversion.json`.
+Nothing is overwritten: a taken name becomes `name (2)`, `name (3)` and so on.
+
+The window uses the dark Windows 11 (Fluent) look of the author's calibration
+apps. The same program converts from the command line and prints the report:
 
 ```powershell
 PureRef-FrameRef-Converter.exe input.pur new-FrameRef-folder
 PureRef-FrameRef-Converter.exe board/main.frameref new-board.pur
 ```
 
-The reader targets the installed FrameRef's JSON **file_version 2**. It transfers
-images, affine placement (including reflections), scale, rotation, opacity,
-stacking, locks, grayscale and text. PureRef groups are flattened while retaining
-world positions and inherited opacity. PureRef crops/selected GIF frames are baked
-into PNGs; pen drawings become images. FrameRef swatches become images and live
-connections become static Bezier curves with side anchors. Text layout can differ. Reports list these
-simplifications; they are not lossless round trips.
+## What is transferred
 
-Unsupported FrameRef items (including video, PDF, portals and native drawings),
-local image zoom/pan/cropOffset, perspective, linked PureRef images,
-nonrectangular and fractional-pixel PureRef crops stop conversion without
-publishing a board. Embed linked images before converting. FrameRef-specific
-ratings, tags, borders, overlays and PureRef comments are reported as lost.
+Images (original bytes), affine placement including mirroring, scale, rotation,
+opacity, stacking, locks, grayscale and note text. Notes keep their HTML,
+including font size; the text colour is added to the document's `<body>`.
 
-Validation: the existing 99 tests plus six converter tests cover affine origins,
-byte-preserved image payloads, nested world transforms, crop/flip/grayscale,
-refusing overwrites, newer versions, asset path traversal and native notes with
-unset text colours. All nine repository fixture boards now convert successfully.
-The updated EXE converted a real FrameRef board (30 items) to PureRef and a
-PureRef version (32 items) back to FrameRef. These counts describe different
-input boards, not an exact round-trip comparison. Opening generated output in
-native FrameRef/PureRef has not been verified: computer-use verification was
-stopped with Escape. Treat this as an initial converter and check copies first.
+| Simplification (reported) | Why |
+|---|---|
+| PureRef groups are flattened; children keep world positions and inherited opacity | FrameRef has no PureRef-style groups |
+| PureRef crops and selected GIF frames are baked into PNGs | Crop/frame semantics differ |
+| PureRef pen drawings and FrameRef colour swatches become images | No matching item type |
+| FrameRef connections become static Bézier curves with side anchors | PureRef has no live connectors; routing is approximate |
+| Note text can wrap differently | The two applications lay out text differently |
+| PureRef comments, FrameRef tags, ratings, borders and overlays are dropped | No counterpart |
 
-## Updating and troubleshooting
+Conversion stops, explains why and writes nothing for: FrameRef video, PDF,
+portals and native drawings; local image zoom/pan or `cropOffset`; perspective
+transforms; PureRef images that are only linked (run `pur-adapter embed` first);
+non-rectangular and fractional-pixel PureRef crops.
 
-Close the old converter and run the newly built EXE from `dist/`. If you copied
-it elsewhere, replace that copy too. The `.exe` contains the Python code, so
-editing source files alone does not update it. A separate instruction sheet is
-included as `dist/CONVERTER-UA.txt`.
+## Checks
 
-`'NoneType' object is not subscriptable` on PureRef notes is fixed: an unset
-text colour now uses white. Existing outputs are never overwritten; use a new
-name when retrying conversion. Keep the adjacent `.conversion.json` report.
+- 112 automated tests, including the converter and the window's helpers.
+- The rewritten converter produces identical output to the first version on
+  all 19 repository boards, in both directions.
+- PureRef → FrameRef → PureRef for five boards (up to the 1000-image board):
+  native PureRef 2.1.3 opened, rendered and resaved every result without
+  warnings and kept every item.
+- Opening converted boards in FrameRef itself has not been checked here
+  (FrameRef is not installed on the test machine).
 
 ## Build
 
-Build on Windows using the repository's Python environment:
-
 ```powershell
 .venv/Scripts/python -m pip install -r requirements.txt
-.venv/Scripts/python -m pip install pyinstaller
+.venv/Scripts/python -m pip install pyinstaller sv-ttk
 .venv/Scripts/python -m pip install --no-deps .
 .venv/Scripts/python -m unittest discover -s tests
 .venv/Scripts/python -m PyInstaller --noconfirm PureRef-FrameRef-Converter.spec
 ```
 
-Based on PureRef Interop by Andrii Orlov (DeadSue). Apache-2.0; retain LICENSE
-and NOTICE with distributions.
+`tools/make_converter_icon.py` redraws `packaging/converter.ico`. The release
+workflow builds the program and attaches it with `CONVERTER.txt`, `LICENSE`
+and `NOTICE`.
+
+Based on PureRef Interop by Andrii Orlov (DeadSue). Apache-2.0; keep LICENSE
+and NOTICE with distributions. The window theme is Sun Valley ttk (MIT).

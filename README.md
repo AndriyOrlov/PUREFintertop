@@ -23,7 +23,7 @@ writes native FrameRef JSON boards (file_version 2). A language-neutral
   files with expected errors, and PureRef resaves showing the scene survives.
 - **Large boards**: a 1.49 GB board opens, is edited and saved with a 34 MB
   peak memory use (see the charts below).
-- The automated suite passes **105 tests**.
+- The automated suite passes **112 tests**.
 
 More: [1000-image boards](docs/THOUSAND_BOARD.md),
 [common scene core](docs/CORE.md),
@@ -56,12 +56,15 @@ opened through a temporary file, so memory stays flat:
 
 ## Windows converter
 
-The initial [PureRef ↔ FrameRef converter](docs/CONVERTER.md) is a single EXE
-with a file picker for both native formats. Launch
-`dist/PureRef-FrameRef-Converter.exe`, select a board, and click **Конвертувати**.
-It now handles PureRef notes with unset text colours. FrameRef output is a folder
-containing `main.frameref` and `content/`; move that folder together. Reports list
-simplifications and unsupported media. See the instructions linked above.
+[PureRef ⇄ FrameRef converter](docs/CONVERTER.md): one EXE that converts
+boards both ways between PureRef and native FrameRef (file_version 2). Choose a
+board (or drop it on the program icon), check the suggested output and click
+**Convert**; the result lists every simplification, grouped. FrameRef output is
+a folder with `main.frameref` and `content/`; move that folder together.
+
+<p align="center">
+  <img src="docs/screenshots/converter.png" width="60%" alt="PureRef ⇄ FrameRef converter">
+</p>
 
 ## Install
 

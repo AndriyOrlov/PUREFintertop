@@ -146,3 +146,23 @@ class FrameRefTests(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+
+
+class NoteHtmlRoundTrip(unittest.TestCase):
+    def test_native_note_keeps_its_font_size_through_frameref(self):
+        # Wrapping a whole HTML document in <div> used to drop the body's font size.
+        fixture = Path(__file__).resolve().parents[1] / 'fixtures/native-drawing-2.1.3.pur'
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            convert(fixture, folder / 'board-FrameRef')
+            document = json.loads((folder / 'board-FrameRef/main.frameref').read_text(encoding='utf-8'))
+            note = next(properties(item) for item in document['board']['items']
+                        if item['type'] == 'TextItem')
+            self.assertFalse(note['html'].startswith('<div'))
+            self.assertRegex(note['html'], r'<body style="[^"]*font-size:22px[^"]*color:#ffffff;"')
+            convert(folder / 'board-FrameRef/main.frameref', folder / 'back.pur')
+            with Board.load(folder / 'back.pur') as board:
+                text = next(item.text for item in board.items if item.kind == 'note')
+                self.assertIn('font-size:22px', text)
+                self.assertEqual(sorted(item.name for item in board.items),
+                                 ['', 'Note', 'Ukrainian reference'])

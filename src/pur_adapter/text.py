@@ -9,9 +9,9 @@ import html
 from html.parser import HTMLParser
 import re
 
-# Rich text starts with a doctype, <html>, <qt> or a paragraph tag.
-# A plain note that merely mentions "<paint>" is not rich text.
-_RICH_TEXT_START = re.compile(r"\s*<(!doctype|html|qt|p)[\s>]", re.IGNORECASE)
+# Rich text starts with a doctype or a block tag (<html>, <qt>, <body>, <p>,
+# <div>). A plain note that merely mentions "<paint>" is not rich text.
+_RICH_TEXT_START = re.compile(r"\s*<(!doctype|html|qt|body|p|div)[\s>]", re.IGNORECASE)
 
 
 def is_rich_text(text):
