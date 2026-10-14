@@ -5,7 +5,7 @@
     {
       "id": 0,
       "kind": "group",
-      "name": "Внешняя група · Outer",
+      "name": "Outer group · café",
       "parent_id": null,
       "matrix": [
         1.0,
@@ -57,7 +57,7 @@
     {
       "id": 2,
       "kind": "image",
-      "name": "Референс 🏛️",
+      "name": "Reference 🏛️",
       "parent_id": 1,
       "matrix": [
         1.0,
@@ -73,7 +73,7 @@
       "opacity": 1.0,
       "locked": false,
       "z": 3.0,
-      "comment": "Перевірити світло / check lighting",
+      "comment": "Check the lighting — naïve test ✓",
       "order_index": 0,
       "image": {
         "image_sha256": "a5a91707107b22c7eb1a05aaeb30d344f2f42f67e097cb49c93ca9c9652e8e2f",

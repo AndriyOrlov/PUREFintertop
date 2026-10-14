@@ -1,14 +1,15 @@
-# Перевірка на реальних дошках
+# Testing with real boards
 
-Перевіряємо **копії**. Нативні тести вже пройдено на Linux (1.10.4–2.1.3) і на
-Windows з PureRef 2.1.3 (див. `NATIVE_WINDOWS.md`). Тепер черга реальних дошок.
+Always test **copies**. Native tests have passed on Linux (1.10.4–2.1.3) and on
+Windows with PureRef 2.1.3 (see `NATIVE_WINDOWS.md`). Real boards come next.
 
-1. Вибери 3–5 дошок: просту; велику; з групами; з нотатками й олівцем; окремо
-   з GIF, обрізаними, віддзеркаленими або прив'язаними (не вбудованими)
-   зображеннями; з фото з телефона.
-2. Збережи вихідні копії та скрін кожної дошки в PureRef.
-3. Встанови пакет за README (або візьми `pur-adapter.exe`). Команди нижче — для
-   Python із `.venv`; з `.exe` просто заміни початок на `pur-adapter.exe`.
+1. Pick 3–5 boards: a simple one; a large one; one with groups; one with notes
+   and pen drawings; and separately boards with GIFs, cropped, mirrored or
+   linked (not embedded) images, and phone photos.
+2. Keep the original copies and a screenshot of each board in PureRef.
+3. Install the package as described in the README (or use `pur-adapter.exe`).
+   The commands below use Python from `.venv`; with the `.exe`, replace the
+   start of each line with `pur-adapter.exe`.
 
 ```powershell
 & .\.venv\Scripts\python.exe -X utf8 -m pur_adapter inspect "C:\Refs\copy.pur"
@@ -19,23 +20,24 @@ Windows з PureRef 2.1.3 (див. `NATIVE_WINDOWS.md`). Тепер черга р
 & .\.venv\Scripts\python.exe -X utf8 -m pur_adapter linked "C:\Refs\copy.pur"
 ```
 
-4. Відкрий `roundtrip.pur` у PureRef і порівняй з оригіналом: положення,
-   поворот, масштаб, обрізку, віддзеркалення, порядок шарів, нотатки (текст і
-   колір), групи (колір), коментарі, прозорість. Тут не має бути жодних
-   відмінностей.
-5. Відкрий `simplified.pur` (спрощення для 1.x): групи розгорнуті, олівець став
-   картинкою, порядок шарів той самий. Звір зміни зі звітом `.report.json`.
-6. Переглянь `preview.png` — це приблизний рендер (шрифти відрізняються), але
-   все має стояти на своїх місцях.
-7. Збережи дошку повторно самим PureRef і знову прочитай її адаптером
-   (`inspect`). Для дошок із даними FrameRef поряд лежить `*.pur.host.json`.
-8. Для пошкодженого файлу (якщо є): `repair broken.pur recovered-folder`.
-9. Запиши версію PureRef, розмір файлу, кількість елементів, час, пам'ять і
-   результат у `examples/real-board-results.csv`. Додай скріни відмінностей.
+4. Open `roundtrip.pur` in PureRef and compare it with the original: position,
+   rotation, scale, crop, mirroring, layer order, notes (text and colour),
+   groups (colour), comments, opacity. There should be no differences at all.
+5. Open `simplified.pur` (the 1.x simplification): groups are flattened, pen
+   drawings became images, the layer order is unchanged. Check the changes
+   against the `.report.json` report.
+6. Look at `preview.png`. It is an approximate render (fonts differ), but every
+   item should be in its place.
+7. Save the board again in PureRef itself and read it with the adapter
+   (`inspect`). Boards carrying FrameRef data have a `*.pur.host.json` next to them.
+8. For a damaged file (if you have one): `repair broken.pur recovered-folder`.
+9. Record the PureRef version, file size, item count, time, memory and result
+   in `examples/real-board-results.csv`. Add screenshots of any differences.
 
-Критерії: джерело не змінене; вихід відкривається; всі елементи враховані;
-позиції й трансформації збігаються; жодної тихої втрати; звіт відповідає
-змінам. Відмінності згладжування олівця допустимі, якщо вони видимі й погоджені.
+Criteria: the source is unchanged; the output opens; every item is accounted
+for; positions and transforms match; nothing is lost silently; the report
+matches the changes. Pen antialiasing differences are acceptable only if they
+are visible and agreed.
 
-Після твоєї перевірки — виправлення знайденого й повторення тестів. Лише потім
-готуємо пропозицію Polygonflow. Лист на цьому етапі не надсилаємо.
+After your check: fix what was found and repeat the tests. Only then prepare
+the proposal to Polygonflow. No email is sent at this stage.

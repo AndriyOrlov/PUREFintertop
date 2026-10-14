@@ -55,11 +55,11 @@ def image_options(folder):
 
 def groups_and_notes(folder):
     board = Board()
-    outer = board.add_group("Внешняя група · Outer", color="#ff2a3140", locked_mode=False)
+    outer = board.add_group("Outer group · café", color="#ff2a3140", locked_mode=False)
     inner = board.add_group("Inner", x=40, y=30, parent_id=outer, color="#ff401a1a")
     image = board.add_image(test_card(folder, "ref.png", (100, 70), (180, 120, 40), "ref"),
-                            parent_id=inner, name="Референс 🏛️")
-    board.update(image, comment="Перевірити світло / check lighting")
+                            parent_id=inner, name="Reference 🏛️")
+    board.update(image, comment="Check the lighting — naïve test ✓")
     caption = board.add_note("<p>Caption <b>bold</b> &amp; <i>italic</i></p>", y=60,
                              parent_id=image)
     board.style_note(caption, background_color="#ff102030", text_color="#ffeeeeee",

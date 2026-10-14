@@ -24,12 +24,12 @@ class CommandLine(unittest.TestCase):
                         "--item",
                         "0",
                         "--set",
-                        '{"x":20,"name":"Змінено"}',
+                        '{"x":20,"name":"Renamed ✓"}',
                     ]
                 )
             self.assertEqual(result, 0)
             self.assertEqual(json.loads(stream.getvalue())["item"], 0)
-            self.assertEqual(Board.load(output).get(0).name, "Змінено")
+            self.assertEqual(Board.load(output).get(0).name, "Renamed ✓")
             self.assertEqual(Board.load(FIXTURE).get(0).name, "red")
 
     def test_bad_properties_return_structured_error(self):
