@@ -17,7 +17,13 @@
   merge, split, de-duplicate, arrange, search; new CLI commands.
 - Language-neutral conformance suite with PureRef resaves.
 - Standalone Windows executable built by the release workflow.
-- 92 automated tests.
+- Charts and an HTML board report in the style of HDRDisplayCalibrate; a
+  benchmark with time and memory charts. The report's round-trip check found
+  that unstyled notes gained default colours on import; fixed.
+- Boards above 32 MB (was 128 MB) open through a temporary file: in memory
+  costs about five times the file size.
+- License changed from MIT to Apache-2.0 with a NOTICE file.
+- 99 automated tests.
 
 ## 0.2.0 — 2026-10-14
 

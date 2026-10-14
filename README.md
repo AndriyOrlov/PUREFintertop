@@ -21,9 +21,9 @@ write its own reader and check it.
   changes when it resaves a board ([results](docs/NATIVE_WINDOWS.md)).
 - **Conformance suite**: ten boards with expected descriptions, seven damaged
   files with expected errors, and PureRef resaves showing the scene survives.
-- **Large boards**: a 1.41 GiB board opens, is edited and saved with a 37 MB
-  peak memory use.
-- The automated suite passes **92 tests**.
+- **Large boards**: a 1.49 GB board opens, is edited and saved with a 34 MB
+  peak memory use (see the charts below).
+- The automated suite passes **99 tests**.
 
 More: [1000-image boards](docs/THOUSAND_BOARD.md),
 [common scene core](docs/CORE.md),
@@ -31,6 +31,28 @@ More: [1000-image boards](docs/THOUSAND_BOARD.md),
 [roadmap status](docs/ROADMAP.md).
 
 ![1000-image board in native PureRef](docs/screenshots/thousand-ordered-ui-2.1.3.png)
+
+## Charts and reports
+
+`pur-adapter report board.pur report.html` writes a self-contained page in the
+style of the HDRDisplayCalibrate verification report: graded summary tiles
+(green / yellow / red), image sizes as bars tinted with each image's average
+colour, pixel dimensions against Full HD and 4K, data by format, group sizes,
+a preview and a table. The **host round trip** tile exports the board to the
+FrameRef JSON and back and lists anything that did not survive.
+
+<p align="center">
+  <img src="docs/screenshots/board-report.png" width="90%" alt="Board report">
+</p>
+
+Open and save time, and peak memory, against board size
+(`python tools/benchmark.py`, Windows 11, Python 3.12). Above 32 MB boards are
+opened through a temporary file, so memory stays flat:
+
+<p align="center">
+  <img src="docs/charts/speed.svg" width="49%" alt="Open and save time against board size">
+  <img src="docs/charts/memory.svg" width="49%" alt="Peak memory against board size">
+</p>
 
 ## Install
 
@@ -96,6 +118,7 @@ See the [integration contract](docs/INTEGRATION.md) and the
 ```powershell
 pur-adapter inspect board.pur
 pur-adapter render board.pur preview.png --width 2048
+pur-adapter report board.pur report.html                    # charts, tiles, round-trip check
 pur-adapter create package/board.json created.pur          # host JSON -> .pur
 pur-adapter export-package board.pur package                # .pur -> host JSON
 pur-adapter patch board.pur edited.pur --item 0 --set '{"x":200,"rotation":15}'
@@ -152,6 +175,14 @@ never overwritten unless the command receives `--overwrite`.
 [binary research](docs/research/README.md),
 [real-board test plan](docs/REAL_BOARD_TEST_PLAN.md),
 [Claude review brief](docs/CLAUDE_REVIEW.md).
+
+## License
+
+Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). Copyright 2026
+Andrii Orlov (DeadSue). Forks, derivative works and AI-generated code based on
+this project must keep the NOTICE file and credit "Based on PureRef Interop by
+Andrii Orlov (DeadSue)". The bundled legacy codec by Fyor keeps its MIT license
+([third_party](third_party/NOTICE.md)).
 
 ## Next steps
 

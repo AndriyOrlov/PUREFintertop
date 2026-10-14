@@ -1,0 +1,17 @@
+PureRef Interop (pur-adapter)
+Copyright 2026 Andrii Orlov (DeadSue)
+https://github.com/AndriyOrlov/PUREFintertop · https://deadsue.art
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+Any redistribution, fork, derivative work or AI-generated code based on this
+project must keep this NOTICE file and credit the original author:
+"Based on PureRef Interop by Andrii Orlov (DeadSue)".
+
+Third-party software included in this repository:
+- PureRef-format legacy codec by Fyor (MIT), in src/pur_adapter/_vendor/purformat,
+  with its license in third_party/PureRef-format-LICENSE (see third_party/NOTICE.md).
+
+Third-party software used at runtime (not bundled in this repository):
+- Pillow (MIT-CMU / HPND), Python and SQLite.
+- PureRef by Idyllic Pixel, only when the optional native checks drive an
+  installed copy through its command line. PureRef is not redistributed.
