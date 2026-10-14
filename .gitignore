@@ -5,3 +5,9 @@ __pycache__/
 build/
 dist/
 validation/thousand/assets/
+
+validation/frameref-native-copy/
+validation/frameref-test.pur*
+validation/frameref-roundtrip/
+validation/exe-smoke*/
+validation/exe-smoke.pur*

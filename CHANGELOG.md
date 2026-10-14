@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased — 2026-10-14
+
+- Add a single Windows EXE with a file picker for PureRef ↔ native FrameRef
+  file_version 2 conversion, separate outputs and conversion reports.
+- Correct top-left/centred origins and preserve affine world placement, image
+  payloads, grayscale, opacity and stacking. Document all simplifications.
+- Fix conversion of native PureRef notes whose text colour is NULL: use white
+  as the default, matching the preview renderer.
+- Verify the EXE with a real FrameRef board (30 items) and its PureRef version
+  (32 items), and convert all nine repository fixtures.
+- 105 automated tests, including six converter tests. Opening the generated
+  boards in the native applications remains unverified.
+- Build and attach the converter alongside the existing command-line EXE in
+  the release workflow.
+
 ## 0.3.0 — 2026-10-14
 
 - Fix the review findings: dashed-pen hang, legacy crop inherited through

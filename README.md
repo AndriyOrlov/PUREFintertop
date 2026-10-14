@@ -6,10 +6,10 @@ Covered releases: **1.10.4, 1.11.1, 2.0.3 and 2.1.3** (Linux research builds,
 plus the Windows 2.1.3 build for the 0.3 checks).
 
 This is a prototype for real-board testing and a future integration proposal to
-Polygonflow. It is not an installed FrameRef plugin and does not decode
-FrameRef's private project format. The host-facing boundary is JSON plus assets,
-and a language-neutral [conformance suite](conformance/README.md) lets a host
-write its own reader and check it.
+Polygonflow. It is not an installed FrameRef plugin. The original manifest bridge
+uses neutral JSON plus assets; the standalone converter additionally reads and
+writes native FrameRef JSON boards (file_version 2). A language-neutral
+[conformance suite](conformance/README.md) lets a host check its PureRef reader.
 
 ## Validation and research
 
@@ -23,7 +23,7 @@ write its own reader and check it.
   files with expected errors, and PureRef resaves showing the scene survives.
 - **Large boards**: a 1.49 GB board opens, is edited and saved with a 34 MB
   peak memory use (see the charts below).
-- The automated suite passes **99 tests**.
+- The automated suite passes **105 tests**.
 
 More: [1000-image boards](docs/THOUSAND_BOARD.md),
 [common scene core](docs/CORE.md),
@@ -53,6 +53,15 @@ opened through a temporary file, so memory stays flat:
   <img src="docs/charts/speed.svg" width="49%" alt="Open and save time against board size">
   <img src="docs/charts/memory.svg" width="49%" alt="Peak memory against board size">
 </p>
+
+## Windows converter
+
+The initial [PureRef ↔ FrameRef converter](docs/CONVERTER.md) is a single EXE
+with a file picker for both native formats. Launch
+`dist/PureRef-FrameRef-Converter.exe`, select a board, and click **Конвертувати**.
+It now handles PureRef notes with unset text colours. FrameRef output is a folder
+containing `main.frameref` and `content/`; move that folder together. Reports list
+simplifications and unsupported media. See the instructions linked above.
 
 ## Install
 
