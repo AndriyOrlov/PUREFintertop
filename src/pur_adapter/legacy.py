@@ -115,10 +115,22 @@ def dump_legacy(board):
         if item.comment:
             raise UnsupportedFormat("Comments need explicit compatibility export")
         if board.format == "modern" and item.kind == "image":
-            row = board._conn.execute("SELECT * FROM items_images WHERE id=?", (item.id,)).fetchone()
-            asset = board._conn.execute("SELECT width,height FROM images WHERE id=?", (item.image_id,)).fetchone()
-            if row["flags"] != 1 or row["playback_frame"] != 0 or qt.binary(row["image_bounds"]) != qt.binary(qt.image_bounds(*asset)) or qt.read_transform(row["image_transform"]) != qt.affine(-asset[0]/2, -asset[1]/2):
-                raise UnsupportedFormat("Image options need explicit compatibility export")
+            row = board._conn.execute(
+                "SELECT * FROM items_images WHERE id=?", (item.id,)
+            ).fetchone()
+            asset = board._conn.execute(
+                "SELECT width,height FROM images WHERE id=?", (item.image_id,)
+            ).fetchone()
+            if (
+                row["flags"] != 1
+                or row["playback_frame"] != 0
+                or qt.binary(row["image_bounds"]) != qt.binary(qt.image_bounds(*asset))
+                or qt.read_transform(row["image_transform"])
+                != qt.affine(-asset[0] / 2, -asset[1] / 2)
+            ):
+                raise UnsupportedFormat(
+                    "Image options need explicit compatibility export"
+                )
         if item.locked:
             raise UnsupportedFormat(
                 "Legacy cannot retain item locks; use compatibility export"

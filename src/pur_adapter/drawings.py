@@ -48,12 +48,21 @@ def encode_strokes(strokes):
     if not 1 <= len(strokes) <= 10000:
         raise ValueError("Provide between 1 and 10000 strokes")
     name = b"QList<GraphicsDrawItem::Stroke>\0"
-    raw = bytearray(struct.pack(">IBI", 1024, 0, len(name)) + name + struct.pack(">I", len(strokes)))
+    raw = bytearray(
+        struct.pack(">IBI", 1024, 0, len(name)) + name + struct.pack(">I", len(strokes))
+    )
     for stroke in strokes:
-        if len(stroke.color) != 4 or any(not isinstance(c, int) or isinstance(c, bool) or not 0 <= c <= 255 for c in stroke.color):
+        if len(stroke.color) != 4 or any(
+            not isinstance(c, int) or isinstance(c, bool) or not 0 <= c <= 255
+            for c in stroke.color
+        ):
             raise ValueError("Stroke color must contain four 8-bit RGBA channels")
         finite(width=stroke.width)
-        if not 0 < stroke.width <= 10000 or stroke.style not in (0, 1, 2) or stroke.fill_rule not in (0, 1):
+        if (
+            not 0 < stroke.width <= 10000
+            or stroke.style not in (0, 1, 2)
+            or stroke.fill_rule not in (0, 1)
+        ):
             raise ValueError("Unsupported stroke width, style or fill rule")
         if not 1 <= len(stroke.elements) <= 100000 or len(stroke.extra_point) != 2:
             raise ValueError("Invalid stroke geometry")
@@ -64,11 +73,27 @@ def encode_strokes(strokes):
         finite(x=stroke.extra_point[0], y=stroke.extra_point[1])
         flatten_path(stroke.elements, 1)
         red, green, blue, alpha = stroke.color
-        raw.extend(struct.pack(">BB5HdI", 100, 1, alpha * 257, red * 257, green * 257, blue * 257, 0,
-                               stroke.width, len(stroke.elements)))
+        raw.extend(
+            struct.pack(
+                ">BB5HdI",
+                100,
+                1,
+                alpha * 257,
+                red * 257,
+                green * 257,
+                blue * 257,
+                0,
+                stroke.width,
+                len(stroke.elements),
+            )
+        )
         for element in stroke.elements:
             raw.extend(struct.pack(">Idd", *element))
-        raw.extend(struct.pack(">II2di", 0, stroke.fill_rule, *stroke.extra_point, stroke.style))
+        raw.extend(
+            struct.pack(
+                ">II2di", 0, stroke.fill_rule, *stroke.extra_point, stroke.style
+            )
+        )
     return bytes(raw)
 
 
@@ -248,8 +273,10 @@ def draw_dashes(draw, points, color, width):
                 phase += 1e-8
                 continue
             if visible:
-                segment = [tuple(a + (b - a) * t / length for a, b in zip(start, end))
-                           for t in (offset, offset + step)]
+                segment = [
+                    tuple(a + (b - a) * t / length for a, b in zip(start, end))
+                    for t in (offset, offset + step)
+                ]
                 draw.line(segment, fill=color, width=width)
             offset += step
             phase += step
@@ -263,8 +290,14 @@ def draw_arrow(draw, points, color, width):
     length = math.dist(previous, tip)
     dx, dy = ((tip[i] - previous[i]) / length for i in (0, 1))
     back = (tip[0] - 4 * width * dx, tip[1] - 4 * width * dy)
-    draw.polygon([tip, (back[0] - 2 * width * dy, back[1] + 2 * width * dx),
-                  (back[0] + 2 * width * dy, back[1] - 2 * width * dx)], fill=color)
+    draw.polygon(
+        [
+            tip,
+            (back[0] - 2 * width * dy, back[1] + 2 * width * dx),
+            (back[0] + 2 * width * dy, back[1] - 2 * width * dx),
+        ],
+        fill=color,
+    )
 
 
 def rasterize_drawing(board, item_id, *, scale=4):

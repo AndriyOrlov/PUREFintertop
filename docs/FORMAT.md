@@ -70,9 +70,10 @@ separate image bounds and the image's pixel-to-local transform.
 6. Style integer.
 
 The reader also recognizes the older unmarked stroke branch found in the native
-reader, but the raster test fixture exercises marker 100, style 0 (freehand).
+reader. Native stress-board verification exercises marker 100 and solid (0),
+dashed (1), and arrow (2) paths.
 CurveTo elements use two following CurveToData elements. Shapes are not silently
-interpreted as freehand: unsupported styles stop conversion.
+interpreted as solid paths: unknown styles stop conversion.
 
 Raster conversion adds transparent local padding around the stroke. The new
 image transform compensates for that padding and pixel density. Existing item

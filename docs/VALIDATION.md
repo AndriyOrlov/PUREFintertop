@@ -1,7 +1,7 @@
 # Validation evidence
 
 Native testing ran in an isolated Linux environment with official PureRef builds.
-The automated API/CLI suite currently contains 25 tests. It covers real native
+The automated API/CLI suite currently contains 44 tests. It covers real native
 fixtures as well as corruption, invalid edits, Unicode, duplicates, notes,
 compatibility conversion, GIF frame selection and host manifests.
 

@@ -1,0 +1,6 @@
+[Info]: Reading settings from /root/.config/PureRef/PureRef.ini
+[Info]: Started with arguments: "-c load;/workspace/scratch/120080d18fa1/pur-adapter/validation/thousand/shuffled.pur -c exportScene;/workspace/scratch/120080d18fa1/pur-adapter/validation/thousand/shuffled-2.0.3.png;4096;1850;true;true;true -c exit"
+[Info]: Setting up temporary directory at: "/root/.cache/PureRef"
+[Warning]: Failed to start PureRef local server:  "QLocalServer::listen: Unknown error 1"
+[Warning]: QFontDatabase: Cannot find font directory /workspace/scratch/120080d18fa1/pur-adapter-lab/old-2.0.3/squashfs-root/usr/bin/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.

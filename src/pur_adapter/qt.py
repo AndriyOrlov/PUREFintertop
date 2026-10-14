@@ -25,8 +25,11 @@ def image_bounds(width, height):
 
 def path_rect(x, y, width, height):
     points = [
-        (x, y), (x + width, y), (x + width, y + height),
-        (x, y + height), (x, y),
+        (x, y),
+        (x + width, y),
+        (x + width, y + height),
+        (x, y + height),
+        (x, y),
     ]
     raw = struct.pack(">IBI", 1024, 0, 13) + b"QPainterPath\0" + struct.pack(">I", 5)
     for i, (x, y) in enumerate(points):

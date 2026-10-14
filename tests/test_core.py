@@ -23,7 +23,9 @@ class CommonCore(unittest.TestCase):
         for release in ("1.10.4", "1.11.1", "2.0.3", "2.1.3"):
             with Board.load(FIXTURES / f"native-{release}.pur") as board:
                 self.assertEqual(board.application_version, release)
-                self.assertEqual(board.to_dict()["compatibility"]["status"], "tested_release")
+                self.assertEqual(
+                    board.to_dict()["compatibility"]["status"], "tested_release"
+                )
                 row = board._conn.execute("SELECT data FROM images LIMIT 1").fetchone()
                 with Image.open(io.BytesIO(row[0])) as image:
                     pixels.append((image.size, image.convert("RGBA").tobytes()))

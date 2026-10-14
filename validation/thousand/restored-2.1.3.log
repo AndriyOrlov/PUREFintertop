@@ -1,0 +1,6 @@
+[Info]: Reading settings from /root/.config/PureRef/PureRef.ini
+[Info]: Started with arguments: "-c load;/workspace/scratch/120080d18fa1/pur-adapter/validation/thousand/restored.pur -c exportScene;/workspace/scratch/120080d18fa1/pur-adapter/validation/thousand/restored-2.1.3.png;4096;1850;true;true;true -c exit"
+[Info]: Setting up temporary directory at: "/root/.cache/PureRef"
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+Fontconfig error: Cannot load default config file: No such file: (null)
+[Warning]: Failed to start PureRef local server:  "QLocalServer::listen: Unknown error 1"

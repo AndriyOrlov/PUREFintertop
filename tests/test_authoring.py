@@ -16,7 +16,9 @@ class Authoring(unittest.TestCase):
             note = board.add_note("<p>caption</p>", parent_id=group)
             board.style_note(note, width=180, height=40)
             board.update(group, comment="Group comment")
-            stroke = Stroke((220, 60, 80, 200), 3, ((0, 0, 0), (1, 80, 30)), 0, (0, 0), 2)
+            stroke = Stroke(
+                (220, 60, 80, 200), 3, ((0, 0, 0), (1, 80, 30)), 0, (0, 0), 2
+            )
             drawing = board.add_drawing([stroke], parent_id=group)
             path = Path(folder) / "board.pur"
             board.save(path)
@@ -48,7 +50,13 @@ class Authoring(unittest.TestCase):
     def test_image_options_and_comment_reload(self):
         with Board() as board, tempfile.TemporaryDirectory() as folder:
             item = board.add_image(ASSET)
-            board.configure_image(item, crop=(2, 3, 10, 12), flip_horizontal=True, grayscale=True, bilinear=False)
+            board.configure_image(
+                item,
+                crop=(2, 3, 10, 12),
+                flip_horizontal=True,
+                grayscale=True,
+                bilinear=False,
+            )
             board.update(item, comment="look here")
             path = Path(folder) / "options.pur"
             board.save(path)
@@ -67,7 +75,12 @@ class Authoring(unittest.TestCase):
             self.assertEqual(board.image_options(item), before)
 
     def test_measured_styles_roundtrip_and_render(self):
-        strokes = [Stroke((50, 120, 200, 180), 3, ((0, 0, n * 15), (1, 60, n * 15)), 0, (0, 0), n) for n in range(3)]
+        strokes = [
+            Stroke(
+                (50, 120, 200, 180), 3, ((0, 0, n * 15), (1, 60, n * 15)), 0, (0, 0), n
+            )
+            for n in range(3)
+        ]
         self.assertEqual(parse_strokes(encode_strokes(strokes)), strokes)
         png, bounds, size = render_strokes(strokes)
         self.assertTrue(png.startswith(b"\x89PNG"))
@@ -82,17 +95,23 @@ class Authoring(unittest.TestCase):
             board.update(group, comment="preserve this")
             simple, report = simplify_board(board)
             with simple:
-                self.assertEqual([item.text for item in simple.items], ["preserve this"])
-                self.assertIn("comment_to_note", [change["code"] for change in report["changes"]])
+                self.assertEqual(
+                    [item.text for item in simple.items], ["preserve this"]
+                )
+                self.assertIn(
+                    "comment_to_note", [change["code"] for change in report["changes"]]
+                )
 
 
 class Layout(unittest.TestCase):
     def board(self):
         board = Board()
         for n in range(2):
-            group = board.add_group(f"g{n}", x=500*n)
+            group = board.add_group(f"g{n}", x=500 * n)
             for index in range(5):
-                image = board.add_image(ASSET, name=f"{n}-{index}", x=100*index, parent_id=group)
+                image = board.add_image(
+                    ASSET, name=f"{n}-{index}", x=100 * index, parent_id=group
+                )
                 board.add_note("caption", y=90, parent_id=image)
         return board
 
@@ -101,7 +120,9 @@ class Layout(unittest.TestCase):
             snapshot = capture_layout(board)
             report = shuffle_images(board, seed=17)
             self.assertGreater(report["moved"], 0)
-            self.assertEqual(capture_layout(board)["content_sha256"], snapshot["content_sha256"])
+            self.assertEqual(
+                capture_layout(board)["content_sha256"], snapshot["content_sha256"]
+            )
             restore_layout(board, snapshot)
             self.assertEqual(capture_layout(board), snapshot)
 

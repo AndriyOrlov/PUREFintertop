@@ -8,6 +8,22 @@ This is a prototype for real-board testing and a future integration proposal to
 Polygonflow. It is not an installed FrameRef plugin and does not decode
 FrameRef's private project format. The host-facing boundary is JSON plus assets.
 
+## Validation and research
+
+The 0.2 acceptance case creates 1000 numbered images with captions in ten groups,
+shuffles all 1000, and restores their exact layout. Both PureRef 2.0.3 and 2.1.3
+produce identical before/after pixels within each release. The automated suite
+passes 44 tests.
+
+- [1000-image boards, native screenshots and results](docs/THOUSAND_BOARD.md)
+- [Common scene core](docs/CORE.md)
+- [Format evolution and compatibility forecast](docs/research/VERSION_RESEARCH.md)
+- [Claude review access](docs/CLAUDE_ACCESS.md)
+
+![1000-image board in native PureRef](docs/screenshots/thousand-ordered-ui-2.1.3.png)
+
+[Compare the shuffled board](docs/screenshots/thousand-shuffled-ui-2.1.3.png)
+
 ## Install
 
 Python 3.11 or newer is required. Python 3.12 is the tested environment.

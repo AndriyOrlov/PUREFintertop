@@ -1,0 +1,27 @@
+{
+  "images": 1000,
+  "unique_assets": 1000,
+  "captions": 1000,
+  "group_counts": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "drawings": 20,
+  "notes": 1020,
+  "items": 2050,
+  "seed": 20261014,
+  "moved": 1000,
+  "exact_layout_restored": true,
+  "content_unchanged": true,
+  "original_file_unchanged": true,
+  "original_sha256": "f9abda45c4de96fd18402f5298b8e55447e0e314126a9edec8445b790497657f",
+  "seconds": 3.6
+}

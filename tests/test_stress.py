@@ -10,7 +10,7 @@ class ThousandImageAcceptance(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             report = run_scenario(folder)
             self.assertEqual(report["images"], 1000)
-            self.assertEqual(report["group_counts"], [100]*10)
+            self.assertEqual(report["group_counts"], [100] * 10)
             self.assertEqual(report["drawings"], 20)
             self.assertEqual(report["items"], 2050)
             self.assertEqual(report["moved"], 1000)

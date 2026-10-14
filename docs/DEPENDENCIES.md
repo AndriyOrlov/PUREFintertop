@@ -5,7 +5,7 @@
 | Dependency | Required | Purpose |
 |---|---|---|
 | Python 3.11+ | Yes | `sqlite3.Connection.serialize/deserialize`, public API and CLI |
-| Pillow | Yes | Read image headers, encode PNG, render freehand paths |
+| Pillow | Yes | Read image headers, encode PNG, render measured pen paths |
 | SQLite | Built into Python | Read/edit the recovered modern board database |
 | PureRef | No for the API | Optional native visual verification and canonical re-save |
 | Qt / PySide / PyQt | No | The small required QVariant subset is decoded directly |

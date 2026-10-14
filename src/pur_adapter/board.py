@@ -317,7 +317,11 @@ class Board:
                 raise ValueError(f"{k} must be text")
         if "text" in properties and item.kind != "note":
             raise ValueError("text is only supported for notes")
-        if "comment" in properties and properties["comment"] is not None and not isinstance(properties["comment"], str):
+        if (
+            "comment" in properties
+            and properties["comment"] is not None
+            and not isinstance(properties["comment"], str)
+        ):
             raise ValueError("comment must be text or None")
         if "locked" in properties and not isinstance(properties["locked"], bool):
             raise ValueError("locked must be boolean")
@@ -387,8 +391,16 @@ class Board:
             raise ValueError("color must be #AARRGGBB")
         return value.lower()
 
-    def add_group(self, name="Group", *, x=0, y=0, parent_id=None,
-                  color="#ff202020", locked_mode=True):
+    def add_group(
+        self,
+        name="Group",
+        *,
+        x=0,
+        y=0,
+        parent_id=None,
+        color="#ff202020",
+        locked_mode=True,
+    ):
         color = self._color(color)
         if not isinstance(locked_mode, bool):
             raise ValueError("locked_mode must be boolean")
@@ -402,6 +414,7 @@ class Board:
 
     def add_drawing(self, strokes, *, x=0, y=0, name="Drawing", parent_id=None):
         from .drawings import encode_strokes
+
         payload = encode_strokes(strokes)
         with self._conn:
             item_id = self._add_item(name, x, y, parent_id)
@@ -413,13 +426,23 @@ class Board:
 
     def drawing_strokes(self, item_id):
         from .drawings import parse_strokes
+
         if self.get(item_id).kind != "drawing":
             raise ValueError("Expected a drawing item")
-        row = self._conn.execute("SELECT strokes FROM items_drawings WHERE id=?", (item_id,)).fetchone()
+        row = self._conn.execute(
+            "SELECT strokes FROM items_drawings WHERE id=?", (item_id,)
+        ).fetchone()
         return parse_strokes(row[0])
 
-    def style_note(self, item_id, *, background_color="#ff202020",
-                   text_color="#ffffffff", width=-1, height=-1):
+    def style_note(
+        self,
+        item_id,
+        *,
+        background_color="#ff202020",
+        text_color="#ffffffff",
+        width=-1,
+        height=-1,
+    ):
         if self.get(item_id).kind != "note":
             raise ValueError("Expected a note item")
         background_color = self._color(background_color)
@@ -438,18 +461,30 @@ class Board:
     def note_style(self, item_id):
         if self.get(item_id).kind != "note":
             raise ValueError("Expected a note item")
-        row = self._conn.execute("SELECT * FROM items_notes WHERE id=?", (item_id,)).fetchone()
+        row = self._conn.execute(
+            "SELECT * FROM items_notes WHERE id=?", (item_id,)
+        ).fetchone()
         raw = qt.binary(row["fixed_size"])
         if len(raw) != 21 or raw[:5] != struct.pack(">IB", 22, 0):
             raise UnsupportedFormat("Unrecognized note size encoding")
         width, height = struct.unpack(">2d", raw[5:])
-        return dict(width=width, height=height, background_color=row["background_color"],
-                    text_color=row["text_color"], style=row["style"])
+        return dict(
+            width=width,
+            height=height,
+            background_color=row["background_color"],
+            text_color=row["text_color"],
+            style=row["style"],
+        )
 
     def ordered_children(self, parent_id=None):
-        rows = self._conn.execute("SELECT id,sort_order FROM items WHERE parent=?",
-                                  (-1 if parent_id is None else parent_id,)).fetchall()
-        return [row["id"] for row in sorted(rows, key=lambda row: qt.integer_order(row["sort_order"]))]
+        rows = self._conn.execute(
+            "SELECT id,sort_order FROM items WHERE parent=?",
+            (-1 if parent_id is None else parent_id,),
+        ).fetchall()
+        return [
+            row["id"]
+            for row in sorted(rows, key=lambda row: qt.integer_order(row["sort_order"]))
+        ]
 
     def reorder(self, item_ids):
         ids = list(item_ids)
@@ -458,45 +493,86 @@ class Board:
         parent = self.get(ids[0]).parent_id
         if any(self.get(item_id).parent_id != parent for item_id in ids):
             raise ValueError("Ordering cannot mix parents")
-        siblings = {row[0] for row in self._conn.execute("SELECT id FROM items WHERE parent=?",
-                                                        (-1 if parent is None else parent,))}
+        siblings = {
+            row[0]
+            for row in self._conn.execute(
+                "SELECT id FROM items WHERE parent=?",
+                (-1 if parent is None else parent,),
+            )
+        }
         if set(ids) != siblings:
             raise ValueError("Provide each sibling exactly once")
         with self._conn:
-            self._conn.executemany("UPDATE items SET sort_order=? WHERE id=?",
-                                   [(qt.sort_order(index), item_id) for index, item_id in enumerate(ids)])
+            self._conn.executemany(
+                "UPDATE items SET sort_order=? WHERE id=?",
+                [(qt.sort_order(index), item_id) for index, item_id in enumerate(ids)],
+            )
         self._dirty = True
 
     def image_options(self, item_id):
         if self.get(item_id).kind != "image":
             raise ValueError("Expected an image item")
-        row = dict(self._conn.execute("SELECT * FROM items_images WHERE id=?", (item_id,)).fetchone())
+        row = dict(
+            self._conn.execute(
+                "SELECT * FROM items_images WHERE id=?", (item_id,)
+            ).fetchone()
+        )
         row["image_transform"] = qt.read_transform(row["image_transform"])
         row["image_bounds"] = qt.binary(row["image_bounds"]).hex()
         return row
 
-    def configure_image(self, item_id, *, crop=None, flip_horizontal=None,
-                        flip_vertical=None, grayscale=None, bilinear=None,
-                        frame=None, speed=None):
+    def configure_image(
+        self,
+        item_id,
+        *,
+        crop=None,
+        flip_horizontal=None,
+        flip_vertical=None,
+        grayscale=None,
+        bilinear=None,
+        frame=None,
+        speed=None,
+    ):
         item = self.get(item_id)
         if item.kind != "image":
             raise ValueError("Expected an image item")
-        asset = self._conn.execute("SELECT * FROM images WHERE id=?", (item.image_id,)).fetchone()
-        row = self._conn.execute("SELECT * FROM items_images WHERE id=?", (item_id,)).fetchone()
+        asset = self._conn.execute(
+            "SELECT * FROM images WHERE id=?", (item.image_id,)
+        ).fetchone()
+        row = self._conn.execute(
+            "SELECT * FROM items_images WHERE id=?", (item_id,)
+        ).fetchone()
         updates = {}
         if crop is not None:
             if not isinstance(crop, (tuple, list)) or len(crop) != 4:
                 raise ValueError("crop must contain x, y, width, height")
             x, y, width, height = crop
             finite(x=x, y=y, width=width, height=height)
-            if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > asset["width"] or y + height > asset["height"]:
+            if (
+                x < 0
+                or y < 0
+                or width <= 0
+                or height <= 0
+                or x + width > asset["width"]
+                or y + height > asset["height"]
+            ):
                 raise ValueError("Crop must fit inside the bitmap")
-            updates["image_bounds"] = qt.path_rect(x - asset["width"] / 2, y - asset["height"] / 2, width, height)
+            updates["image_bounds"] = qt.path_rect(
+                x - asset["width"] / 2, y - asset["height"] / 2, width, height
+            )
         matrix = qt.read_transform(row["image_transform"])
         if flip_horizontal is not None or flip_vertical is not None:
-            if any(abs(matrix[i]) > 1e-12 for i in (1, 2, 3, 5)) or matrix[8] != 1 or matrix[0] == 0 or matrix[4] == 0:
+            if (
+                any(abs(matrix[i]) > 1e-12 for i in (1, 2, 3, 5))
+                or matrix[8] != 1
+                or matrix[0] == 0
+                or matrix[4] == 0
+            ):
                 raise UnsupportedFormat("Flip requires an axis-aligned image transform")
-            for value, axis, indices in ((flip_horizontal, 0, (0, 3, 6)), (flip_vertical, 4, (1, 4, 7))):
+            for value, axis, indices in (
+                (flip_horizontal, 0, (0, 3, 6)),
+                (flip_vertical, 4, (1, 4, 7)),
+            ):
                 if value is not None:
                     if not isinstance(value, bool):
                         raise ValueError("flip must be boolean")
@@ -529,7 +605,10 @@ class Board:
         if updates:
             columns = ",".join(f"{key}=?" for key in updates)
             with self._conn:
-                self._conn.execute(f"UPDATE items_images SET {columns} WHERE id=?", (*updates.values(), item_id))
+                self._conn.execute(
+                    f"UPDATE items_images SET {columns} WHERE id=?",
+                    (*updates.values(), item_id),
+                )
             self._dirty = True
 
     def duplicate(self, item_id, **properties):
@@ -599,7 +678,11 @@ class Board:
 
             data = dump_legacy(self)
         else:
-            data = pack_container(self._conn, self.application_version if self.format == "modern" else None, self._thumbnail)
+            data = pack_container(
+                self._conn,
+                self.application_version if self.format == "modern" else None,
+                self._thumbnail,
+            )
         atomic_write(path, data, overwrite)
         return Path(path)
 

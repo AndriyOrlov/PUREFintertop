@@ -1,0 +1,110 @@
+[
+  {
+    "release": "2.1.3",
+    "native_ordered_restored_pixels_identical": true,
+    "exports": [
+      {
+        "case": "ordered",
+        "file": "ordered-2.1.3.png",
+        "size": [
+          4096,
+          1850
+        ],
+        "sha256": "7d72d2c6d91335839862eabd34dc5f60a459e70e5c40e3bebcd0d573b6d80641"
+      },
+      {
+        "case": "shuffled",
+        "file": "shuffled-2.1.3.png",
+        "size": [
+          4096,
+          1850
+        ],
+        "sha256": "83a733759c924681dea39ab71257c9f1e36bc959a69ed7bd39fd6a8109a3493f"
+      },
+      {
+        "case": "restored",
+        "file": "restored-2.1.3.png",
+        "size": [
+          4096,
+          1850
+        ],
+        "sha256": "7d72d2c6d91335839862eabd34dc5f60a459e70e5c40e3bebcd0d573b6d80641"
+      }
+    ],
+    "native_resaved_counts": {
+      "images": 1000,
+      "unique_assets": 1000,
+      "captions": 1000,
+      "group_counts": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "drawings": 20,
+      "notes": 1020,
+      "items": 2050
+    },
+    "native_resaved_sha256": "11f4a5e457ba1a7f7ec949be005bf85576f177979550a68744940e87e9876396"
+  },
+  {
+    "release": "2.0.3",
+    "native_ordered_restored_pixels_identical": true,
+    "exports": [
+      {
+        "case": "ordered",
+        "file": "ordered-2.0.3.png",
+        "size": [
+          4096,
+          1663
+        ],
+        "sha256": "524e7a4ea521499ddd66b79b018c23088d2a450159b2a52a17c65cc2d55e498f"
+      },
+      {
+        "case": "shuffled",
+        "file": "shuffled-2.0.3.png",
+        "size": [
+          4096,
+          1663
+        ],
+        "sha256": "78742fef3df3a5ca6778940e8376a6c28feaca67a919fee8bfacfeb8c9295ac4"
+      },
+      {
+        "case": "restored",
+        "file": "restored-2.0.3.png",
+        "size": [
+          4096,
+          1663
+        ],
+        "sha256": "524e7a4ea521499ddd66b79b018c23088d2a450159b2a52a17c65cc2d55e498f"
+      }
+    ],
+    "native_resaved_counts": {
+      "images": 1000,
+      "unique_assets": 1000,
+      "captions": 1000,
+      "group_counts": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "drawings": 20,
+      "notes": 1020,
+      "items": 2050
+    },
+    "native_resaved_sha256": "e5b27271b7e50ba97c81a5db966f5943737bbd85b4a4cafa71dd4965c8f60a38"
+  }
+]
