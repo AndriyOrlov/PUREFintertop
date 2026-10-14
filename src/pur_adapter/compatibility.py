@@ -41,8 +41,12 @@ class PlainText(HTMLParser):
 _RICH_TEXT_START = re.compile(r"\s*<(!doctype|html|qt|p)[\s>]", re.IGNORECASE)
 
 
+def is_rich_text(text):
+    return bool(_RICH_TEXT_START.match(text))
+
+
 def plain_text(text):
-    if not _RICH_TEXT_START.match(text):
+    if not is_rich_text(text):
         return text
     parser = PlainText()
     parser.feed(text)

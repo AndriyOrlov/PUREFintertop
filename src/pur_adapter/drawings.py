@@ -16,6 +16,11 @@ from . import qt
 from .core import finite
 
 
+# Pen styles measured in PureRef 2.1.3. Rectangles and ellipses drawn with the
+# shape tools are stored as ordinary paths in one of these styles.
+SOLID, DASHED, ARROW = 0, 1, 2
+
+
 @dataclass(frozen=True)
 class Stroke:
     color: tuple[int, int, int, int]
@@ -203,6 +208,29 @@ def flatten_path(elements, scale):
     return paths
 
 
+def stroke_bounds(strokes):
+    """(left, top, right, bottom) around all strokes, including pen width.
+
+    Curve control points are included; they always enclose the curve.
+    Arrow heads reach 4 pen widths past the path end.
+    """
+    boxes = []
+    for stroke in strokes:
+        if stroke.style == ARROW:
+            radius = stroke.width * 4 + 1
+        else:
+            radius = stroke.width / 2 + 1
+        boxes.extend((x - radius, y - radius, x + radius, y + radius) for _, x, y in stroke.elements)
+    if not boxes:
+        raise ValueError("Drawing has no visible strokes")
+    return (
+        min(box[0] for box in boxes),
+        min(box[1] for box in boxes),
+        max(box[2] for box in boxes),
+        max(box[3] for box in boxes),
+    )
+
+
 def render_strokes(strokes, scale=4, max_pixels=16_000_000):
     if (
         not isinstance(scale, (int, float))
@@ -215,17 +243,11 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         raise ValueError("Drawing has no visible strokes")
     if any(s.style not in (0, 1, 2) for s in strokes):
         raise UnsupportedFormat("Unrecognized pen style")
-    bounds = []
-    for stroke in strokes:
-        radius = stroke.width * 4 + 1 if stroke.style == 2 else stroke.width / 2 + 1
-        bounds.extend(
-            (x - radius, y - radius, x + radius, y + radius)
-            for _, x, y in stroke.elements
-        )
-    left = math.floor(min(b[0] for b in bounds))
-    top = math.floor(min(b[1] for b in bounds))
-    width = math.ceil((max(b[2] for b in bounds) - left) * scale)
-    height = math.ceil((max(b[3] for b in bounds) - top) * scale)
+    min_x, min_y, max_x, max_y = stroke_bounds(strokes)
+    left = math.floor(min_x)
+    top = math.floor(min_y)
+    width = math.ceil((max_x - left) * scale)
+    height = math.ceil((max_y - top) * scale)
     if width * height > max_pixels:
         raise ValueError("Raster exceeds pixel budget")
     image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -237,11 +259,11 @@ def render_strokes(strokes, scale=4, max_pixels=16_000_000):
         for path in flatten_path(stroke.elements, scale):
             points = [((x - left) * scale, (y - top) * scale) for x, y in path]
             if len(points) > 1:
-                if stroke.style == 1:
+                if stroke.style == DASHED:
                     draw_dashes(draw, points, stroke.color, pen_width)
                 else:
                     draw.line(points, fill=stroke.color, width=pen_width, joint="curve")
-                if stroke.style == 2:
+                if stroke.style == ARROW:
                     draw_arrow(draw, points, stroke.color, pen_width)
             for x, y in (points[0], points[-1]):
                 draw.ellipse(

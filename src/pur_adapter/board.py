@@ -829,9 +829,36 @@ class Board:
 
     # --- Saving --------------------------------------------------------------------
 
-    def save(self, path, *, overwrite=False, format=None):
-        """Save atomically. An unedited board is written back byte for byte."""
+    def refresh_preview(self):
+        """Redraw the 256x256 thumbnail and store the scene rectangle.
+
+        PureRef shows the thumbnail in its file list. Rendering is approximate
+        (see render.py); a picture that cannot be decoded is drawn as empty.
+        """
+        from .render import render_thumbnail, scene_rect
+
+        rectangle = scene_rect(self)
+        thumbnail = render_thumbnail(self)
+        metadata_columns = {row[1] for row in self._conn.execute("PRAGMA table_info(metadata)")}
+        with self._conn:
+            if rectangle is not None and "scene_rect" in metadata_columns:
+                self._conn.execute("UPDATE metadata SET scene_rect=?", (qt.rect(*rectangle),))
+            self._conn.execute("UPDATE metadata SET thumbnail=?", (thumbnail,))
+        self._thumbnail = thumbnail
+        self._dirty = True
+
+    def save(self, path, *, overwrite=False, format=None, refresh_preview=True):
+        """Save atomically. An unedited board is written back byte for byte.
+
+        An edited modern board also gets a new thumbnail and scene rectangle,
+        unless `refresh_preview=False`.
+        """
         target = format or self.format
+        if target == "modern" and self._dirty and refresh_preview:
+            try:
+                self.refresh_preview()
+            except (OSError, ValueError, KeyError):
+                pass  # keep the previous thumbnail rather than fail the save
         if target not in ("modern", "legacy"):
             raise ValueError("format must be modern or legacy")
         unchanged = target == self.format and not self._dirty
