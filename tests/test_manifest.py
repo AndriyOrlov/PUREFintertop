@@ -13,15 +13,21 @@ class ManifestBridge(unittest.TestCase):
         )
         with tempfile.TemporaryDirectory() as folder:
             package = Path(folder) / "package"
-            report = export_manifest(Board.load(fixture), package)
+            with Board.load(fixture) as original:
+                report = export_manifest(original, package)
+                strokes = original.drawing_strokes(3)
             manifest = package / "board.json"
             restored, notes = import_manifest(manifest)
             self.assertEqual(len(restored.items), 4)
             self.assertEqual(restored.get(0).name, "Ukrainian reference")
             self.assertEqual(restored.get(0).parent_id, 2)
-            self.assertEqual(restored.get(3).kind, "image")
+            # Schema 2 keeps pen drawings as vectors, with a PNG preview beside them.
+            self.assertEqual(restored.get(3).kind, "drawing")
+            self.assertEqual(restored.drawing_strokes(3), strokes)
+            self.assertTrue((package / "assets/drawing-3.png").exists())
             self.assertEqual(notes["unresolved"], [])
-            self.assertEqual(report["rasterized_drawings"], [3])
+            self.assertEqual(report["unresolved"], [])
+            restored.close()
 
     def test_media_preview_becomes_image_and_is_reported(self):
         with tempfile.TemporaryDirectory() as folder:

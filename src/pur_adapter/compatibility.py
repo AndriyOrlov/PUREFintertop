@@ -1,56 +1,15 @@
 """Explicitly simplify a board for PureRef 1.x and other image-only tools."""
 
 import hashlib
-from html.parser import HTMLParser
 import io
 from pathlib import Path
-import re
 from .board import Board
 from .container import UnsupportedFormat
 from .drawings import rasterize_drawing
 from . import qt
 from .images import open_as_displayed
+from .text import is_rich_text, plain_text  # noqa: F401  (old import path)
 from .scene import drawing_order, world_properties  # world_properties: old import path
-
-
-class PlainText(HTMLParser):
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.parts = []
-        self.skip = 0
-
-    def handle_starttag(self, tag, attrs):
-        if tag in ("head", "style", "script"):
-            self.skip += 1
-        if not self.skip and tag == "br":
-            self.parts.append("\n")
-
-    def handle_endtag(self, tag):
-        if tag in ("head", "style", "script"):
-            self.skip = max(0, self.skip - 1)
-        if not self.skip and tag in ("p", "li", "div"):
-            self.parts.append("\n")
-
-    def handle_data(self, data):
-        if not self.skip:
-            self.parts.append(data)
-
-
-# Notes PureRef saves as rich text start with a doctype, <html> or <p>.
-# A plain note that merely mentions "<paint>" must stay untouched.
-_RICH_TEXT_START = re.compile(r"\s*<(!doctype|html|qt|p)[\s>]", re.IGNORECASE)
-
-
-def is_rich_text(text):
-    return bool(_RICH_TEXT_START.match(text))
-
-
-def plain_text(text):
-    if not is_rich_text(text):
-        return text
-    parser = PlainText()
-    parser.feed(text)
-    return "".join(parser.parts).strip()
 
 
 def clone_board(board):

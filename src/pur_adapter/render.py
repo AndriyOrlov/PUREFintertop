@@ -16,6 +16,7 @@ from . import qt
 from .core import affine, inverse, multiply
 from .images import open_as_displayed
 from .scene import drawing_order, world_properties
+from .text import is_rich_text, plain_text
 
 THUMBNAIL_SIZE = 256
 CANVAS_BACKGROUND = (24, 24, 24, 255)
@@ -47,8 +48,6 @@ def parse_color(value, default):
 def note_lines(text):
     """Lines a note shows. PureRef reads note text as HTML, so a bare newline
     in plain text is shown as a space; only <br> and paragraphs break lines."""
-    from .compatibility import plain_text, is_rich_text
-
     if not is_rich_text(text):
         return [" ".join(text.split())]
     return plain_text(text).splitlines() or [""]
