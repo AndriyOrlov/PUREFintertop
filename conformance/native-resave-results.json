@@ -1,0 +1,44 @@
+{
+  "exif-photo": {
+    "pureref": "2.1.3",
+    "warnings": [],
+    "scene_unchanged_by_native_resave": true,
+    "differences": [],
+    "renumbered_by_pureref": []
+  },
+  "groups-and-notes": {
+    "pureref": "2.1.3",
+    "warnings": [],
+    "scene_unchanged_by_native_resave": true,
+    "differences": [],
+    "renumbered_by_pureref": [
+      "order_index",
+      "z"
+    ]
+  },
+  "image-options": {
+    "pureref": "2.1.3",
+    "warnings": [],
+    "scene_unchanged_by_native_resave": true,
+    "differences": [],
+    "renumbered_by_pureref": [
+      "order_index"
+    ]
+  },
+  "pen-styles": {
+    "pureref": "2.1.3",
+    "warnings": [],
+    "scene_unchanged_by_native_resave": true,
+    "differences": [],
+    "renumbered_by_pureref": []
+  },
+  "transforms": {
+    "pureref": "2.1.3",
+    "warnings": [],
+    "scene_unchanged_by_native_resave": true,
+    "differences": [],
+    "renumbered_by_pureref": [
+      "order_index"
+    ]
+  }
+}

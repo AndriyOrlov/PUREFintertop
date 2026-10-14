@@ -584,8 +584,14 @@ class Board:
         ).fetchall()
 
     def ordered_children(self, parent_id=None):
+        """Children sorted by their stored sort key (ties by ID).
+
+        PureRef rewrites these keys when it saves; drawing order is decided by
+        z (see scene.drawing_order), not by this list.
+        """
         rows = self._children_rows(parent_id)
-        return [row["id"] for row in sorted(rows, key=lambda row: qt.integer_order(row["sort_order"]))]
+        keyed = sorted(rows, key=lambda row: (qt.read_sort_order(row["sort_order"]), row["id"]))
+        return [row["id"] for row in keyed]
 
     def reorder(self, item_ids):
         """Set the sibling order; every child of that parent must be listed once."""

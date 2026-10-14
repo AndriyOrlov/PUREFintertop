@@ -1,0 +1,187 @@
+{
+  "description_version": 1,
+  "format": "modern",
+  "items": [
+    {
+      "id": 0,
+      "kind": "image",
+      "name": "Ukrainian reference",
+      "parent_id": 2,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -71.25,
+        -71.5,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 1.0,
+      "comment": null,
+      "order_index": 2,
+      "image": {
+        "image_sha256": "d47713513806c542933c36fdde5320818ee803f3a3618eb902a983d1c52c6d29",
+        "embedded": true,
+        "format": "PNG",
+        "pixel_size": [
+          128,
+          96
+        ],
+        "crop": [
+          0.0,
+          0.0,
+          128.0,
+          96.0
+        ],
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "grayscale": false,
+        "bilinear": true,
+        "frame": 0,
+        "speed": 1.0
+      }
+    },
+    {
+      "id": 1,
+      "kind": "note",
+      "name": "Note",
+      "parent_id": 2,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        53.75,
+        88.5,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 2.0,
+      "comment": null,
+      "order_index": 1,
+      "text": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\nli.unchecked::marker { content: \"\\2610\"; }\nli.checked::marker { content: \"\\2612\"; }\n</style></head><body style=\" font-family:'Open Sans'; font-size:22px; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">API test note</p></body></html>",
+      "style": {
+        "width": -1.0,
+        "height": -1.0,
+        "background_color": "",
+        "text_color": null,
+        "style": 0
+      }
+    },
+    {
+      "id": 2,
+      "kind": "group",
+      "name": "",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        196.25,
+        11.5,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 3.0,
+      "comment": null,
+      "order_index": 0,
+      "style": {
+        "background_color": "#ff000000",
+        "locked_mode": true
+      }
+    },
+    {
+      "id": 3,
+      "kind": "drawing",
+      "name": "",
+      "parent_id": 2,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -336.25,
+        18.5,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 4.0,
+      "comment": null,
+      "order_index": 0,
+      "strokes": [
+        {
+          "color": [
+            46,
+            132,
+            170,
+            200
+          ],
+          "width": 5.0,
+          "style": "solid",
+          "fill_rule": 0,
+          "path": [
+            [
+              "move",
+              0.0,
+              0.0
+            ],
+            [
+              "curve",
+              5.333333333333343,
+              1.3333333333333428
+            ],
+            [
+              "curve_data",
+              10.573278563517817,
+              3.120843203377831
+            ],
+            [
+              "curve_data",
+              16.0,
+              4.0
+            ],
+            [
+              "curve",
+              25.50405614522765,
+              5.539705999903305
+            ],
+            [
+              "curve_data",
+              35.20000000000002,
+              5.466666666666669
+            ],
+            [
+              "curve_data",
+              44.80000000000001,
+              6.200000000000017
+            ]
+          ],
+          "extra_point": [
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  ],
+  "drawing_order": [
+    2,
+    0,
+    1,
+    3
+  ]
+}

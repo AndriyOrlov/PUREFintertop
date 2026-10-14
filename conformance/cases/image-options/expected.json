@@ -1,0 +1,184 @@
+{
+  "description_version": 1,
+  "format": "modern",
+  "items": [
+    {
+      "id": 0,
+      "kind": "image",
+      "name": "plain",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 0.5,
+      "locked": true,
+      "z": 1.0,
+      "comment": null,
+      "order_index": 0,
+      "image": {
+        "image_sha256": "8062a60bf76c58ceef0786b88aba686684c2166cc8c0d684daf02c3486ef03e7",
+        "embedded": true,
+        "format": "PNG",
+        "pixel_size": [
+          120,
+          80
+        ],
+        "crop": [
+          0.0,
+          0.0,
+          120.0,
+          80.0
+        ],
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "grayscale": false,
+        "bilinear": true,
+        "frame": 0,
+        "speed": 1.0
+      }
+    },
+    {
+      "id": 1,
+      "kind": "image",
+      "name": "crop",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        150.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 2.0,
+      "comment": null,
+      "order_index": 1,
+      "image": {
+        "image_sha256": "3d57f23890b4c2dbd8a9f586e658dca74d2e4c34be881725721909243e4f9c97",
+        "embedded": true,
+        "format": "PNG",
+        "pixel_size": [
+          120,
+          80
+        ],
+        "crop": [
+          10.0,
+          5.0,
+          70.0,
+          50.0
+        ],
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "grayscale": false,
+        "bilinear": true,
+        "frame": 0,
+        "speed": 1.0
+      }
+    },
+    {
+      "id": 2,
+      "kind": "image",
+      "name": "filter",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        300.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 3.0,
+      "comment": null,
+      "order_index": 2,
+      "image": {
+        "image_sha256": "7019a6d858824f22083edb5d05241cd11ccce6c6767e919f209cdd28211ba17e",
+        "embedded": true,
+        "format": "PNG",
+        "pixel_size": [
+          120,
+          80
+        ],
+        "crop": [
+          0.0,
+          0.0,
+          120.0,
+          80.0
+        ],
+        "flip_horizontal": false,
+        "flip_vertical": true,
+        "grayscale": true,
+        "bilinear": false,
+        "frame": 0,
+        "speed": 1.0
+      }
+    },
+    {
+      "id": 3,
+      "kind": "image",
+      "name": "anim",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        450.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 4.0,
+      "comment": null,
+      "order_index": 3,
+      "image": {
+        "image_sha256": "d97ccfd5f897fe233532294090f0321b6dca60df53c32f6da7ad4299d43af6c7",
+        "embedded": true,
+        "format": "GIF",
+        "pixel_size": [
+          60,
+          60
+        ],
+        "crop": [
+          0.0,
+          0.0,
+          60.0,
+          60.0
+        ],
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "grayscale": false,
+        "bilinear": true,
+        "frame": 2,
+        "speed": 0.5
+      }
+    }
+  ],
+  "drawing_order": [
+    0,
+    1,
+    2,
+    3
+  ]
+}

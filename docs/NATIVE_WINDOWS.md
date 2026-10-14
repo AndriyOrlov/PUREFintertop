@@ -21,6 +21,14 @@ first, then `load` and `save` that path.
 | `z` inside a group | Only orders siblings: an item outside a group (z=3) is drawn over a child (z=10) of a group with z=1 | Compatibility flattening renumbers z in drawing order |
 | Siblings with equal `z` | Higher ID is drawn on top, whatever `sort_order` says | `scene.drawing_order` breaks ties by ID |
 | Crop with horizontal flip | Image bounds live in item space after the flip | `configure_image` keeps a crop on the same bitmap pixels in any call order; both orders render the same quarter natively |
-| Group frame | A dark rounded background with padding around the children | Lost when flattening (reported as `group_flattened`); stacking of the children matches the original |
+| Group frame | A dark rounded background reaching 10 units past the children | Lost when flattening (reported as `group_flattened`); stacking of the children matches the original; `render.py` uses the same margin |
+| Automatic note size | About 37 + 9.6 units per character wide and 62 tall for one line; a fixed height is only a minimum | Used by `render.py` for bounds and thumbnails |
+| Line breaks in note text | A bare newline is shown as a space (text is read as HTML) | Manifest import turns multi-line plain text into HTML |
+| Item IDs on resave | Kept (all 2050 items of the 1000-image board) | Sidecar entries are keyed by item ID |
+| `z` on resave | Renumbered, drawing order unchanged | Conformance ignores `z` after a native resave |
+| `sort_order` on resave | Rewritten as fractions 1/1, 1/2, 1/3 … stored as `[1, 0, numerator, denominator, 1, 0, 1, 1]`; the new order does not simply follow the old one | Keys are read as fractions; what PureRef uses them for is not established |
+| Feature boards of the conformance suite | Every case opens and resaves without warnings and with the same scene | `conformance/native-resave-results.json` |
+| Large boards | A 1.41 GiB board opens, edits and saves through the adapter with a 37 MB peak working set | Boards above 128 MiB use a temporary SQLite file |
 
-The scripts used for these checks are in `tools/native_windows.py`.
+The checks use `pur_adapter.pureref_app` (a thin wrapper around PureRef's
+command line) and `tools/build_conformance.py --native`.

@@ -1,0 +1,168 @@
+{
+  "description_version": 1,
+  "format": "modern",
+  "items": [
+    {
+      "id": 0,
+      "kind": "group",
+      "name": "Внешняя група · Outer",
+      "parent_id": null,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 5.0,
+      "comment": null,
+      "order_index": 0,
+      "style": {
+        "background_color": "#ff2a3140",
+        "locked_mode": false
+      }
+    },
+    {
+      "id": 1,
+      "kind": "group",
+      "name": "Inner",
+      "parent_id": 0,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        40.0,
+        30.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 2.0,
+      "comment": null,
+      "order_index": 1,
+      "style": {
+        "background_color": "#ff401a1a",
+        "locked_mode": true
+      }
+    },
+    {
+      "id": 2,
+      "kind": "image",
+      "name": "Референс 🏛️",
+      "parent_id": 1,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 3.0,
+      "comment": "Перевірити світло / check lighting",
+      "order_index": 0,
+      "image": {
+        "image_sha256": "a5a91707107b22c7eb1a05aaeb30d344f2f42f67e097cb49c93ca9c9652e8e2f",
+        "embedded": true,
+        "format": "PNG",
+        "pixel_size": [
+          100,
+          70
+        ],
+        "crop": [
+          0.0,
+          0.0,
+          100.0,
+          70.0
+        ],
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "grayscale": false,
+        "bilinear": true,
+        "frame": 0,
+        "speed": 1.0
+      }
+    },
+    {
+      "id": 3,
+      "kind": "note",
+      "name": "Note",
+      "parent_id": 2,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        0.0,
+        60.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 4.0,
+      "comment": null,
+      "order_index": 0,
+      "text": "<p>Caption <b>bold</b> &amp; <i>italic</i></p>",
+      "style": {
+        "width": 160.0,
+        "height": 40.0,
+        "background_color": "#ff102030",
+        "text_color": "#ffeeeeee",
+        "style": 0
+      }
+    },
+    {
+      "id": 4,
+      "kind": "note",
+      "name": "Note",
+      "parent_id": 0,
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        0.0,
+        300.0,
+        0.0,
+        1.0
+      ],
+      "opacity": 1.0,
+      "locked": false,
+      "z": 5.0,
+      "comment": null,
+      "order_index": 0,
+      "text": "Plain note",
+      "style": {
+        "width": -1.0,
+        "height": -1.0,
+        "background_color": "",
+        "text_color": null,
+        "style": 0
+      }
+    }
+  ],
+  "drawing_order": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ]
+}

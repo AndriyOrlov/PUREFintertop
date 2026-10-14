@@ -155,18 +155,40 @@ def read_path_rect(value):
 # --- Sibling ordering (BigRational) ------------------------------------------------
 
 
+# A BigRational sort key is stored as eight uint32 words. Measured forms:
+#   [1, 0, numerator, denominator, 1, 0, 1, 1]
+# PureRef 2.1.3 writes 1/1 for a new item and rewrites sibling keys as
+# 1/1, 1/2, 1/3 ... when it saves (docs/NATIVE_WINDOWS.md). What PureRef uses
+# the key for is not established; drawing order comes from z, not from it.
+_SORT_KEY_WORDS = 8
+
+
 def sort_order(index):
-    """Encode position `index` (0-based) as the integer BigRational PureRef writes."""
+    """Encode position `index` (0-based) as the integer key (index + 1) / 1."""
     raw = _user_type_header(_BIG_RATIONAL_NAME)
-    raw += struct.pack(">7I", 1, 0, index + 1, 1, 1, 0, 1) + struct.pack(">I", 1)
+    raw += struct.pack(">8I", 1, 0, index + 1, 1, 1, 0, 1, 1)
     return raw.decode("latin1")
 
 
-def integer_order(value):
-    """Read only the measured positive-integer form, preserving other forms."""
+def read_sort_order(value):
+    """Return the sort key as a Fraction. Unknown encodings raise ValueError
+    (they are still preserved byte for byte on ordinary edits)."""
+    from fractions import Fraction
+
     raw = binary(value)
-    if len(raw) == 53:
-        rank = struct.unpack(">I", raw[-24:-20])[0]
-        if rank > 0 and raw == binary(sort_order(rank - 1)):
-            return rank
-    raise ValueError("Ordering needs an unsupported BigRational encoding")
+    header = _user_type_header(_BIG_RATIONAL_NAME)
+    if len(raw) != len(header) + 4 * _SORT_KEY_WORDS or not raw.startswith(header):
+        raise ValueError("Ordering needs an unsupported BigRational encoding")
+    words = struct.unpack(f">{_SORT_KEY_WORDS}I", raw[len(header):])
+    lead, flag, numerator, denominator, *tail = words
+    if (lead, flag) != (1, 0) or tail != [1, 0, 1, 1] or numerator == 0 or denominator == 0:
+        raise ValueError("Ordering needs an unsupported BigRational encoding")
+    return Fraction(numerator, denominator)
+
+
+def integer_order(value):
+    """The key as an integer rank; fractional keys raise ValueError."""
+    key = read_sort_order(value)
+    if key.denominator != 1:
+        raise ValueError("Ordering key is a fraction; use read_sort_order")
+    return key.numerator
