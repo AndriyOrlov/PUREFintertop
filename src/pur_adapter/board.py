@@ -1,6 +1,5 @@
 """Public local API. Loaded modern databases retain unedited native columns."""
 
-from dataclasses import dataclass
 from importlib.resources import files
 from pathlib import Path
 import hashlib
@@ -18,32 +17,7 @@ from .container import (
     unpack_container,
 )
 from . import qt
-
-
-@dataclass(frozen=True)
-class Item:
-    id: int
-    kind: str
-    name: str
-    x: float
-    y: float
-    matrix: tuple
-    parent_id: int | None
-    opacity: float
-    locked: bool
-    z: float
-    text: str | None = None
-    image_id: int | None = None
-
-
-def finite(**values):
-    for key, value in values.items():
-        if (
-            not isinstance(value, (int, float))
-            or isinstance(value, bool)
-            or not math.isfinite(value)
-        ):
-            raise ValueError(f"{key} must be a finite number")
+from .core import Item, finite
 
 
 def atomic_write(path, data, overwrite=False):
@@ -226,6 +200,7 @@ class Board:
             row["z"],
             text,
             image_id,
+            row["comment"],
         )
 
     def _next_id(self, table="items"):
@@ -320,6 +295,7 @@ class Board:
             "locked",
             "z",
             "parent_id",
+            "comment",
         }
         if set(properties) - allowed:
             raise ValueError(
@@ -340,6 +316,8 @@ class Board:
                 raise ValueError(f"{k} must be text")
         if "text" in properties and item.kind != "note":
             raise ValueError("text is only supported for notes")
+        if "comment" in properties and properties["comment"] is not None and not isinstance(properties["comment"], str):
+            raise ValueError("comment must be text or None")
         if "locked" in properties and not isinstance(properties["locked"], bool):
             raise ValueError("locked must be boolean")
         if "parent_id" in properties:
@@ -385,7 +363,7 @@ class Board:
             self._conn.execute(
                 "UPDATE items SET transform=? WHERE id=?", (qt.transform(m), item_id)
             )
-            for key in ("name", "opacity", "locked", "z", "parent_id"):
+            for key in ("name", "opacity", "locked", "z", "parent_id", "comment"):
                 if key in properties:
                     column = "parent" if key == "parent_id" else key
                     value = properties[key]
@@ -469,7 +447,7 @@ class Board:
 
             data = dump_legacy(self)
         else:
-            data = pack_container(self._conn, self.application_version, self._thumbnail)
+            data = pack_container(self._conn, self.application_version if self.format == "modern" else None, self._thumbnail)
         atomic_write(path, data, overwrite)
         return Path(path)
 
@@ -490,11 +468,13 @@ class Board:
 
     def to_dict(self):
         from dataclasses import asdict
+        from .profiles import compatibility_status
 
         return {
             "schema_version": 1,
             "format": self.format,
             "application_version": self.application_version,
+            "compatibility": compatibility_status(self),
             "items": [asdict(item) for item in self.items],
             "images": [
                 {

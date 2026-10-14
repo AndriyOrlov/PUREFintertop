@@ -75,7 +75,8 @@ def pack_container(connection, application_version, thumbnail):
     connection.commit()
     database = connection.serialize()
     prefix = qstring("2.1") + bytes(4) + struct.pack(">Q", len(database))
-    prefix += qstring(application_version)
+    from .profiles import WRITER_APPLICATION_VERSION
+    prefix += qstring(application_version or WRITER_APPLICATION_VERSION)
     checksum_start = len(prefix) + 4
     prefix += qstring("0" * 32)
     checksum_end = len(prefix)

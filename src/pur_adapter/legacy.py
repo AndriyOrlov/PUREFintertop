@@ -19,6 +19,9 @@ def load_legacy(path, data):
 
     if len(data) < 224 or data[4:12] != "1.10".encode("utf-16-be"):
         raise UnsupportedFormat("Only the legacy 1.10 layout is supported")
+    if struct.unpack_from(">I", data, 24)[0] != 12:
+        raise UnsupportedFormat("Unrecognized legacy release field length")
+    application_version = data[28:40].decode("utf-16-be").strip("\0") or None
     try:
         expected = data[44:108].decode("utf-16-be")
     except UnicodeDecodeError as exc:
@@ -93,6 +96,7 @@ def load_legacy(path, data):
                     add_text(child, i)
         for node in parsed.text:
             add_text(node)
+    b.application_version = application_version
     b.format = "legacy"
     b._raw = data
     b._dirty = False
