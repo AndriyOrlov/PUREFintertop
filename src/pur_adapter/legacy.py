@@ -60,7 +60,7 @@ def _check_legacy_header(data):
     return data[28:40].decode("utf-16-be").strip("\0") or None
 
 
-def _parse_with_codec(data):
+def parse_with_codec(data):
     """Run the vendored codec on exactly the bytes that were validated."""
     parsed = PurFile()
     with tempfile.TemporaryDirectory() as folder:
@@ -76,10 +76,17 @@ def _parse_with_codec(data):
 
 def load_legacy(path, data):
     """Turn a 1.x file into a Board that remembers the original legacy records."""
+    application_version = _check_legacy_header(data)
+    board = build_board_from_codec(parse_with_codec(data), application_version)
+    board._raw = data
+    board._dirty = False
+    return board
+
+
+def build_board_from_codec(parsed, application_version):
+    """Create a Board from records parsed by the legacy codec."""
     from .board import Board, FLAG_BILINEAR
 
-    application_version = _check_legacy_header(data)
-    parsed = _parse_with_codec(data)
     board = Board()
     board._legacy = {"file": parsed, "items": {}}
 
@@ -140,8 +147,6 @@ def load_legacy(path, data):
             add_note_record(record)
     board.application_version = application_version
     board.format = "legacy"
-    board._raw = data
-    board._dirty = False
     return board
 
 
