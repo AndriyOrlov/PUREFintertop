@@ -1,0 +1,4634 @@
+{
+  "schema_version": 1,
+  "target_format": "legacy-1.10",
+  "changes": [
+    {
+      "item_id": 0,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 205,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 410,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 615,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 820,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 1025,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 1230,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 1435,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 1640,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 1845,
+      "code": "comment_to_note"
+    },
+    {
+      "item_id": 3,
+      "code": "drawing_rasterized",
+      "image_id": 1000,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 6,
+      "code": "drawing_rasterized",
+      "image_id": 1001,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 208,
+      "code": "drawing_rasterized",
+      "image_id": 1002,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 211,
+      "code": "drawing_rasterized",
+      "image_id": 1003,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 413,
+      "code": "drawing_rasterized",
+      "image_id": 1004,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 416,
+      "code": "drawing_rasterized",
+      "image_id": 1005,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 618,
+      "code": "drawing_rasterized",
+      "image_id": 1006,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 621,
+      "code": "drawing_rasterized",
+      "image_id": 1007,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 823,
+      "code": "drawing_rasterized",
+      "image_id": 1008,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 826,
+      "code": "drawing_rasterized",
+      "image_id": 1009,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1028,
+      "code": "drawing_rasterized",
+      "image_id": 1010,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1031,
+      "code": "drawing_rasterized",
+      "image_id": 1011,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1233,
+      "code": "drawing_rasterized",
+      "image_id": 1012,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1236,
+      "code": "drawing_rasterized",
+      "image_id": 1013,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1438,
+      "code": "drawing_rasterized",
+      "image_id": 1014,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1441,
+      "code": "drawing_rasterized",
+      "image_id": 1015,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1643,
+      "code": "drawing_rasterized",
+      "image_id": 1016,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1646,
+      "code": "drawing_rasterized",
+      "image_id": 1017,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1848,
+      "code": "drawing_rasterized",
+      "image_id": 1018,
+      "local_bounds": [
+        -3,
+        52,
+        1562.5,
+        127.0
+      ],
+      "pixel_size": [
+        6262,
+        300
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 1851,
+      "code": "drawing_rasterized",
+      "image_id": 1019,
+      "local_bounds": [
+        -60,
+        -36,
+        -38.0,
+        -18.0
+      ],
+      "pixel_size": [
+        88,
+        72
+      ],
+      "renderer": "Pillow measured pen paths",
+      "scale": 4,
+      "approximate_antialiasing": true
+    },
+    {
+      "item_id": 0,
+      "code": "group_flattened",
+      "name": "Group 01: 0001-0100"
+    },
+    {
+      "item_id": 1,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 5,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 8,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 10,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 12,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 14,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 16,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 18,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 20,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 22,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 24,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 26,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 28,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 30,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 32,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 34,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 36,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 38,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 40,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 42,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 44,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 46,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 48,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 50,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 52,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 54,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 56,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 58,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 60,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 62,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 64,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 66,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 68,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 70,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 72,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 74,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 76,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 78,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 80,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 82,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 84,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 86,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 88,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 90,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 92,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 94,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 96,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 98,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 100,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 102,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 104,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 106,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 108,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 110,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 112,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 114,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 116,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 118,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 120,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 122,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 124,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 126,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 128,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 130,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 132,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 134,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 136,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 138,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 140,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 142,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 144,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 146,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 148,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 150,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 152,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 154,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 156,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 158,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 160,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 162,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 164,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 166,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 168,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 170,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 172,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 174,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 176,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 178,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 180,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 182,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 184,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 186,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 188,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 190,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 192,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 194,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 196,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 198,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 200,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 202,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 203,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 203,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 204,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 205,
+      "code": "group_flattened",
+      "name": "Group 02: 0101-0200"
+    },
+    {
+      "item_id": 206,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 207,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 210,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 213,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 215,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 217,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 219,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 221,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 223,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 225,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 227,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 229,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 231,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 233,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 235,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 237,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 239,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 241,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 243,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 245,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 247,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 249,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 251,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 253,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 255,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 257,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 259,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 261,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 263,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 265,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 267,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 269,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 271,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 273,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 275,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 277,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 279,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 281,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 283,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 285,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 287,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 289,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 291,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 293,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 295,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 297,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 299,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 301,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 303,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 305,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 307,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 309,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 311,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 313,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 315,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 317,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 319,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 321,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 323,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 325,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 327,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 329,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 331,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 333,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 335,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 337,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 339,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 341,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 343,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 345,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 347,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 349,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 351,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 353,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 355,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 357,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 359,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 361,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 363,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 365,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 367,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 369,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 371,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 373,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 375,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 377,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 379,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 381,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 383,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 385,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 387,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 389,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 391,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 393,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 395,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 397,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 399,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 401,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 403,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 405,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 407,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 408,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 408,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 409,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 410,
+      "code": "group_flattened",
+      "name": "Group 03: 0201-0300"
+    },
+    {
+      "item_id": 411,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 412,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 415,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 418,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 420,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 422,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 424,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 426,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 428,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 430,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 432,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 434,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 436,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 438,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 440,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 442,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 444,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 446,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 448,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 450,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 452,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 454,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 456,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 458,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 460,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 462,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 464,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 466,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 468,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 470,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 472,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 474,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 476,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 478,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 480,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 482,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 484,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 486,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 488,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 490,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 492,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 494,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 496,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 498,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 500,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 502,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 504,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 506,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 508,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 510,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 512,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 514,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 516,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 518,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 520,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 522,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 524,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 526,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 528,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 530,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 532,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 534,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 536,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 538,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 540,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 542,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 544,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 546,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 548,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 550,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 552,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 554,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 556,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 558,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 560,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 562,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 564,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 566,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 568,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 570,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 572,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 574,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 576,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 578,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 580,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 582,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 584,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 586,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 588,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 590,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 592,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 594,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 596,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 598,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 600,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 602,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 604,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 606,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 608,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 610,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 612,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 613,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 613,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 614,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 615,
+      "code": "group_flattened",
+      "name": "Group 04: 0301-0400"
+    },
+    {
+      "item_id": 616,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 617,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 620,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 623,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 625,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 627,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 629,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 631,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 633,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 635,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 637,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 639,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 641,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 643,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 645,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 647,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 649,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 651,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 653,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 655,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 657,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 659,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 661,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 663,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 665,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 667,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 669,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 671,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 673,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 675,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 677,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 679,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 681,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 683,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 685,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 687,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 689,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 691,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 693,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 695,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 697,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 699,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 701,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 703,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 705,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 707,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 709,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 711,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 713,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 715,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 717,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 719,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 721,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 723,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 725,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 727,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 729,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 731,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 733,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 735,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 737,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 739,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 741,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 743,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 745,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 747,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 749,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 751,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 753,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 755,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 757,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 759,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 761,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 763,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 765,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 767,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 769,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 771,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 773,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 775,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 777,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 779,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 781,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 783,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 785,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 787,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 789,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 791,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 793,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 795,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 797,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 799,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 801,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 803,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 805,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 807,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 809,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 811,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 813,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 815,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 817,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 818,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 818,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 819,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 820,
+      "code": "group_flattened",
+      "name": "Group 05: 0401-0500"
+    },
+    {
+      "item_id": 821,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 822,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 825,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 828,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 830,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 832,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 834,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 836,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 838,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 840,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 842,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 844,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 846,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 848,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 850,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 852,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 854,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 856,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 858,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 860,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 862,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 864,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 866,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 868,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 870,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 872,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 874,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 876,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 878,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 880,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 882,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 884,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 886,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 888,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 890,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 892,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 894,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 896,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 898,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 900,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 902,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 904,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 906,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 908,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 910,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 912,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 914,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 916,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 918,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 920,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 922,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 924,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 926,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 928,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 930,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 932,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 934,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 936,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 938,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 940,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 942,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 944,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 946,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 948,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 950,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 952,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 954,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 956,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 958,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 960,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 962,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 964,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 966,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 968,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 970,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 972,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 974,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 976,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 978,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 980,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 982,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 984,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 986,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 988,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 990,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 992,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 994,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 996,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 998,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1000,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1002,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1004,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1006,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1008,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1010,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1012,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1014,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1016,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1018,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1020,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1022,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1023,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 1023,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 1024,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1025,
+      "code": "group_flattened",
+      "name": "Group 06: 0501-0600"
+    },
+    {
+      "item_id": 1026,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1027,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1030,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1033,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1035,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1037,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1039,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1041,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1043,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1045,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1047,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1049,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1051,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1053,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1055,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1057,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1059,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1061,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1063,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1065,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1067,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1069,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1071,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1073,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1075,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1077,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1079,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1081,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1083,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1085,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1087,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1089,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1091,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1093,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1095,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1097,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1099,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1101,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1103,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1105,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1107,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1109,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1111,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1113,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1115,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1117,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1119,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1121,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1123,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1125,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1127,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1129,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1131,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1133,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1135,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1137,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1139,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1141,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1143,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1145,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1147,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1149,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1151,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1153,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1155,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1157,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1159,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1161,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1163,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1165,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1167,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1169,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1171,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1173,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1175,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1177,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1179,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1181,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1183,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1185,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1187,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1189,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1191,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1193,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1195,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1197,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1199,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1201,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1203,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1205,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1207,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1209,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1211,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1213,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1215,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1217,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1219,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1221,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1223,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1225,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1227,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1228,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 1228,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 1229,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1230,
+      "code": "group_flattened",
+      "name": "Group 07: 0601-0700"
+    },
+    {
+      "item_id": 1231,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1232,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1235,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1238,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1240,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1242,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1244,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1246,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1248,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1250,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1252,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1254,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1256,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1258,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1260,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1262,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1264,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1266,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1268,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1270,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1272,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1274,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1276,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1278,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1280,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1282,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1284,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1286,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1288,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1290,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1292,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1294,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1296,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1298,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1300,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1302,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1304,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1306,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1308,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1310,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1312,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1314,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1316,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1318,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1320,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1322,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1324,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1326,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1328,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1330,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1332,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1334,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1336,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1338,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1340,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1342,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1344,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1346,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1348,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1350,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1352,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1354,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1356,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1358,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1360,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1362,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1364,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1366,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1368,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1370,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1372,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1374,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1376,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1378,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1380,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1382,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1384,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1386,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1388,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1390,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1392,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1394,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1396,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1398,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1400,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1402,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1404,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1406,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1408,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1410,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1412,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1414,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1416,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1418,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1420,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1422,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1424,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1426,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1428,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1430,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1432,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1433,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 1433,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 1434,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1435,
+      "code": "group_flattened",
+      "name": "Group 08: 0701-0800"
+    },
+    {
+      "item_id": 1436,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1437,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1440,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1443,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1445,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1447,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1449,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1451,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1453,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1455,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1457,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1459,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1461,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1463,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1465,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1467,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1469,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1471,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1473,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1475,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1477,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1479,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1481,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1483,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1485,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1487,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1489,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1491,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1493,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1495,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1497,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1499,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1501,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1503,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1505,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1507,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1509,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1511,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1513,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1515,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1517,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1519,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1521,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1523,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1525,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1527,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1529,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1531,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1533,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1535,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1537,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1539,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1541,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1543,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1545,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1547,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1549,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1551,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1553,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1555,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1557,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1559,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1561,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1563,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1565,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1567,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1569,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1571,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1573,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1575,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1577,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1579,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1581,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1583,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1585,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1587,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1589,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1591,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1593,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1595,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1597,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1599,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1601,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1603,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1605,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1607,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1609,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1611,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1613,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1615,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1617,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1619,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1621,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1623,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1625,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1627,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1629,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1631,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1633,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1635,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1637,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1638,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 1638,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 1639,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1640,
+      "code": "group_flattened",
+      "name": "Group 09: 0801-0900"
+    },
+    {
+      "item_id": 1641,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1642,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1645,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1648,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1650,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1652,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1654,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1656,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1658,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1660,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1662,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1664,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1666,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1668,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1670,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1672,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1674,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1676,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1678,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1680,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1682,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1684,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1686,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1688,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1690,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1692,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1694,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1696,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1698,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1700,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1702,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1704,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1706,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1708,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1710,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1712,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1714,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1716,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1718,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1720,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1722,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1724,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1726,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1728,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1730,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1732,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1734,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1736,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1738,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1740,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1742,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1744,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1746,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1748,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1750,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1752,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1754,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1756,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1758,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1760,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1762,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1764,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1766,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1768,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1770,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1772,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1774,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1776,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1778,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1780,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1782,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1784,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1786,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1788,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1790,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1792,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1794,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1796,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1798,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1800,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1802,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1804,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1806,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1808,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1810,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1812,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1814,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1816,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1818,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1820,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1822,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1824,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1826,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1828,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1830,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1832,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1834,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1836,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1838,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1840,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1842,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1843,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 1843,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 1844,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1845,
+      "code": "group_flattened",
+      "name": "Group 10: 0901-1000"
+    },
+    {
+      "item_id": 1846,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1847,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1850,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1853,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1855,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1857,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1859,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1861,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1863,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1865,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1867,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1869,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1871,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1873,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1875,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1877,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1879,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1881,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1883,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1885,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1887,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1889,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1891,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1893,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1895,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1897,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1899,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1901,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1903,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1905,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1907,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1909,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1911,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1913,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1915,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1917,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1919,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1921,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1923,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1925,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1927,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1929,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1931,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1933,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1935,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1937,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1939,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1941,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1943,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1945,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1947,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1949,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1951,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1953,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1955,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1957,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1959,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1961,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1963,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1965,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1967,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1969,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1971,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1973,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1975,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1977,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1979,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1981,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1983,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1985,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1987,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1989,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1991,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1993,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1995,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1997,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 1999,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2001,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2003,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2005,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2007,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2009,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2011,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2013,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2015,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2017,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2019,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2021,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2023,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2025,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2027,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2029,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2031,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2033,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2035,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2037,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2039,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2041,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2043,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2045,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2047,
+      "code": "rich_text_to_plain"
+    },
+    {
+      "item_id": 2048,
+      "code": "animation_frame_selected",
+      "frame": 0,
+      "frames": 2
+    },
+    {
+      "item_id": 2048,
+      "code": "opacity_baked",
+      "opacity": 0.85
+    },
+    {
+      "item_id": 2048,
+      "code": "item_lock_discarded"
+    },
+    {
+      "item_id": 2049,
+      "code": "rich_text_to_plain"
+    }
+  ],
+  "unresolved": [],
+  "output": "validation/thousand/compatible-legacy.pur"
+}
