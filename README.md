@@ -18,7 +18,6 @@ passes 44 tests.
 - [1000-image boards, native screenshots and results](docs/THOUSAND_BOARD.md)
 - [Common scene core](docs/CORE.md)
 - [Format evolution and compatibility forecast](docs/research/VERSION_RESEARCH.md)
-- [Claude review access](docs/CLAUDE_ACCESS.md)
 
 ![1000-image board in native PureRef](docs/screenshots/thousand-ordered-ui-2.1.3.png)
 
