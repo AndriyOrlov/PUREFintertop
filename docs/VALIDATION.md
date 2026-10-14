@@ -1,7 +1,7 @@
 # Validation evidence
 
 Native testing ran in an isolated Linux environment with official PureRef builds.
-The automated API/CLI suite currently contains 44 tests. It covers real native
+The automated API/CLI suite currently contains 92 tests (version 0.3.0). It covers real native
 fixtures as well as corruption, invalid edits, Unicode, duplicates, notes,
 compatibility conversion, GIF frame selection and host manifests.
 
@@ -17,6 +17,10 @@ compatibility conversion, GIF frame selection and host manifests.
 | GUI Save As of adapter modern board | N/A | N/A | Not separately tested | Passed |
 
 `native-results.json` includes evidence file names, hashes and dimensions.
+
+Version 0.3.0 adds checks with the Windows build of PureRef 2.1.3: see
+[NATIVE_WINDOWS.md](NATIVE_WINDOWS.md) and
+[conformance/native-resave-results.json](../conformance/native-resave-results.json).
 The fixture directory includes both native sources and converted examples.
 
 ## Screenshots

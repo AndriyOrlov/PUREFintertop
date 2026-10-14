@@ -4,111 +4,117 @@
 
 | Operation | Result |
 |---|---|
-| `Board()` | Empty modern board |
-| `Board.load(path, max_bytes=...)` | Modern or tested legacy board |
+| `Board(use_temp_file=False)` | Empty modern board; `use_temp_file=True` keeps the database on disk |
+| `Board.load(path, max_bytes=16 GiB, in_memory_limit=128 MiB)` | Modern or legacy board; larger files use a temporary SQLite file |
 | `board.items` | Immutable snapshots in ID order |
-| `board.get(item_id)` | One immutable snapshot; missing ID raises KeyError |
+| `board.get(item_id)` | One snapshot; a missing ID raises KeyError |
+| `board.transform_matrix(item_id)` | All nine local matrix numbers, including perspective |
 | `board.add_image(path, x=0, y=0, name=None, parent_id=None)` | New item ID; embeds the original file bytes |
-| `board.add_note(text, x=0, y=0, name='Note', parent_id=None)` | New note ID |
-| `board.update(id, **properties)` | Updated item snapshot |
-| `board.duplicate(id, **properties)` | New ID, shared image resource where applicable |
-| `board.remove(id)` | Removes the item and its descendant subtree |
-| `board.save(path, overwrite=False, format=None)` | Saves atomically; default preserves source format |
-| `board.to_dict()` | JSON-friendly scene summary |
-| `board.export_assets(directory)` | Paths to original embedded image bytes |
-| `board.close()` | Releases the in-memory SQLite connection |
+| `board.add_image_bytes(data, name, ...)` | Same, for bytes that are not a file |
+| `board.add_note(text, ...)`, `add_group(...)`, `add_drawing(strokes, ...)` | New item IDs |
+| `board.update(id, **properties)` | Updated snapshot |
+| `board.duplicate(id, **properties)` | New ID; the image data is shared |
+| `board.remove(id)` | Removes the item, its descendants and unused images |
+| `board.copy()` | Independent copy of the board |
+| `board.save(path, overwrite=False, format=None, refresh_preview=True)` | Atomic save; unedited boards are written byte for byte |
+| `board.refresh_preview()` | Redraw the thumbnail and scene rectangle now |
+| `board.to_dict()` | JSON-friendly summary |
+| `board.export_assets(directory)` | Paths of the original embedded image files |
+| `board.close()` | Releases the database and temporary files |
 
-Use `with Board.load(...) as board:` to release the connection automatically.
+Use `with Board.load(...) as board:` to release resources automatically.
 
 Update properties: `x`, `y`, `name`, `text` (notes only), `scale`, `rotation`,
-`matrix`, `opacity`, `locked`, `z`, `parent_id`.
+`matrix`, `opacity`, `locked`, `z`, `parent_id`, `comment`.
 
-`rotation` is degrees and `scale` is absolute uniform scale. `matrix` is the four
-linear affine components `[m11,m12,m21,m22]`. Use it for reflections, shear or
-nonuniform scale; the scale/rotation shortcut rejects those transforms.
-`parent_id=None` means a root item. Parent cycles are rejected.
+`rotation` is in degrees and `scale` is an absolute uniform scale. `matrix` is
+the four linear components `[m11, m12, m21, m22]`; use it for mirroring, shear
+or non-uniform scale (the scale/rotation shortcut refuses those).
+`parent_id=None` means a top-level item. Parent cycles are rejected.
 
-No-op save of a loaded board is byte-identical. Edited modern boards preserve the
-underlying schema and untouched fields. Modern previews/thumbnails are retained.
-`save(format='legacy')` is for the known legacy subset. Use the compatibility
-exporter for flattening and a conversion report.
+`z` only orders an item among its siblings, like in PureRef. Siblings with equal
+`z` are drawn by ID. `scene.drawing_order(board)` gives the global order.
+
+## Images
+
+`configure_image(id, crop=(x, y, width, height), flip_horizontal=True,
+flip_vertical=None, grayscale=True, bilinear=False, frame=0, speed=1)` checks
+every option before changing anything. Crop coordinates are pixels of the
+original bitmap and keep referring to the same pixels before and after a flip.
+
+`image_settings(id)` returns the same settings in plain terms plus
+`pixel_size`, `embedded`, `cropped` and `playing`. `image_options(id)` returns
+the raw native values.
+
+Image formats and sizes are stored the way PureRef stores them on import:
+`JPG`/`JPEG`/`TIF`/`TIFF` follow the file extension, and EXIF-rotated photos
+keep their original bytes with the displayed width and height.
+
+## Notes and groups
+
+`style_note(id, background_color, text_color, width, height)` takes
+`#AARRGGBB` colours and a fixed size, or -1 for automatic. A fixed height is a
+minimum: PureRef grows a note to fit its text. Note text is HTML for PureRef; a
+bare newline shows as a space (`text.html_from_plain` keeps line breaks).
+
+`group_style(id)` / `style_group(id, color=..., locked_mode=...)` read and set a
+group's background and selection lock.
+
+## Sibling order
+
+`ordered_children(parent_id)` sorts children by their stored sort key;
+`reorder(ids)` needs every sibling exactly once. PureRef rewrites these keys
+when it saves (see docs/NATIVE_WINDOWS.md); drawing order is decided by `z`.
 
 ## Drawings
 
 ```python
-from pur_adapter.drawings import rasterize_drawing
+from pur_adapter.drawings import Stroke, SOLID, DASHED, ARROW, rasterize_drawing
 
+board.add_drawing([Stroke((255, 200, 70, 255), 2, ((0, 0, 0), (1, 80, 0)), 0, (0, 0), ARROW)])
 report = rasterize_drawing(board, drawing_id, scale=4)
 ```
 
-This changes the item in place into an image, retaining its ID, parent, opacity,
-lock and z value. `scale=4` gives four PNG pixels per local board unit. The outer
-matrix compensates for pixel density. Child world transforms are preserved.
-Measured solid, dashed and arrow paths are rendered. Rectangle and ellipse paths
-use the same geometry representation. Unknown styles raise an error.
+Path elements are `(kind, x, y)` with kinds 0 move, 1 line, 2 curve, 3 curve
+data. `rasterize_drawing` turns a drawing into an image in place, keeping its
+ID, parent, opacity, lock, z and the world positions of its children.
+
+## Whole-board tools
+
+| Module | Functions |
+|---|---|
+| `render` | `render_scene(board, width, height)`, `render_thumbnail(board)`, `scene_rect(board)`, `item_world_bounds(board)` |
+| `scene` | `drawing_order(board)`, `world_properties(board)` |
+| `manifest` | `export_manifest(board, folder, extensions=None)`, `import_manifest(path_or_dict, strict=False)` |
+| `sidecar` | `write_sidecar(board, board_path, entries, host=...)`, `read_sidecar(board, board_path)` |
+| `operations` | `merge_boards`, `split_by_group`, `deduplicate_images`, `arrange_grid`, `search` |
+| `assets` | `linked_images`, `relink`, `embed_linked`, `shrink_images` |
+| `repair` | `repair(path, folder)`, `carve_images(data, folder)` |
+| `compatibility` | `export_legacy(board, path)`, `simplify_board(board)` |
+| `conformance` | `describe(board)` for the conformance suite |
+| `pureref_app` | `find_pureref()`, `resave`, `render`, `import_images` through PureRef's own command line |
 
 ## Compatibility export
 
 ```python
 from pur_adapter.compatibility import export_legacy, simplify_board
 
-report = export_legacy(board, 'simplified.pur')
-flat_board, report = simplify_board(board)
+report = export_legacy(board, "simplified.pur")
 ```
 
-Both operate on a copy. The original remains unchanged. Parent transforms and
-opacity are composed before groups are removed. Supported strokes become PNG,
-GIF uses its stored playback frame, rich text becomes plain text and image opacity
-is baked into alpha. The report identifies changes. Unsupported crops, image
-flags, shape styles, perspective and linked resources stop export before writing.
+Works on a copy. Parent transforms and opacity are composed before groups are
+removed, z is renumbered in drawing order, pen strokes become PNG, GIFs use
+their stored frame, rich text becomes plain text and image opacity is baked
+into alpha. The report lists every change. Crops, image flags, perspective and
+linked resources stop the export before anything is written.
 
 ## Errors
 
 `InvalidPurFile`: malformed bytes, checksum or SQLite integrity failure.
-`UnsupportedFormat`: unrecognized layout, schema or unsupported conversion.
-`ValueError`: invalid requested property or invalid manifest.
-`KeyError`: missing item ID.
-`FileExistsError`: output already exists without explicit overwrite.
+`UnsupportedFormat`: unrecognised layout, schema, SQLite triggers/views, or an
+unsupported conversion. `ValueError`: invalid property or manifest.
+`KeyError`: missing item ID. `FileExistsError`: output exists without
+`overwrite`.
 
-The prototype is intended for local use with trusted files. Do not expose its
-filesystem-based API as an unauthenticated network service.
-
-## Grouped authoring and reversible layout
-
-```python
-from pur_adapter.drawings import Stroke
-from pur_adapter.layout import capture_layout, shuffle_images, restore_layout
-
-with Board() as board:
-    group = board.add_group("References", x=100, y=200, color="#ff202a35")
-    image = board.add_image("reference.png", parent_id=group)
-    caption = board.add_note("<p>Reference 1</p>", y=70, parent_id=image)
-    board.style_note(caption, width=145, height=36)
-    board.update(group, comment="Check annotations")
-    board.add_drawing([Stroke((255, 200, 70, 255), 2,
-                             ((0, 0, 0), (1, 80, 0)), 0, (0, 0), 2)],
-                      parent_id=group)
-    snapshot = capture_layout(board)
-    shuffle_images(board, seed=20261014)
-    restore_layout(board, snapshot)
-    board.save("restored.pur")
-```
-
-`style_note` takes `background_color`, `text_color` as #AARRGGBB and positive
-`width`/`height`, or -1 for automatic size. Fixed-size note positions are centers.
-`ordered_children(parent_id)` reads the measured integer BigRational subset;
-`reorder(ids)` requires every sibling exactly once. Unknown ordering encodings
-are preserved on ordinary edits and rejected by operations needing comparison.
-
-`configure_image(id, crop=(x, y, width, height), flip_horizontal=True,
-grayscale=True, bilinear=False, frame=0, speed=1)` validates every supplied
-option before applying changes. Crop coordinates start at the original bitmap's
-upper-left corner; they are not canvas coordinates. `image_options(id)` exposes
-the current measured native settings. Legacy simplification rejects crops and
-unknown bitmap transforms/flags requiring a host-rendered PNG.
-
-`restore_layout` restores parent, full transform, z and sort payloads only when
-the non-layout scene content hash and item set match. All validation precedes a
-single transaction. Snapshots are independent JSON objects; saving them is the
-caller's responsibility. `shuffle_images` supports root images and direct group
-children; child captions and drawings move through their parent relation.
+The prototype is meant for local use. Do not expose its file-based API as an
+unauthenticated network service.
