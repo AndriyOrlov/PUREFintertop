@@ -1,13 +1,12 @@
 """Explicitly simplify a board for PureRef 1.x and other image-only tools."""
 
-import copy
 import hashlib
 from html.parser import HTMLParser
 import io
 from pathlib import Path
 import re
 from .board import Board
-from .container import UnsupportedFormat, pack_container
+from .container import UnsupportedFormat
 from .drawings import rasterize_drawing
 from . import qt
 from .images import open_as_displayed
@@ -51,14 +50,8 @@ def plain_text(text):
 
 
 def clone_board(board):
-    clone = Board.__new__(Board)
-    clone._init(
-        pack_container(board._conn, board.application_version, board._thumbnail)
-    )
-    clone.format = board.format
-    clone._legacy = copy.deepcopy(board._legacy)
-    clone._raw = None
-    return clone
+    """Kept for older imports; use `board.copy()`."""
+    return board.copy()
 
 
 def bake_image(board, item, opacity, changes):
